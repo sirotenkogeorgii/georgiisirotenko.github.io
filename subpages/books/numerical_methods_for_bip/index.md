@@ -273,20 +273,27 @@ with a symmetric, positive definite (SPD) $n \times n$ square matrix $A \in \mat
 
 $$A = \sum_{i=1}^{n} \lambda_i u_i u_i^\top \quad \left( = U \Lambda U^\top \right), \tag{2.1.2}$$
 
-where the $i$th column of $U$ is $u_i$ and $\Lambda$ is a diagonal matrix with $\Lambda_{ii} = \lambda_i$. W.l.o.g. assume that $\lambda_1 = \mathcal{O}(1)$, in particular independent of $n$, otherwise rescale $A$ and $y$.
+where the $i$-th column of $U$ is $u_i$ and $\Lambda$ is a diagonal matrix with $\Lambda_{ii} = \lambda_i$. W.l.o.g. assume that $\lambda_1 = \mathcal{O}(1)$, in particular independent of $n$, otherwise rescale $A$ and $y$.
 
 </div>
 
-<div class="math-callout math-callout--remark" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Meaning of $\lambda_1 = \mathcal{O}(1)$)</span></p>
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Meaning of $\lambda_1 = \mathcal{O}(1)$</summary>
 
 $\mathcal{O}(1)$ is big-O of one — a *constant*, independent of $n$. Formally, $f(n) = \mathcal{O}(1)$ means there exists $C > 0$ such that $\lvert f(n) \rvert \le C$ for all $n$: no growth and no decay as $n \to \infty$.
 
 **Why the assumption is made.** We study a sequence of problems indexed by dimension $n$, and the object of interest is the condition number $\kappa(A) = \lambda_1 / \lambda_n$. If $\lambda_1$ itself scaled with $n$, a large $\kappa$ could come from $\lambda_1$ blowing up rather than from $\lambda_n$ collapsing — which would obscure the ill-posedness mechanism. Fixing $\lambda_1 = \mathcal{O}(1)$ by rescaling $A$ and $y$ (which does not change $\kappa$) pins the top of the spectrum to a fixed scale, so that any growth in $\kappa$ is attributable to $\lambda_n \to 0$.
 
+</details>
 </div>
 
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Recall on condition number)</span></p>
+
 The **condition number** of $A$ provides a measure for how accurate and stable the system (2.1.1) can be solved. It is given by the ratio of the largest and the smallest eigenvalue of $A$, i.e., $\kappa(A) = \lambda_1 / \lambda_n$.
+
+</div>
 
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Error bound scaling with noise for regular linear systems)</span></p>
@@ -295,9 +302,7 @@ Consider that the data, namely the right hand side $y$, is only available in onl
 
 $$\lVert y^\delta - y \rVert \le \delta \tag{2.1.3}$$
 
-for some $\delta > 0$ in the Euclidean norm on $\mathbb{R}^n$, and denote by $x^\delta$ the solution of the perturbed system with right hand side $y^\delta$.
-
-Using the condition number and our assumption on the scaling of $\lambda_1$ this can also be expressed as
+for some $\delta > 0$ in the Euclidean norm on $\mathbb{R}^n$, and denote by $x^\delta$ the solution of the perturbed system with right hand side $y^\delta$. Then
 
 $$\lVert x^\delta - x \rVert \le \kappa \lambda_1^{-1} \delta = \mathcal{O}(\kappa \delta).$$
 
@@ -381,7 +386,7 @@ The "low frequency $\leftrightarrow$ large $\lambda_i$" convention comes from sm
 <div class="math-callout math-callout--info" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Problem</span><span class="math-callout__name">(Linear System: Singular Case)</span></p>
 
-**The singular case.** Let us now consider the case that $A$ in (2.1.1) is positive semi-definite, i.e. it has a nontrivial kernel. Since $A^\ast = A^T = A$, we can decompose the vector space in
+**The singular case.** Let us now consider the case that $A$ in (2.1.1) is positive semi-definite, i.e. it has a nontrivial kernel. Since $A^\ast = A^\top = A$, we can decompose the vector space in
 
 $$\mathbb{R}^n = \mathcal{N}(A) + \mathcal{R}(A),$$
 
@@ -396,7 +401,7 @@ In the singular case the solution is
 
 $$x = \sum_{i=1}^{m} \lambda_i^{-1} u_i u_i^\top y$$
 
-and the problem is solvable (Hadamard's first condition) **iff** $u_i^\top y = 0$ for $i > m$.
+and the problem is solvable (Hadamard's first condition) **iff** $u_i^\top y = 0$ for $i \gt m$.
 
 </div>
 
@@ -413,8 +418,9 @@ $$\lVert x_P^\delta - x \rVert \le \lambda_m^{-1} \delta = \mathcal{O}(\kappa_{\
 
 </div>
 
-<div class="math-callout math-callout--remark" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Why $u_i^\top P y^\delta = u_i^\top y^\delta$ for $i \le m$)</span></p>
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Why $u_i^\top P y^\delta = u_i^\top y^\delta$ for $i \le m$</summary>
 
 Since $A$ is symmetric PSD, its eigenvectors split as $u_1,\ldots,u_m$ spanning $\mathcal{R}(A)$ (nonzero eigenvalues) and $u_{m+1},\ldots,u_n$ spanning $\mathcal{N}(A)$, with the two subspaces mutually orthogonal. Any vector decomposes uniquely as
 
@@ -424,8 +430,13 @@ For $i \le m$, $u_i \in \mathcal{R}(A)$, hence $u_i \perp (I-P)v$ and
 
 $$u_i^\top v = u_i^\top P v + \underbrace{u_i^\top (I-P)v}_{=\,0} = u_i^\top P v.$$
 
-Applied to $v = y^\delta$ this gives the claimed identity. Its role in the bound: plugging into (2.1) yields $u_i^\top(P y^\delta - y) = u_i^\top(y^\delta - y)$, so each coefficient is controlled by the raw noise $\lvert u_i^\top(y^\delta - y) \rvert \le \delta$, and summing with $\lambda_i^{-1} \le \lambda_m^{-1}$ yields the $\mathcal{O}(\kappa_{\text{eff}} \delta)$ bound. The projection $P$ silently killed the kernel-direction noise (indices $i > m$, otherwise uncontrolled) without distorting the range-direction noise.
+Applied to $v = y^\delta$ this gives the claimed identity. Its role in the bound: plugging into (2.1) yields 
 
+$$u_i^\top(P y^\delta - y) = u_i^\top(y^\delta - y),$$
+
+so each coefficient is controlled by the raw noise $\lvert u_i^\top(y^\delta - y) \rvert \le \delta$, and summing with $\lambda_i^{-1} \le \lambda_m^{-1}$ yields the $\mathcal{O}(\kappa_{\text{eff}} \delta)$ bound. The projection $P$ silently killed the kernel-direction noise (indices $i \gt m$, otherwise uncontrolled) without distorting the range-direction noise.
+
+</details>
 </div>
 
 <div class="math-callout math-callout--proposition" markdown="1">
@@ -464,7 +475,7 @@ The eigenvalues of $A_\alpha$ are $\lambda_i + \alpha$, $i = 1, \ldots, n$ and t
 <div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Lemma</span><span class="math-callout__name">(Regularization error of linear system)</span></p>
 
-To estimate the **regularisation error** consider again the regular (SPD) case, i.e. $\lambda_n > 0$ and let $x = A^{-1}y$ and $x_\alpha = A_\alpha^{-1} y$. Then
+To estimate the **regularisation error** consider again the regular (SPD) case, i.e. $\lambda_n \gt 0$ and let $x = A^{-1}y$ and $x_\alpha = A_\alpha^{-1} y$. Then
 
 $$x - x_\alpha = \sum_{i=1}^{n} \left( \frac{1}{\lambda_i} - \frac{1}{\lambda_i + \alpha} \right) u_i u_i^\top y = \sum_{i=1}^{n} \frac{\alpha}{\lambda_i(\lambda_i + \alpha)} (u_i^\top y) \, u_i$$
 
@@ -1454,7 +1465,7 @@ For a $\mu$-simple function $f_n = \sum_{j=1}^{n} \mathbb{1}_{A_j} v_j$, due to 
 
 $$\left\langle \int_\Omega f_n(\omega) \, \mathrm{d}\mu(\omega),\, v' \right\rangle = \left\langle \sum_{j=1}^{n} v_j \mu(A_j),\, v' \right\rangle = \sum_{j=1}^{n} \langle v_j, v' \rangle \, \mu(A_j) = \int_\Omega \langle f_n(\omega), v' \rangle \, \mathrm{d}\mu(\omega). \tag{3.1.4}$$
 
-Now let $(f_n)_{n \in \mathbb{N}}$ be as in Def. 3.1.2 (the Bochner integral definition). Taking the limit $n \to \infty$ on both sides of (3.1.4) yields (3.1.3). Here we use that $v' : V \to \mathbb{R}$ is continuous and that $\int_\Omega f_n \, \mathrm{d}\mu \to \int_\Omega f \, \mathrm{d}\mu$ in $V$ by assumption (which shows that the left-hand side of (3.1.4) converges to the left-hand side of (3.1.3)), and Def. 3.1.2(ii) (which shows that the right-hand side of (3.1.4) converges to the right-hand side of (3.1.3)).
+Now let $(f_n)\_{n \in \mathbb{N}}$ be as in Def. 3.1.2 (the Bochner integral definition). Taking the limit $n \to \infty$ on both sides of (3.1.4) yields (3.1.3). Here we use that $v' : V \to \mathbb{R}$ is continuous and that $\int_\Omega f_n \, \mathrm{d}\mu \to \int_\Omega f \, \mathrm{d}\mu$ in $V$ by assumption (which shows that the left-hand side of (3.1.4) converges to the left-hand side of (3.1.3)), and Def. 3.1.2(ii) (which shows that the right-hand side of (3.1.4) converges to the right-hand side of (3.1.3)).
 
 </details>
 </div>
@@ -1478,7 +1489,7 @@ $$\left\lVert \int_\Omega f(\omega) \, \mathrm{d}\mu(\omega) \right\rVert \le \i
 <details markdown="1">
 <summary>Proof of Theorem 3.1.5</summary>
 
-**($\Rightarrow$)** If $f$ is $\mu$-Bochner integrable, then for the simple functions $(f_n)_{n \in \mathbb{N}}$ as in Def. 3.1.2
+**($\Rightarrow$)** If $f$ is $\mu$-Bochner integrable, then for the simple functions $(f_n)\_{n \in \mathbb{N}}$ as in Def. 3.1.2
 
 $$\int_\Omega \lVert f(\omega) \rVert \, \mathrm{d}\mu(\omega) \le \int_\Omega \lVert f(\omega) - f_n(\omega) \rVert \, \mathrm{d}\mu(\omega) + \int_\Omega \lVert f_n(\omega) \rVert \, \mathrm{d}\mu(\omega).$$
 
@@ -1506,7 +1517,14 @@ Let $(\Omega, \mathcal{A}, \mu)$ be a $\sigma$-finite measure space. For $1 \le 
 
 $$\lVert f \rVert_{L^p(\Omega, \mu; V)} := \left( \int_\Omega \lVert f(\omega) \rVert^p \, \mathrm{d}\mu(\omega) \right)^{1/p} < \infty$$
 
-and identifying $\mu$-a.e. equal functions (i.e. elements of $L^p(\Omega, \mu; V)$ are equivalence classes of $\mu$-a.e. equal functions). In case we wish to emphasize the $\sigma$-algebra on $\Omega$ we write $L^p(\Omega, \mathcal{A}, \mu; V)$ (note that if $\mathcal{F} \subseteq \mathcal{A}$ is a sub-$\sigma$-algebra, in general $L^p(\Omega, \mathcal{A}, \mu; V) \neq L^p(\Omega, \mathcal{F}, \mu; V)$). If there's no confusion about $\mu$ or $\mathcal{A}$ we simply write $L^p(\Omega; V)$.
+and identifying $\mu$-a.e. equal functions (i.e. elements of $L^p(\Omega, \mu; V)$ are equivalence classes of $\mu$-a.e. equal functions).
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Convention regarding writing about $L^p$-spaces)</span></p>
+
+In case we wish to emphasize the $\sigma$-algebra on $\Omega$ we write $L^p(\Omega, \mathcal{A}, \mu; V)$ (note that if $\mathcal{F} \subseteq \mathcal{A}$ is a sub-$\sigma$-algebra, in general $L^p(\Omega, \mathcal{A}, \mu; V) \neq L^p(\Omega, \mathcal{F}, \mu; V)$). If there's no confusion about $\mu$ or $\mathcal{A}$ we simply write $L^p(\Omega; V)$.
 
 </div>
 
@@ -1520,7 +1538,7 @@ $$\lVert f \rVert_{L^\infty(\Omega; V)} := \inf \lbrace r \ge 0 : \mu(\lbrace \o
 </div>
 
 <div class="math-callout math-callout--proposition" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Proposition</span><span class="math-callout__name">(...)</span></p>
+  <p class="math-callout__title"><span class="math-callout__label">Proposition</span><span class="math-callout__name">($L^p$ space is a Banach space)</span></p>
 
 Without proof we mention that $L^p(\Omega; V) = L^p(\Omega, \mathcal{A}, \mu; V)$ is a Banach space for all $1 \le p \le \infty$. Note that $L^1(\Omega; V)$ consists of all equivalence classes of Bochner-integrable functions.
 
@@ -1531,7 +1549,8 @@ Without proof we mention that $L^p(\Omega; V) = L^p(\Omega, \mathcal{A}, \mu; V)
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition 3.1.6</span><span class="math-callout__name">(Absolute Continuity of Measures)</span></p>
 
-Given measures $\mu$ and $\nu$ on $(\Omega, \mathcal{A})$, we say that $\nu$ is **absolutely continuous** wrt $\mu$ ($\nu \ll \mu$) if for all $A \in \mathcal{A}$ s.t. $\mu(A) = 0$, we have $\nu(A) = 0$. The two measures are called **equivalent** iff $\mu \ll \nu$ and $\nu \ll \mu$.
+* Given measures $\mu$ and $\nu$ on $(\Omega, \mathcal{A})$, we say that $\nu$ is **absolutely continuous** wrt $\mu$ ($\nu \ll \mu$) if for all $A \in \mathcal{A}$ s.t. $\mu(A) = 0$, we have $\nu(A) = 0$. 
+* The two measures are called **equivalent** iff $\mu \ll \nu$ and $\nu \ll \mu$.
 
 </div>
 
@@ -1542,7 +1561,9 @@ Suppose that $\mu$, $\nu$ are two measures on $(\Omega, \mathcal{A})$. In case t
 
 $$\nu(A) = \int_\Omega f(\omega) \mathbb{1}_A(\omega) \, \mathrm{d}\mu(\omega),$$
 
-we call $f$ a **density** of $\nu$ w.r.t. $\mu$. If $\nu$ is $\sigma$-finite, such a density is $\mu$-a.e. unique, and as such this function is called the **Radon-Nikodym derivative** of $\nu$ w.r.t. $\mu$. We denote it by $\frac{\mathrm{d}\nu}{\mathrm{d}\mu} := f$.
+we call $f$ a **density** of $\nu$ w.r.t. $\mu$. 
+
+If $\nu$ is $\sigma$-finite, such a density is $\mu$-a.e. unique, and as such this function is called the **Radon-Nikodym derivative** of $\nu$ w.r.t. $\mu$. We denote it by $\frac{\mathrm{d}\nu}{\mathrm{d}\mu} := f$.
 
 </div>
 
@@ -1551,7 +1572,7 @@ we call $f$ a **density** of $\nu$ w.r.t. $\mu$. If $\nu$ is $\sigma$-finite, su
 
 Let $\mu$, $\nu$ be two $\sigma$-finite measures on $(\Omega, \mathcal{A})$. Then
 
-$$\nu \ll \mu \quad \Leftrightarrow \quad \text{the Radon-Nikodym derivative } \frac{\mathrm{d}\nu}{\mathrm{d}\mu} \text{ exists.}$$
+$$\nu \ll \mu \quad \iff \quad \text{the Radon-Nikodym derivative } \frac{\mathrm{d}\nu}{\mathrm{d}\mu} \text{ exists.}$$
 
 In this case $\frac{\mathrm{d}\nu}{\mathrm{d}\mu}$ is $\mathcal{A}$-measurable and $\mu$-a.e. finite.
 
@@ -1618,11 +1639,16 @@ where $\mathrm{d}T^{-1} : \mathbb{R}^d \to \mathbb{R}^{d \times d}$ denotes the 
 
 ### 3.2 Banach-valued Random Variables
 
+<div class="math-callout math-callout--info" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Recap</span><span class="math-callout__name">(Probabilities and a notion of Random Variable)</span></p>
+
 Let $V$ be a Banach space and $(\Omega, \mathcal{A}, \mathbb{P})$ a probability space.
 
 A set $A \in \mathcal{A}$ is called an **event**. $\mathbb{P}[A]$ is the **probability** of the event $A$.
 
 Often it is not convenient or possible to work with events. Instead we consider observable quantities of such events. This idea is formalized with the notion of random variables.
+
+</div>
 
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition 3.2.2</span><span class="math-callout__name">(Random Variable)</span></p>
@@ -1631,9 +1657,21 @@ Let $(\Omega, \mathcal{A})$ be a measurable space and $V$ a Banach space. Then a
 
 </div>
 
-It is common practice in probability theory to write $X$ instead of $X(\omega)$, i.e. not to explicitly display the dependence of $X$ on $\omega \in \Omega$.
+<div class="math-callout math-callout--info" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Terminology</span><span class="math-callout__name"></span></p>
 
-For a probability space $(\Omega, \mathcal{A}, \mathbb{P})$, a RV $X : \Omega \to V$ induces a probability measure $\mathbb{P}\_X := X_\sharp \mathbb{P}$ on $(V, \mathcal{B}(V))$, i.e. $\mathbb{P}\_X[B] = \mathbb{P}[\lbrace \omega \in \Omega : X(\omega) \in B \rbrace]$. For $B \in \mathcal{B}(V)$ we usually write $\mathbb{P}[X \in B]$ to denote $\mathbb{P}\_X[B]$, which is the probability of the event $\lbrace \omega \in \Omega : X(\omega) \in B \rbrace$, i.e. the probability that $X$ takes a value in $B$.
+* It is common practice in probability theory to write $X$ instead of $X(\omega)$, i.e. not to explicitly display the dependence of $X$ on $\omega \in \Omega$.
+* For a probability space $(\Omega, \mathcal{A}, \mathbb{P})$, a RV $X : \Omega \to V$ induces a probability measure 
+  
+  $$\mathbb{P}\_X := X_\sharp \mathbb{P}$$ 
+  
+  on $(V, \mathcal{B}(V))$, i.e. 
+  
+  $$\mathbb{P}\_X[B] = \mathbb{P}[\lbrace \omega \in \Omega : X(\omega) \in B \rbrace]$$
+  
+  For $B \in \mathcal{B}(V)$ we usually write $\mathbb{P}[X \in B]$ to denote $\mathbb{P}\_X[B]$, which is the probability of the event $\lbrace \omega \in \Omega : X(\omega) \in B \rbrace$, i.e. the probability that $X$ takes a value in $B$.
+
+</div>
 
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition 3.2.4</span><span class="math-callout__name">(Distribution)</span></p>
@@ -1641,7 +1679,15 @@ For a probability space $(\Omega, \mathcal{A}, \mathbb{P})$, a RV $X : \Omega \t
 1. The measure $\mathbb{P}\_X$ is the **distribution** of $X$.
 2. We write $X \sim \mu$ to express that $X$ has distribution $\mu$, i.e. $\mathbb{P}\_X = \mu$.
 3. A family of $V$-valued RVs $(X_j)\_{j \in I}$ is called **identically distributed** if $\mathbb{P}\_{X_i} = \mathbb{P}\_{X_j}$ for all $i, j \in I$.
-4. For a finite family of RVs $X_j : \Omega \to V_j$, $j = 1, \ldots, n$, the measure $\mathbb{P}\_{X_1, \ldots, X_n} := (X_1, \ldots, X_n)\_\sharp \mathbb{P}$ on $(\times_{j=1}^n V_j, \mathcal{B}(\times_{j=1}^n V_j))$ is the **joint distribution** of the RVs $(X_j)\_{j=1}^n$, and $\mathbb{P}\_{X_j}$ is the **marginal distribution** of $X_j$.
+4. For a finite family of RVs 
+   
+   $$X_j : \Omega \to V_j, \quad j = 1, \ldots, n$$
+   
+   the measure 
+   
+   $$\mathbb{P}_{X_1, \ldots, X_n} := (X_1, \ldots, X_n)_\sharp \mathbb{P}$$
+   
+   on $(\times_{j=1}^n V_j, \mathcal{B}(\times_{j=1}^n V_j))$ is the **joint distribution** of the RVs $(X_j)\_{j=1}^n$, and $\mathbb{P}\_{X_j}$ is the **marginal distribution** of $X_j$.
 
 </div>
 
@@ -1881,8 +1927,13 @@ For real valued RVs, independence is equivalent to saying that the distribution 
 
 Let $X_i : \Omega \to \mathbb{R}^m$ be $n$ RVs for $i = 1, \ldots, n$.
 
-1. The RVs are independent iff for $x = (x_1, \ldots, x_n)$: $F_{X_1, \ldots, X_n}(x) = F_{X_1}(x_1) \ldots F_{X_n}(x_n)$.
-2. If the RVs have densities, then they are independent iff $f_{X_1, \ldots, X_n}(x) = f_{X_1}(x_1) \ldots f_{X_n}(x_n)$.
+1. The RVs are independent iff for $x = (x_1, \ldots, x_n)$: 
+   
+   $$F_{X_1, \ldots, X_n}(x) = F_{X_1}(x_1) \ldots F_{X_n}(x_n).$$
+
+2. If the RVs have densities, then they are independent iff 
+   
+   $$f_{X_1, \ldots, X_n}(x) = f_{X_1}(x_1) \ldots f_{X_n}(x_n).$$
 
 </div>
 
@@ -2009,6 +2060,45 @@ For $V = \mathbb{R}$ show that
 1. $\mathbb{E}[\mathbb{E}[X\mid\mathcal{F}]] = \mathbb{E}[X]$,
 2. $\mathbb{E}[X] = \mathbb{E}[X\mid\mathcal{F}]$ in case $\mathcal{F} = \lbrace \emptyset, \Omega \rbrace$.
 
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Solution (1)</summary>
+
+Using the Definition (Conditional expectation I) (ii) and setting $B=\Omega$ (note that $\mathcal{F}$ is a sub-$\sigma$-algebra thus contains $\Omega$).
+
+$$
+\begin{aligned}
+\mathbb{E}[\mathbb{E}[X\mid \mathcal{F}]] 
+= \int_\Omega \mathbb{E}[X\mid \mathcal{F}](\omega) \, \mathrm{d}\mathbb{P}(\omega)
+&= \int_\Omega \mathbb{1}_\Omega(\omega) \mathbb{E}[X\mid \mathcal{F}](\omega) \, \mathrm{d}\mathbb{P}(\omega) \\
+&= \int_\Omega \mathbb{1}_\Omega(\omega) X(\omega) \, \mathrm{d}\mathbb{P}(\omega) \\
+&= \int_\Omega X(\omega) \, \mathrm{d}\mathbb{P}(\omega) \\
+&= \mathbb{E}[X]
+\end{aligned}
+$$
+
+</details>
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Solution (2)</summary>
+
+Since $\mathcal F=\lbrace\varnothing,\Omega\rbrace$, every $\mathcal F$-measurable real-valued random variable is constant. Hence there exists $c\in\mathbb R$ such that
+
+$$\mathbb E[X\mid\mathcal F]=c.$$
+
+Using part (i),
+
+$$c =\mathbb E[c] =\mathbb E[\mathbb E[X\mid\mathcal F]] =\mathbb E[X].$$
+
+Therefore
+
+$$\boxed{\mathbb E[X\mid\mathcal F]=\mathbb E[X].}$$
+
+</details>
 </div>
 
 Some further properties of the conditional probability are the following:
@@ -2163,7 +2253,7 @@ Using a Markov kernel we can now define a more "robust" notion of conditional di
 
 Let $(\Omega, \mathcal{A}, \mathbb{P})$ be a probability space and $X : \Omega \to V$ a random variable in a Banach space $V$.
 
-1. Let $\mathcal{F} \subseteq \mathcal{A}$ be a sub-$\sigma$-algebra. Then a Markov kernel $\kappa\_{X\mid\mathcal{F}} : \Omega \times \mathcal{B}(V) \to [0, \infty]$ from $(\Omega, \mathcal{F})$ to $(V, \mathcal{B}(V))$ such that $\kappa\_{X\mid\mathcal{F}}(\omega, B) = \mathbb{P}[X \in B\mid\mathcal{F}](\omega)$ for every $B \in \mathcal{B}(V)$ $\mathbb{P}$-a.e., i.e.
+1. Let $\mathcal{F} \subseteq \mathcal{A}$ be a sub-$\sigma$-algebra. Then a Markov kernel $\kappa\_{X\mid\mathcal{F}} : \Omega \times \mathcal{B}(V) \to [0, \infty]$ from $(\Omega, \mathcal{F})$ to $(V, \mathcal{B}(V))$ such that $\kappa\_{X\mid\mathcal{F}}(\omega, B) = \mathbb{P}[X \in B\mid\mathcal{F}] (\omega)$ for every $B \in \mathcal{B}(V)$ $\mathbb{P}$-a.e., i.e.
 
    $$\mathbb{P}[A \cap [X \in B]] = \int_\Omega \mathbb{1}_B(X(\omega)) \mathbb{1}_A(\omega) \, \mathrm{d}\mathbb{P}(\omega) = \int_\Omega \kappa_{X|\mathcal{F}}(\omega, B) \mathbb{1}_A(\omega) \, \mathrm{d}\mathbb{P}(\omega) \qquad \forall A \in \mathcal{F},\ B \in \mathcal{B}(V),$$
 
@@ -6065,7 +6155,8 @@ Let $A \in \mathcal{B}(H)$. Then, it follows from the detailed balance condition
 $$\begin{aligned}
 (\mu K)(A) = \int_H K(x, A) \, \mu(\mathrm{d}x) &= \int_H \int_A \underbrace{K(x, \mathrm{d}x') \, \mu(\mathrm{d}x)}_{= K(x', \mathrm{d}x)\,\mu(\mathrm{d}x')} = \int_H \int_A K(x', \mathrm{d}x) \, \mu(\mathrm{d}x') \\
 &= \int_A \int_H K(x', \mathrm{d}x) \, \mu(\mathrm{d}x') = \int_A \underbrace{K(x', H)}_{=1} \, \mu(\mathrm{d}x') = \int_A 1 \, \mu(\mathrm{d}x') = \mu(A).
-\end{aligned}$$
+\end{aligned}
+$$
 
 TODO: why can we swap the integral?
 
@@ -6558,7 +6649,7 @@ The transition kernel $K : \mathbb{R}^n \times \mathcal{B}(\mathbb{R}^n) \to [0,
 
 $$K(x, \mathrm{d}x') = \alpha(x, x') Q(x, \mathrm{d}x') + \left(1 - \int_{\mathbb{R}^n} \alpha(x, x'') \, Q(x, \mathrm{d}x'') \right) \delta_x(\mathrm{d}x'), \tag{5.6.9}$$
 
-where $\delta_x \in \mathcal{P}(\mathbb{R}^n)$ denotes the *Dirac-measure* at $x \in \mathbb{R}^n$. The **Metropolis kernel** $K$ is $\mu$-reversible, and thus $\mu$ is invariant with respect to $K$.
+where $\delta_x \in \mathcal{P}(\mathbb{R}^n)$ denotes the **Dirac-measure** at $x \in \mathbb{R}^n$. The **Metropolis kernel** $K$ is $\mu$-reversible, and thus $\mu$ is invariant with respect to $K$.
 
 </div>
 
@@ -6613,6 +6704,61 @@ Two features of Algorithm 1 are so fundamental that they deserve to be stated se
 
 Note also the structure of the Metropolis kernel (5.6.9): it is a *mixture* of a continuous part (accepted moves, density $\alpha \cdot q$) and an atom at the current state $x$ (rejections). The chain is therefore never absolutely continuous — every path contains repeated states, and these repetitions are not wasted: they are precisely the reweighting that corrects the proposal distribution towards $\mu$.
 
+</div>
+
+<div class="math-callout math-callout--question" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Exercise</span><span class="math-callout__name">(Reversibility as the Mechanism Behind Invariance)</span></p>
+
+Let $p:\mathbb{R}\to(0,\infty)$ be the unnormalized density
+
+$$p(x)=\widetilde f(x),$$
+
+with $\widetilde f$ as in (6.1.1), and let
+
+$$\pi(x)=\frac{p(x)}{Z}, \qquad Z=\int_{\mathbb{R}}p(x)\,dx$$
+
+be unknown. Let $w_u$ be the unnormalized importance weight defined in (6.1.2).
+
+---
+
+(c) Let $K$ be the transition kernel of the MH chain,
+
+$$K(x,dx') = \alpha(x,x')q(x,x')\,dx' + \left( 1-\int_{\mathbb{R}}\alpha(x,x'')q(x,x'')\,dx'' \right)\delta_x(dx').$$
+
+Show that for $x\neq x'$,
+
+$$\pi(x)q(x,x')\alpha(x,x') = \pi(x')q(x',x)\alpha(x',x).$$
+
+Conclude that
+
+$$\mu(dx)=\pi(x)\,dx$$
+
+is invariant.
+
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Solution</summary>
+
+The exercise (c) follows immediately from Proposition 5.6.12. We show the equality only, which still could be look up in the proof of the proposition. 
+$$\pi(x)q(x,x')\alpha(x,x') = \pi(x')q(x',x)\alpha(x',x)$$
+
+W.l.o.g. we can assume that $p(x)q(x,x')>0$ for all $x,x'\in\mathbb{R}^n$ (otherwise we simply have to restrict the integrations below accordingly), then
+
+$$
+\begin{aligned}
+\alpha(x,x') 
+&= \frac{\pi(x')q(x',x)\alpha(x',x)}{\pi(x)q(x,x')} \\
+&= \frac{p(x')q(x',x)}{p(x)q(x,x')}\min\left(1, \frac{p(x) \, q(x, x')}{p(x') \, q(x', x)}\right) \\
+&= \min\left(\frac{p(x')q(x',x)}{p(x)q(x,x')}, \frac{p(x')q(x',x)}{p(x)q(x,x')} \frac{p(x) \, q(x, x')}{p(x') \, q(x', x)}\right) \\
+&= \min\left(\frac{p(x')q(x',x)}{p(x)q(x,x')}, 1\right),
+\end{aligned}
+$$
+
+which is a definition of $\alpha(x,x')$.
+
+</details>
 </div>
 
 The big advantage of the Metropolis-Hastings (MH) algorithm is that we only need to be able to evaluate the unnormalised density $p$ of the target measure $\mu$ and the density $q$ of the proposal kernel $Q$. The proposal density is often chosen to be **symmetric**, such that
