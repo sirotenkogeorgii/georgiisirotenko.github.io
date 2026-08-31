@@ -22,6 +22,10 @@ tags:
 
 # Pravděpodobnost a statistika 1
 
+**Table of Contents**
+- TOC
+{:toc}
+
 ## 1 Probability -- Introduction
 
 Before building probability from the ground up, here is a quick motivating application.
@@ -78,7 +82,8 @@ For an event $A \in \mathcal{F}$, the number $P(A)$ represents a degree of belie
 $P : \mathcal{F} \to [0, 1]$ is called a **probability** (probability measure) if:
 
 1. $P(\Omega) = 1$.
-2. $P\!\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$ for any sequence of pairwise disjoint events $A_1, A_2, \ldots \in \mathcal{F}$.
+2. $P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$ 
+   * for any sequence of pairwise disjoint events $A_1, A_2, \ldots \in \mathcal{F}$.
 
 </div>
 
@@ -86,7 +91,9 @@ $P : \mathcal{F} \to [0, 1]$ is called a **probability** (probability measure) i
   <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Observations)</span></p>
 
 - $P(\emptyset) = 0$: set $A_i = \emptyset$ for all $i$ in the countable additivity axiom.
-- Axiom 2 also holds for finitely many disjoint sets: given disjoint $A_1, \ldots, A_n$, set $A_{n+1} = A_{n+2} = \cdots = \emptyset$ to get $P\!\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{i=1}^{n} P(A_i)$.
+- Axiom 2 also holds for finitely many disjoint sets: given disjoint $A_1, \ldots, A_n$, set $A_{n+1} = A_{n+2} = \cdots = \emptyset$ to get 
+  
+  $$P\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{i=1}^{n} P(A_i).$$
 
 </div>
 
@@ -939,8 +946,8 @@ The density $f_X(x)$ is approximately $P(x - h < X < x + h) / (2h)$ for small $h
 
 Let $X$ be a continuous random variable with density $f_X$. Then:
 
-1. $P(X = x) = 0$ for every $x \in \mathbb{R}$.
-2. $P(a \le X \le b) = \int_a^b f_X(t)\,dt$ for every $a < b$.
+1. $P(X = x) = 0 \quad \forall x \in \mathbb{R}$.
+2. $P(a \le X \le b) = \int_a^b f_X(t)\,dt \quad \forall a < b$.
 
 </div>
 

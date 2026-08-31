@@ -18,6 +18,10 @@ tags:
 
 # Basic Category Theory
 
+**Table of Contents**
+- TOC
+{:toc}
+
 ## Introduction
 
 Category theory takes a bird's-eye view of mathematics. From high in the sky, details become invisible, but we can spot patterns that were impossible to detect from ground level. The most important concept in this book is that of **universal property**. The further you go in mathematics, especially pure mathematics, the more universal properties you will meet.
