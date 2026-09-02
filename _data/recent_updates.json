@@ -1,6 +1,12 @@
 {
  "entries": [
   {
+   "title": "Introduction to Functional Analysis",
+   "url": "/subpages/books/functional_analysis/mit_rogriguez/",
+   "date": "2026-09-02",
+   "added": false
+  },
+  {
    "title": "Basic Category Theory",
    "url": "/subpages/books/category_theory/basic_category_theory/",
    "date": "2026-08-31",
@@ -21,12 +27,6 @@
   {
    "title": "Algorithmic Randomness and Computable Analysis",
    "url": "/subpages/books/algorithmic_randomness_computable_analysis/",
-   "date": "2026-08-20",
-   "added": false
-  },
-  {
-   "title": "Introduction to Functional Analysis",
-   "url": "/subpages/books/functional_analysis/mit_rogriguez/",
    "date": "2026-08-20",
    "added": false
   },

@@ -147,7 +147,7 @@ is linearly independent but contains infinitely many elements, so $C([0, 1])$ is
 </div>
 
 <div class="math-callout math-callout--info" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Info</span><span class="math-callout__name">(Many theorems fail in infinite-dim --- we need generalization)</span></p>
+  <p class="math-callout__title"><span class="math-callout__label">Info</span><span class="math-callout__name">(Many theorems fail in infinite-dim – we need generalization)</span></p>
 
 Facts like the Heine–Borel theorem for $\mathbb{R}^n$ become false in infinite-dimensional spaces, so we need to develop more machinery. In analysis, we need a notion of "how close things are." In metric spaces we use metrics; here we define a distance on our vector spaces via norms.
 
@@ -208,7 +208,9 @@ defines a metric on $V$, called the **metric induced by the norm**.
   
   by homogeneity.
 
-* **Property (3)** of the metric is implied by property (3) of the norm because $(x - y) + (y - z) = (x - z)$.
+* **Property (3)** of the metric is implied by property (3) of the norm because 
+  
+  $$(x - y) + (y - z) = (x - z).$$
 
 </details>
 </div>
@@ -265,12 +267,10 @@ The "unit balls" $B(0, 1)$ under these norms have different shapes in $\mathbb{R
   <figcaption>Unit balls $B(0,1)$ in $\mathbb{R}^2$ for the three canonical norms. As $p$ grows, the ball "puffs out" from the diamond ($p=1$) through the circle ($p=2$) toward the square ($p=\infty$), with each one inscribed in or circumscribing the next.</figcaption>
 </figure>
 
-<div class="math-callout math-callout--question" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Hölder's Inequality)</span></p>
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Hölder's Inequality)</span></p>
 
-Suppose that $n \in \mathbb{N}$, and let
-
-$$a_k, b_k \in \mathbb{R}, \qquad 1 \le k \le n.$$
+Suppose that $n \in \mathbb{N}$, and let $a_k, b_k \in \mathbb{R}$, $\le k \le n$.
 
 Prove that if $1 < p < \infty$ and
 
@@ -301,22 +301,23 @@ has a minimum at $x = B$.
 
 <div class="accordion" markdown="1">
 <details markdown="1">
-<summary>Solution</summary>
+<summary>Proof</summary>
 
+Recall the proof of general Hölder's Inequality and reduce to only two variables.
 
 </details>
 </div>
 
-<div class="math-callout math-callout--question" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Minkowski's Inequality)</span></p>
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Minkowski's Inequality)</span></p>
 
-Suppose that $n \in \mathbb{N}$, and let
-
-$$a_k, b_k \in \mathbb{R}, \qquad 1 \le k \le n.$$
-
-Prove that if $1 \le p < \infty$, then
+Suppose that $n \in \mathbb{N}$, and let $a_k, b_k \in \mathbb{R}$, $1 \le k \le n$. For $1 \le p < \infty$,
 
 $$\left(\sum_{k=1}^n |a_k + b_k|^p\right)^{1/p} \le \left(\sum_{k=1}^n |a_k|^p\right)^{1/p} + \left(\sum_{k=1}^n |b_k|^p\right)^{1/p}.$$
+
+Or equivalently,
+
+$$\lVert a + b \rVert_p \leq \lVert a \rVert_p + \lVert b \rVert_p$$
 
 </div>
 
@@ -335,16 +336,72 @@ Now apply Hölder’s inequality.
 
 <div class="accordion" markdown="1">
 <details markdown="1">
-<summary>Solution</summary>
+<summary>Proof</summary>
 
+First turn $\lvert a_k+b_k\rvert^p$ into a product, then apply Hölder to the two resulting sums.
+
+Assume $1\le p<\infty$. For $p=1$, Minkowski is just the ordinary triangle inequality, so let $p>1$. Write $q$ for the conjugate exponent:
+
+$$\frac1p+\frac1q=1,\qquad q=\frac{p}{p-1}.$$
+
+**Start from the $p$-th power of the left-hand side.** Using
+
+$$|a_k+b_k|\le |a_k|+|b_k|,$$
+
+we get
+
+$$
+\begin{aligned}
+\sum_{k=1}^n |a_k+b_k|^p
+&= \sum_{k=1}^n |a_k+b_k|\,|a_k+b_k|^{p-1}\\
+&\le \sum_{k=1}^n |a_k|\,|a_k+b_k|^{p-1} + \sum_{k=1}^n |b_k|\,|a_k+b_k|^{p-1}.
+\end{aligned}
+$$
+
+**Now apply Hölder to each term separately.** For the first sum,
+
+$$
+\begin{aligned}
+\sum_{k=1}^n |a_k|\,|a_k+b_k|^{p-1}
+&\le\left(\sum_{k=1}^n |a_k|^p\right)^{1/p}\left(\sum_{k=1}^n |a_k+b_k|^{(p-1)q}\right)^{1/q}.
+\end{aligned}
+$$
+
+Since $(p-1)q=p$, this simplifies to
+
+$$\sum_{k=1}^n |a_k|\,|a_k+b_k|^{p-1} \le \left(\sum_{k=1}^n |a_k|^p\right)^{1/p} \left(\sum_{k=1}^n |a_k+b_k|^p\right)^{1/q}.$$
+
+Exactly the same argument gives
+
+$$\sum_{k=1}^n |b_k|\,|a_k+b_k|^{p-1}\le\left(\sum_{k=1}^n |b_k|^p\right)^{1/p}\left(\sum_{k=1}^n |a_k+b_k|^p\right)^{1/q}.$$
+
+Putting these together,
+
+$$\sum_{k=1}^n |a_k+b_k|^p \le \left[ \left(\sum_{k=1}^n |a_k|^p\right)^{1/p} + \left(\sum_{k=1}^n |b_k|^p\right)^{1/p} \right] \left(\sum_{k=1}^n |a_k+b_k|^p\right)^{1/q}.$$
+
+**The last step is just cancellation.** If
+
+$$\sum_{k=1}^n |a_k+b_k|^p=0,$$
+
+there is nothing to prove. Otherwise divide by
+
+$$\left(\sum_{k=1}^n |a_k+b_k|^p\right)^{1/q}.$$
+
+Because
+
+$$1-\frac1q=\frac1p,$$
+
+you obtain
+
+$$\boxed{\left(\sum_{k=1}^n |a_k+b_k|^p\right)^{1/p}\le\left(\sum_{k=1}^n |a_k|^p\right)^{1/p}+\left(\sum_{k=1}^n |b_k|^p\right)^{1/p}}.$$
+
+What you found in your handwritten solution is the standard proof. The central idea is the factorization
+
+$$|a_k+b_k|^p=|a_k+b_k|\,|a_k+b_k|^{p-1},$$
+
+because that creates exactly the product structure Hölder needs.
 
 </details>
-</div>
-
-<div class="math-callout math-callout--remark" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Hölder and Minkowski Inequalities: Intergral forms)</span></p>
-
-
 </div>
 
 ### Norms on Function Spaces
@@ -366,7 +423,7 @@ For example, $C_\infty([0, 1]) = C([0, 1])$ because all continuous functions on 
 Here two notation are conflated:
 
 1. $C^\infty$: **The Space of Smooth Functions**
-2. $C_\infty or C_0$: **The Space of Functions Vanishing at Infinity**
+2. $C_\infty$ or $C_0$: **The Space of Functions Vanishing at Infinity**
 3. $C_b$: **The Space of Continuous Bounded Functions**
 4. $C_\infty$: In this course it means "**The Space of Continuous Functions that can be measured by the $\infty$-norm**". It is essentailly common $C_b$.
 
@@ -498,8 +555,9 @@ The sequence $\left\lbrace \frac{1}{j} \right\rbrace_{j=1}^{\infty}$ is in $\ell
   </details>
 </div>
 
-<div class="math-callout math-callout--remark" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Don't confuse $\ell^p$ and $L^p$)</span></p>
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Don't confuse $\ell^p$ and $L^p$</summary>
 
 The primary difference is that $\ell^p$ is a sequence space (discrete) while $L^p$ is a function space (continuous). Both are generalized vector spaces equipped with p-norms, but they operate on fundamentally different underlying measure spaces.
 
@@ -512,7 +570,7 @@ Mathematically, $\ell^p$ is actually a specific, special case of $L^p$ where the
 | Element Type | Infinite sequences of numbers, $x = (x_1, x_2, x_3, \dots)$ | Functions over a domain, $f(x)$ |
 | Domain Type | Discrete index set (e.g., $\mathbb{N}$ or $\mathbb{Z}$) | Continuous domain (e.g., an interval $[a, b]$ or $\mathbb{R}^n$) |
 | Summation Tool | Infinite series ($\sum$) | Lebesgue integral ($\int$) |
-| Inclusions $p < q$ | $\ell^p \subset \ell^q$ (Smaller p is more restrictive) | $L^q \subset L^p$ (On finite measure spaces like $[0,1]$) |
+| Inclusions $p < q$ | $\ell^p \subset \ell^q$ (Smaller $p$ is more restrictive) | $L^q \subset L^p$ (On finite measure spaces like $[0,1]$) |
 
 **1. The $\ell^p$ Spaces (Discrete)**
 
@@ -546,7 +604,7 @@ If a sequence converges for a smaller power $p$, its terms must eventually drop 
 
 **Why $L^q \subset L^p$ on finite domains when $p < q$**
 
-For functions on a bounded domain (like $[0,1]$), the primary threat to a finite integral is a vertical asymptote (the function blowing up to infinity at a point). Higher powers q make singularities blow up much faster, making it harder for the function to integrate cleanly.
+For functions on a bounded domain (like $[0,1]$), the primary threat to a finite integral is a vertical asymptote (the function blowing up to infinity at a point). Higher powers $q$ make singularities blow up much faster, making it harder for the function to integrate cleanly.
 
 * Example: On the domain $(0,1]$, the function $f(x) = \frac{1}{\sqrt{x}}$ is in $L^1$ because $\int_0^1 x^{-1/2} dx = 2$. However, it is not in $L^2$ because $\int_0^1 x^{-1} dx$ blows up logarithmically to infinity.
 
@@ -554,6 +612,7 @@ For functions on a bounded domain (like $[0,1]$), the primary threat to a finite
 
 Both spaces share the elegant property of being complete normed vector spaces (Banach spaces) for all $1 \leq p \leq \infty$, and they form a Hilbert space exclusively when $p=2$. 
 
+</details>
 </div>
 
 ## Banach Spaces
@@ -575,7 +634,7 @@ We know from real analysis that $\mathbb{Q}$ is not **complete** — one can con
 <div class="math-callout math-callout--question" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Completeness of $\mathbb{R}^n$ and $\mathbb{C}^n$)</span></p>
 
-For any $n \in \mathbb{Z}_{\ge 0}$, $\mathbb{R}^n$ and $\mathbb{C}^n$ are complete with respect to any of the $\lVert \cdot \rVert_p$ norms.
+For any $n \in \mathbb{Z}\_{\ge 0}$, $\mathbb{R}^n$ and $\mathbb{C}^n$ are complete with respect to any of the $\lVert \cdot \rVert_p$ norms.
 
 </div>
 
@@ -614,6 +673,22 @@ is Banach.
 
 </div>
 
+<div class="math-callout math-callout--proposition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Proposition</span><span class="math-callout__name">($\ell^p$ spaces are Banach)</span></p>
+
+For $1 \leq p \le \infty$, the space $\ell^p$ is a Banach space (normed and complete).
+
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Proof</summary>
+
+
+
+</details>
+</div>
+
 <div class="math-callout math-callout--remark" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Cauchy's Wrong Theorem)</span></p>
 
@@ -636,38 +711,87 @@ The space $C_\infty$ is a space of **continuous** functions, equipped with the *
 
 Let $\lbrace v_n \rbrace_{n=1}^{\infty}$ be a sequence of points in a normed space $V$.
 
-$$\left\lbrace \sum_{m=1}^{n} v_m \right\rbrace_{n=1}^{\infty} \text{ converges } \implies \sum_n v_n \quad \text{ is summable}$$
+$$\sum_n v_n \quad \text{ is summable} \iff \left\lbrace \sum_{m=1}^{n} v_m \right\rbrace_{n=1}^{\infty} \text{ converges in }V.$$
 
-$$\left\lbrace \sum_{m=1}^{n} \lVert v_m \rVert \right\rbrace_{n=1}^{\infty} \text{ converges } \implies \sum_n v_n \quad \text{ is absolutely summable}.$$
+$$\sum_n v_n \quad \text{ is absolutely summable} \iff \left\lbrace \sum_{m=1}^{n} \lVert v_m \rVert \right\rbrace_{n=1}^{\infty} \text{ converges in}\mathbb{R}.$$
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Scalar convergence controls vector-valued partial sums)</span></p>
+
+The important point in the definition above is that absolute summability concerns the real-valued series
+
+$$\sum_{n=1}^\infty \lVert v_n\rVert,$$
+
+whereas summability concerns convergence of the vector-valued partial sums in $V$.
+
+The proposition below shows that convergence of the scalar series of norms forces the vector-valued partial sums to be Cauchy. If $V$ is complete, this further implies that the series $\sum_n v_n$ is summable in $V$.
 
 </div>
 
 <div class="math-callout math-callout--proposition" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Proposition</span><span class="math-callout__name">(Absolutely Summable Implies Cauchy)</span></p>
+  <p class="math-callout__title"><span class="math-callout__label">Proposition</span><span class="math-callout__name">(Bridge from scalars to vectors: Absolutely Summable Implies Cauchy)</span></p>
 
-If $\sum_n v_n$ is absolutely summable, then the sequence of partial sums $\left\lbrace \sum_{m=1}^{n} v_m \right\rbrace_{n=1}^{\infty}$ is Cauchy.
+If $\sum_n v_n$ is absolutely summable $\implies$ the sequence of partial sums $\left\lbrace \sum_{m=1}^{n} v_m \right\rbrace_{n=1}^{\infty}$ is Cauchy.
 
 </div>
 
-<div class="accordion">
-  <details>
-    <summary>proof</summary>
-    <p>Let $\varepsilon > 0$. Write $T_n = \sum_{m=1}^{n} \lVert v_m \rVert$ for the partial sums of the norms. Absolute summability means $\lbrace T_n \rbrace$ converges in $\mathbb{R}$, and a convergent real sequence is Cauchy, so there is an $N$ with $\lvert T_n - T_k \rvert < \varepsilon$ for all $n > k \ge N$. For such $n, k$, the triangle inequality gives</p>
-    $$\left\lVert \sum_{m=1}^{n} v_m - \sum_{m=1}^{k} v_m \right\rVert = \left\lVert \sum_{m=k+1}^{n} v_m \right\rVert \le \sum_{m=k+1}^{n} \lVert v_m \rVert = T_n - T_k < \varepsilon.$$
-    <p>Hence the partial sums $\left\lbrace \sum_{m=1}^{n} v_m \right\rbrace$ form a Cauchy sequence in $V$. $\square$</p>
-  </details>
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Proof</summary>
+
+Since the goal is two show that the sequence of partial sums $\left\lbrace \sum_{m=1}^{n} v_m \right\rbrace_{n=1}^{\infty}$ is Cauchy given $\sum_n v_n$ is absolutely summable, we must to derive that $\forall \varepsilon > 0 \exists N\in\mathbb{N}: \forall m>n\geq N$:
+
+$$\left\lVert \sum_{j=1}^m v_j - \sum_{i=1}^n v_i\right\rVert \le \varepsilon.$$
+
+The idea:
+1. Reduce the proof of being Cauchy sequence for partial sums $\left\lbrace \sum_{m=1}^{n} v_m \right\rbrace_{n=1}^{\infty}$ to the proof of being Cauchy sequence for the partial sums $\sum_{n=1}^\infty \lVert v_n\rVert$.
+2. Bound the first partial sums by the second partial sums.
+
+The sequence of the partial sums $\sum_{n=1}^\infty \lVert v_n\rVert$ is Cauchy because it converges in $\mathbb{R}$, which is equivalent to be Cauchy on a real line. Then
+
+$$\left\lVert \sum_{j=1}^m v_j - \sum_{i=1}^n v_i\right\rVert = \left\lVert \sum_{j=n+1}^m v_j \right\rVert \leq \sum_{j=n+1}^m \lVert v_j \rVert = \sum_{j=1}^m \lVert v_j \rVert - \sum_{i=1}^n \lVert v_i \rVert \le \varepsilon.$$
+
+The pairs $(m,n)$ for the first partial sums are chosen the same as for the second partial sums.
+
+</details>
 </div>
 
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Banach $\iff$ Absolutely Summable Series are Summable)</span></p>
 
-A normed vector space $V$ is a Banach space if and only if every absolutely summable series is summable.
+A normed vector space $V$ is a Banach space $\iff$ every absolutely summable series is summable.
 
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>My proof</summary>
+
+$\boxed{\Rightarrow}$. Consider the absolutely summable series in a normed Banach space. From the proposition, the absolute summable series means that the sequence of partial sums of the vectors is Cauchy, which implies that it convergence, since the space is Banach. Convergent partial sums series of vectors is summable by definition.
+
+$\boxed{\Leftarrow}$.
+
+> Let every asbolutelly summable series is summable in a normed space. From the proposition the sequence of partial sums of this sequence it is Cauchy. From the definition of the summable sequence of partial sums, the sequence if convergent. Then normed+complete vector space implies it is a Banach space. 
+
+The problem with this direction is that it only considers the cauchy sequences, whose norm-series that are absolutely summable. To fix it, we still use the incorrect proof of $\Leftarrow$ direction, but now consider **any** Cauchy sequence $(v_n)\_{n=1}^\infty$ in a normed vector space $V$. The idea is to consider the variation of the Cauchy sequence and show that the variation converges conclude that it is absolutely summable, then from variation restore the initial Cauchy sequence and conclude that it is summable, thus converges. The problem is that the Cauchy sequence does not have finite variation in general, but every Cauchy sequence contains a subsequence with finite variation. We consider such a subsequence $(\tilde{v_n})\_{n=1}^\infty$, setting $\tilde{v}_0 := 0$. Then
+
+$$\left\lbrace \sum_{m=1}^{n} \lVert \tilde{v}_i - \tilde{v}_{i-1} \rVert \right\rbrace_{n=1}^{\infty} \text{ converges in}\mathbb{R}$$
+
+Implying $\sum_n \tilde{v}\_i - \tilde{v}\_{i-1} $ is absolutely summable and, by assumption, summable. Sin
+ce it is summable, the sequence 
+
+$$\sum_{i=1}^n \tilde{v}_i - \tilde{v}_{i-1} = \tilde{v}_n$$
+
+converges with $n\to\infty$. It shows the subsequence of the Cauchy sequence has a limit, but any Cauchy sequence that contains a convergent subsequence will converge to that same limit.
+
+</details>
 </div>
 
 <div class="accordion">
   <details>
-    <summary>proof</summary>
+    <summary>Textbook proof</summary>
     <p><strong>Forward direction.</strong> Suppose $V$ is Banach. Then $V$ is complete, so any absolutely summable series is Cauchy (by the proposition above), and thus convergent (i.e., summable).</p>
     <p><strong>Reverse direction.</strong> Suppose every absolutely summable series is summable. Take any Cauchy sequence $\lbrace v_n \rbrace$. We construct a convergent subsequence by "speeding up" the Cauchy-ness. For each $k \in \mathbb{N}$, choose $N_k$ such that $\lVert v_n - v_m \rVert < 2^{-k}$ for all $n, m \ge N_k$. Define $n_k = N_1 + \cdots + N_k$, so $n_1 < n_2 < \cdots$ and $n_k \ge N_k$. Then</p>
     $$\lVert v_{n_{k+1}} - v_{n_k} \rVert < 2^{-k},$$
@@ -717,18 +841,45 @@ In finite-dimensional vector spaces, all linear transformations are continuous. 
 
 ### Bounded Operators
 
+TODO: can we write $\lVert Tv \rVert_W \le O(\lVert v \rVert_V)$.
+
 <div class="math-callout math-callout--theorem" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Continuity $\iff$ Boundedness for Linear Operators)</span></p>
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Continuous Linear Operator $\iff$ Bounded Linear Operator)</span></p>
 
 Let $V, W$ be two normed vector spaces. A linear operator $T : V \to W$ is continuous if and only if there exists $C > 0$ such that for all $v \in V$,
 
 $$\lVert Tv \rVert_W \le C \lVert v \rVert_V.$$
 
-In this case we say $T$ is a **bounded** linear operator. (This does not mean the image of $T$ is bounded — it means bounded subsets of $V$ are sent to bounded subsets of $W$.)
+
+In this case we say $T$ is a **bounded** linear operator.
 
 </div>
 
-<div class="accordion">
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>My proof</summary>
+
+$\boxed{\Leftarrow}$. We want to obtain
+
+$$\forall \delta \ge 0 \exists \varepsilon \ge 0: \lVert v - u \rVert_V \le \varepsilon \implies \lVert Tv - Tu \rVert_W \le \delta.$$
+
+By linearity of the operator, $Tv-Tu = T(v-u)$, then for given $\delta$, set $\varepsilon := \delta / C$, 
+
+$$\lVert Tv - Tu \rVert_W = \lVert T(v - u) \rVert_W \leq C\lVert \rVert_V \le C\cdot\frac{\delta}{C} = \delta.$$
+
+$\boxed{\Rightarrow}$. 
+
+Fix **some** $C>0$ to induce a reference ball, which we will use for directions.
+
+$$\forall C \ge 0 \exists \varepsilon \ge 0: \lVert 0 - u \rVert_V = \lVert u \rVert_V \le \varepsilon \implies \lVert T0 - Tu \rVert_W = \lVert Tu \rVert_W \le C.$$
+
+Since the ball is open, closed, without breaking inequality, we pick radius of the reference ball smaller than \varepsilon, $r:= \varepsilon / 2$. Then for every vector $v\in V$, there exists $u$ on a sphere $B(0,r)$: $v = \frac{\lVert v\rVert_V}{r} u$.
+
+$$\frac{\lVert Tv \rVert_W}{\lVert v\rVert_V} = \frac{\lVert T(\frac{\lVert v\rVert_V}{r} u) \rVert_W}{\lVert v\rVert_V} = \lVert v\rVert_V\frac{\lVert Tu \rVert_W}{r\lVert v\rVert_V} = \frac{\lVert Tu \rVert_W}{r} \le \frac{C}{r} = \frac{2C}{\varepsilon}$$
+
+</details>
+</div>
+<!-- <div class="accordion">
   <details>
     <summary>proof</summary>
     <p><strong>Bounded $\Rightarrow$ continuous.</strong> Suppose $\lVert Tv \rVert_W \le C\lVert v \rVert_V$ for all $v$. If $v_n \to v$, then by linearity,</p>
@@ -737,6 +888,24 @@ In this case we say $T$ is a **bounded** linear operator. (This does not mean th
     <p><strong>Continuous $\Rightarrow$ bounded.</strong> Suppose $T$ is continuous. The set $T^{-1}(B_W(0, 1)) = \lbrace v \in V : Tv \in B_W(0, 1) \rbrace$ is open in $V$ (by the topological characterization of continuity). Since $T(0) = 0 \in B_W(0, 1)$, there is some $r > 0$ with $B_V(0, r) \subset T^{-1}(B_W(0, 1))$. Take $C = 2/r$. For any $v \in V \setminus \lbrace 0 \rbrace$, the vector $\frac{r}{2\lVert v \rVert_V} v$ has norm $r/2 < r$, so it lies in $B_V(0, r)$, hence</p>
     $$\left\lVert T\!\left(\frac{r}{2\lVert v \rVert_V} v\right) \right\rVert_W < 1 \implies \lVert Tv \rVert_W \le \frac{2}{r} \lVert v \rVert_V. \quad\square$$
   </details>
+</div> -->
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Continuous Linear Operators are Lipschitz Continuous)</span></p>
+
+In fact, the proof shows something stronger: every continuous linear operator $T:V\to W$ is globally Lipschitz. Indeed, there exists $C>0$ such that
+
+$$\|Tv-Tu\|_W = \|T(v-u)\|_W \le C\|v-u\|_V$$
+
+for all $u,v\in V$.
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Bounded Operator Maps Bounded Sets to Bounded Sets)</span></p>
+
+The theorem above does not mean the image of the bounded operator $T$ is bounded — it means bounded subsets of $V$ are sent to bounded subsets of $W$.
+
 </div>
 
 <div class="math-callout math-callout--question" markdown="1">
@@ -758,6 +927,52 @@ and we can take $C = \lVert K \rVert_\infty$. We often call $K$ the **kernel** o
 
 </div>
 
+<div class="math-callout math-callout--question" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Unbounded Linear Operator I)</span></p>
+
+A very clean example is on the space
+
+$$c_{00}:=\lbrace x=(x_1,x_2,\dots):x_n=0\text{ for all but finitely many }n\rbrace,$$
+
+equipped with the $\ell^2$-norm.
+
+Define
+
+$$T:c_{00}\to c_{00},\qquad T(x_1,x_2,\dots)=(x_1,2x_2,3x_3,\dots).$$
+
+It is clearly linear.
+
+**Why is it unbounded?** Take the standard basis vector
+
+$$e_n=(0,\dots,0,1,0,\dots).$$
+
+Then
+
+$$\|e_n\|_2=1, \qquad \|Te_n\|_2=n.$$
+
+Thus, $T$ is linear but unbounded, hence discontinuous.
+
+The mental model is useful: a bounded linear operator is allowed to amplify vectors, but its **amplification factor**
+
+$$\frac{\|Tv\|}{\|v\|}$$
+
+must have a uniform ceiling. Here different coordinate directions $e_n$ are amplified by factors $1,2,3,\ldots$, so there is no ceiling.
+
+</div>
+
+<div class="math-callout math-callout--question" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Unbounded Linear Operator II: Differentiation Operator)</span></p>
+
+A classical analytic example is differentiation
+
+$$D:C^1([0,1])\to C([0,1]),\qquad Df=f',$$
+
+when $C^1([0,1])$ is equipped only with the sup norm $\|f\|\_\infty$: for $f_n(x)=x^n$,
+
+$$\|f_n\|_\infty=1,\qquad \|f_n'\|_\infty=n.$$
+
+</div>
+
 ### The Space of Bounded Operators and the Operator Norm
 
 <div class="math-callout math-callout--definition" markdown="1">
@@ -767,7 +982,12 @@ Let $V$ and $W$ be two normed spaces. The set of bounded linear operators from $
 
 </div>
 
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">($\mathcal{B}(V, W)$ is a Vector Space)</span></p>
+
 $\mathcal{B}(V, W)$ is a vector space (the sum of two linear operators is linear, etc.), and we can equip it with a norm.
+
+</div>
 
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Operator Norm)</span></p>
@@ -808,17 +1028,74 @@ $$\left\lVert T\!\left(\frac{v}{\lVert v \rVert}\right) \right\rVert \le \lVert 
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">($\mathcal{B}(V, W)$ is Banach when $W$ is Banach)</span></p>
 
-If $V$ is a normed vector space and $W$ is a Banach space, then $\mathcal{B}(V, W)$ is a Banach space.
+If $V$ is a normed vector space and $W$ is a Banach space $\implies$ $\mathcal{B}(V, W)$ is a Banach space.
 
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>My proof</summary>
+
+1. $\mathcal{B}(V, W)$ is a normed space with an **operator norm** as a norm.
+2. $\mathcal{B}(V, W)$ is a complete vector space:
+
+**GUESS / CANDIDATE CONSTRUCTION.**
+
+Fix a Cauchy sequence $(T_n)\_{n\in\mathbb{N}}$ in $\mathcal{B}(V, W)$ space and **any** vector $v\in V$. Then the sequence $(T_n v)\_{n\in\mathbb{N}}$ in $W$ is Cauchy:
+
+$$\|T_m v - T_n v\| = \|(T_m - T_n)v\| \leq \|(T_m - T_n)\| \cdot |\v|\ \le \varepsilon |\v|\,$$
+
+and has a limit, since $W$ is Banach. For each fixed $v\in V$, since $(T_n v)\_{n\in\mathbb{N}}$ is Cauchy in $W$, define
+
+$$Tv:= \lim_{n\to\infty} T_n v.$$
+
+We do not need to know in advance that the limit of $(T_n n)\_{n\in\mathbb{N}}$ is the image of $v$ under some already-existing operator $T$. This is precisely how we construct the **candidate** (guess) limit operator. After constructing $T$ do you have to prove that this new map is linear and bounded.
+
+**CANDIDATE LIVES IN OUR SPACE.**
+
+* $T$ is operator since sends every $v\in V$ to some $w\in W$ by a property of $W$ being Banach.
+
+* **$T$ is linear:**
+
+  1. $T0:= \lim_{n\to\infty} T_n 0 = 0.$
+  2. $T(\alpha v+ \beta u):= \lim_{n\to\infty} T_n (\alpha v+ \beta u) = \alpha\lim_{n\to\infty} T_n v + \beta\lim_{n\to\infty} T_n u = \alpha Tv + \beta Tu.$
+
+* **$T$ is bounded:**
+
+$$\|Tv\|_W = \|\lim_{n\to\infty} T_n v\|_W = \lim_{n\to\infty} \|T_n v\|_W \leq \lim_{n\to\infty} C\|v\|_V = C\|v\|_V, $$
+
+where $\lVert \lim_{n\to\infty} T_n v\rVert\_W = \lim_{n\to\infty} \lVert T_n v\rVert\_W$ since the norm is continuous and the uniformly bounding constant $C$ comes from the fact that Cauchy sequence in a normed space is bounded, therefore there exists a global for that sequence constant $C>0$ such that $\lVert T_n\rVert < C \forall n\in\mathbb{N}$, thus $\lVert T_n v\rVert \leq \lVert v\rVert\lVert T_n\rVert \le C\lVert v\rVert$.
+
+**CANDIDATE IS A LIMIT IN OUR SPACE.**
+
+Afte we showed that $T\in\mathcal{B}(V, W)$, it is remained to check whether $\lim_{n\to\infty} T_n = T$ in operator norm. For **any** vector $v\in V$ holds
+
+$$\|(T_m - T_n)v\| \to \|(T-T_n)v\|$$
+
+by convergence in $W$ and since for all $m>n\geq N: \lVert (T_m - T_n)v\rVert \le \varepsilon \lVert v \rVert$ for any small $\varepsilon$ and sufficiently large $N$ and, by continuity of a norm,
+
+$$\|(T-T_n)v\| \leq \varepsilon |\v|\.$$
+
+Since it holds for any $v\in V$,
+
+$$\| T - T_n \| = \sup_{\lVert v \rVert = 1,\, v \in V} \lVert (T - T_n)v \rVert \leq \varepsilon$$.
+
+Or another way to see it is to fix $n\in\mathbb{N}$ and then for any $v\in V$:
+
+$$\|(T - T_n)v\| \leq \|(T-T_m)v\| + \|(T_m - T_n)v\|,$$
+
+where the first term goes to zero with $m\to\infty$ by convergence in $W$ and the second term is bounded by $\varepsilon\lVert v\rVert$.
+
+</details>
 </div>
 
 <div class="accordion">
   <details>
     <summary>proof</summary>
-    <p>We use the summability characterization (Theorem above). Suppose $\lbrace T_n \rbrace$ is a sequence in $\mathcal{B}(V, W)$ with $C = \sum_n \lVert T_n \rVert < \infty$. We need to show $\sum_n T_n$ is summable.</p>
+    <p>We use the summability characterization (Theorem above). Suppose $\lbrace T_n \rbrace$ is a sequence in $\mathcal{B}(V, W)$ with $C = \sum_n \lVert T_n \rVert < \infty$ (since is absolutely summable). We need to show $\sum_n T_n$ is summable.</p>
     <p><strong>Candidate.</strong> For any $v \in V$ and $m \in \mathbb{N}$,</p>
     $$\sum_{n=1}^{m} \lVert T_n v \rVert \le \sum_{n=1}^{m} \lVert T_n \rVert \lVert v \rVert \le C \lVert v \rVert.$$
-    <p>Since $T_n v \in W$ and $W$ is Banach, the series $\sum_n T_n v$ is absolutely summable and thus summable. Define $Tv = \lim_{m \to \infty} \sum_{n=1}^{m} T_n v$.</p>
+    <p>Since $T_n v \in W$ and $W$ is Banach, the series $\sum_n T_n v$ is absolutely summable (A monotone increasing sequence of partial sums $s_m:=\sum_{n=1}^{m} \lVert T_n v \rVert$, bounded sequence in $\mathbb R$ converges) and thus summable. Define $Tv = \lim_{m \to \infty} \sum_{n=1}^{m} T_n v$.</p>
     <p><strong>$T$ is linear.</strong> $T(\lambda_1 v_1 + \lambda_2 v_2) = \lim_m \sum_{n=1}^{m} T_n(\lambda_1 v_1 + \lambda_2 v_2) = \lambda_1 Tv_1 + \lambda_2 Tv_2$.</p>
     <p><strong>$T$ is bounded.</strong> $\lVert Tv \rVert = \lim_m \lVert \sum_{n=1}^{m} T_n v \rVert \le \lim_m \sum_{n=1}^{m} \lVert T_n \rVert \lVert v \rVert = C\lVert v \rVert$.</p>
     <p><strong>Convergence in operator norm.</strong> For $\lVert v \rVert = 1$,</p>
@@ -859,7 +1136,7 @@ Let $V$ be a vector space. A subset $W \subseteq V$ is a **subspace** of $V$ if 
 <div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Proposition</span><span class="math-callout__name">(Closed Subset Of Banach Space $\iff$ Banach Subspace)</span></p>
 
-A subspace $W$ of a Banach space $V$ is Banach (with norm inherited from $V$) if and only if $W$ is a closed subset of $V$ (with respect to the metric induced by the norm).
+A subspace $W$ of a Banach space $V$ is Banach (with norm inherited from $V$) $\iff$ $W$ is a closed subset of $V$ (with respect to the metric induced by the norm).
 
 </div>
 
@@ -869,6 +1146,37 @@ A subspace $W$ of a Banach space $V$ is Banach (with norm inherited from $V$) if
     <p><strong>$W$ Banach $\Rightarrow$ $W$ closed.</strong> Every sequence in $W$ that converges (to something in $V$) must be Cauchy. Since $W$ is Banach, the sequence converges in $W$. By uniqueness of limits, the limit is in $W$.</p>
     <p><strong>$W$ closed $\Rightarrow$ $W$ Banach.</strong> Any Cauchy sequence in $W$ is also Cauchy in $V$, so it has a limit in $V$. Closedness ensures the limit is in $W$. $\square$</p>
   </details>
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Does not the direction "$W$ closed $\Rightarrow$ $W$ Banach" only prove ​that every closed subset of Banach space is complete?​​</summary>
+
+Yes. Your reading is exactly right: the **metric part of the proof does not need $W$ to be a subspace**.
+
+The more general statement is:
+
+$$\boxed{\text{Every closed subset of a complete metric space is complete.}}$$
+
+So if $V$ is Banach and $W\subseteq V$ is merely closed, then $W$ is complete with respect to the inherited metric.
+
+The reason the proposition assumes that $W$ is a **subspace** is only because the conclusion says that $W$ is **Banach**. A Banach space must first be a normed vector space. If $W$ is just an arbitrary closed subset, it need not be closed under addition or scalar multiplication.
+
+So the proposition is really combining two facts:
+
+$$\boxed{\begin{array}{c}W\subseteq V\text{ closed}\\V\text{ complete}\end{array}\Longrightarrow W\text{ complete as a metric space},}$$
+
+and, separately,
+
+$$\boxed{W\le V\text{ linear subspace}\Longrightarrow W\text{ inherits a normed-vector-space structure}.}$$
+
+Together these imply:
+
+$$W\text{ closed linear subspace of Banach }V \Longrightarrow W\text{ Banach}.$$
+
+So yes: the **subspace assumption is algebraic, not metric**. The proof of completeness itself only uses closedness.
+
+</details>
 </div>
 
 ### Quotient Spaces
@@ -913,8 +1221,6 @@ is a well-defined **norm**.
 
 ## The Baire Category Theorem and Uniform Boundedness
 
-We now turn to some fundamental named theorems.
-
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Baire Category Theorem)</span></p>
 
@@ -925,13 +1231,6 @@ $$B(x, r) = \lbrace y \in M : d(x, y) < r \rbrace.$$
 In other words, 
 
 $$\boxed{\text{At least one $C_n$ has an interior point.}}$$
-
-</div>
-
-<div class="math-callout math-callout--remark" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name"></span></p>
-
-Despite the name, this theorem has nothing to do with category theory. A powerful consequence: it can be used to prove that there exists a continuous function which is **nowhere differentiable**. When applying this theorem, the $C_n$ need not be closed — the result then says that one of their closures must contain an open ball. Equivalently, we cannot have all $C_n$ be **nowhere dense**.
 
 </div>
 
@@ -947,10 +1246,21 @@ Despite the name, this theorem has nothing to do with category theory. A powerfu
   </details>
 </div>
 
-<div class="math-callout math-callout--theorem" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Uniform Boundedness Principle)</span></p>
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name"></span></p>
 
-Let $B$ be a Banach space, and let $\lbrace T_n \rbrace$ be a sequence in $\mathcal{B}(B, V)$ (linear operators from $B$ into some normed space $V$). If for all $b \in B$ we have $\sup_n \lVert T_n b \rVert < \infty$ (pointwise boundedness), then $\sup_n \lVert T_n \rVert < \infty$ (the operator norms are bounded).
+Despite the name, this theorem has nothing to do with category theory. A powerful consequence: it can be used to prove that there exists a continuous function which is **nowhere differentiable**. When applying this theorem, the $C_n$ need not be closed — the result then says that one of their closures must contain an open ball. Equivalently, we cannot have all $C_n$ be **nowhere dense**.
+
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Banach–Steinhaus Theorem: Uniform Boundedness Principle)</span></p>
+
+Let $B$ be a Banach space, and let $\lbrace T_n \rbrace$ be a sequence in $\mathcal{B}(B, V)$ (linear operators from $B$ into some normed space $V$). If for all $b \in B$ we have $\sup_n \lVert T_n b \rVert < \infty$ (pointwise boundedness), then 
+
+$$\sup_n \lVert T_n \rVert < \infty$$ 
+
+(the operator norms are bounded).
 
 </div>
 
@@ -1739,7 +2049,7 @@ Because $m^*(E) < \infty$, we can subtract it from both sides to obtain:
 $$m^*(O \setminus E) < \frac{\varepsilon}{2}$$
 
 **2. Bounding the Tail**
-Since $m^*(E)$ is finite, $m^*(O)$ is also finite. By the continuity of measure from below (or the convergence of the sum of lengths), we can find a finite integer $n$ such that the measure of the remaining tail is small. Let $U = \bigcup_{i=1}^n U_i$. Then $O \setminus U \subset \bigcup_{i=n+1}^\infty U_i$, and we can choose $n$ large enough so that:
+Since $m^\ast(E)$ is finite, $m^\ast(O)$ is also finite. By the continuity of measure from below (or the convergence of the sum of lengths), we can find a finite integer $n$ such that the measure of the remaining tail is small. Let $U = \bigcup_{i=1}^n U_i$. Then $O \setminus U \subset \bigcup_{i=n+1}^\infty U_i$, and we can choose $n$ large enough so that:
 
 $$m^*(O \setminus U) < \frac{\varepsilon}{2}$$
 
@@ -1750,8 +2060,8 @@ $$m^*(U \Delta E) = m^*((U \setminus E) \cup (E \setminus U)) \le m^*(U \setminu
 
 We bound each term separately:
 
-* Since $U \subset O$, we have $U \setminus E \subset O \setminus E$. Thus, $m^*(U \setminus E) \le m^*(O \setminus E) < \frac{\varepsilon}{2}$.
-* Since $E \subset O$, any element in $E$ that is not in $U$ must be in $O$ but not in $U$. Thus, $E \setminus U \subset O \setminus U$. This gives $m^*(E \setminus U) \le m^*(O \setminus U) < \frac{\varepsilon}{2}$.
+* Since $U \subset O$, we have $U \setminus E \subset O \setminus E$. Thus, $m^\ast(U \setminus E) \le m^\ast(O \setminus E) < \frac{\varepsilon}{2}$.
+* Since $E \subset O$, any element in $E$ that is not in $U$ must be in $O$ but not in $U$. Thus, $E \setminus U \subset O \setminus U$. This gives $m^\ast(E \setminus U) \le m^\ast(O \setminus U) < \frac{\varepsilon}{2}$.
 
 Summing these bounds gives the final result:
 
@@ -1826,7 +2136,7 @@ Let $A \subset \mathbb{R}$ be an arbitrary test set. Since $E$ is assumed to be 
 
 $$m^*(A-x) = m^*((A-x) \cap E) + m^*((A-x) \cap E^c)$$
 
-Because the Lebesgue outer measure is translation-invariant, we immediately know $m^*(A-x) = m^*(A)$.
+Because the Lebesgue outer measure is translation-invariant, we immediately know $m^\ast(A-x) = m^\ast(A)$.
 
 Next, we express the intersections on the right-hand side as global translations of sets. A point $y$ belongs to $(A-x) \cap E$ if and only if $y \in A-x$ and $y \in E$. This is equivalent to stating $y+x \in A$ and $y+x \in E+x$. Thus, we can factor the translation out of the intersection:
 
@@ -3777,7 +4087,7 @@ Consequently, the sequence of integrals is increasing, and therefore its extende
 
 $$L:=\lim_{n\to\infty}\int_E f_n =\sup_{n\in\mathbb N}\int_E f_n.$$
 
-**The easy inequality is (L\le \int_E f).**
+**The easy inequality is $L\le \int_E f$.**
 
 Because $f_n\le f$ for every $n$, monotonicity gives
 
@@ -3827,7 +4137,7 @@ If $\phi(x)=0$, then
 
 $$f_n(x)\ge0=c\phi(x),$$
 
-so $x\in E_$n for every $n$.
+so $x\in E_n$ for every $n$.
 
 If $\phi(x)>0$, then because $c<1$,
 
@@ -3891,7 +4201,7 @@ Thus every actual simple test function $\phi\le f$, not merely its lowered versi
 
 Finally, take the supremum over all nonnegative simple functions $\phi\le f$:
 
-$$\int_E f = \sup_{\substack{\phi\text{ simple}\0\le\phi\le f}} \int_E\phi \le L.$$
+$$\int_E f = \sup_{\substack{\phi\text{ simple}\ 0\le\phi\le f}} \int_E\phi \le L.$$
 
 Combined with the earlier inequality $L\le\int_E f$, this yields
 
@@ -4158,11 +4468,7 @@ Let
 
 $$E_n=f^{-1}([-n,n]), \qquad h_n=f\chi_{E_n}.$$
 
-Each $E_n$ is measurable, hence $h_n$ is measurable, and
-
-$$|h_n|\le n,$$
-
-so $h_n$ is bounded.
+Each $E_n$ is measurable, hence $h_n$ is measurable, and $\lvert h_n\rvert\le n$, so $h_n$ is bounded.
 
 Define exactly the function we discussed:
 
@@ -4176,31 +4482,13 @@ Hence $x\in E_n$ for every $n\ge N$, and therefore
 
 $$g_n(x)=|f(x)-h_n(x)|=0$$
 
-for every sufficiently large $n$. Thus
+for every sufficiently large $n$. Thus $g_n(x)\to 0$ pointwise. Also, $g_n(x)\le \lvert f(x)\rvert$.
 
-$$g_n(x)\to 0$$
-
-pointwise.
-
-Also,
-
-$$g_n(x)\le |f(x)|.$$
-
-Indeed, on $E_n$,
-
-$$g_n=0,$$
-
-while on $E_n^c$,
-
-$$g_n=|f-0|=|f|.$$
-
-Since $f$ is Lebesgue integrable,
-
-$$|f|\in L^1.$$
+Since $f$ is Lebesgue integrable, $\lvert f\rvert\in L^1$.
 
 Therefore DCT gives
 
-$$\lim_{n\to\infty}\int_a^b g_n(x),dx = \int_a^b0,dx = 0.$$
+$$\lim_{n\to\infty}\int_a^b g_n(x)dx = \int_a^b0dx = 0.$$
 
 That is,
 
@@ -4595,7 +4883,8 @@ $$\lVert f \rVert_{L^\infty(E)} = \inf \lbrace M > 0 : m(\lbrace x \in E : \lver
 <div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Proposition 129</span></p>
 
-If $f : E \to \mathbb{C}$ is measurable, then $\lvert f(x) \rvert \le \lVert f \rVert_{L^\infty(E)}$ almost everywhere on $E$. Also, if $E = [a, b]$ is a closed interval and $f \in C([a, b])$, then $\lVert f \rVert_{L^\infty([a,b])} = \lVert f \rVert_\infty$ is the usual sup norm on bounded continuous functions.
+* If $f : E \to \mathbb{C}$ is measurable, then $\lvert f(x) \rvert \le \lVert f \rVert_{L^\infty(E)}$ almost everywhere on $E$.
+* If $E = [a, b]$ is a closed interval and $f \in C([a, b])$, then $\lVert f \rVert_{L^\infty([a,b])} = \lVert f \rVert_\infty$ is the usual sup norm on bounded continuous functions.
 
 </div>
 
@@ -4634,7 +4923,16 @@ where we consider two elements $f, g$ of $L^p(E)$ to be equivalent (the same) if
 
 </div>
 
-We need the equivalence relation to make the $L^p$ norms actually norms: the space is really a space of equivalence classes $[f] = \lbrace g : E \to \mathbb{C} : \lVert g \rVert_p < \infty \text{ and } g = f \text{ a.e.} \rbrace$, rather than functions. But we still refer to elements as functions (as is custom in mathematics).
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span>($L^p$ Space as a space of equivalence classes)</p>
+
+We need the equivalence relation to make the $L^p$ norms actually norms: the space is really a space of equivalence classes 
+
+$$[f] = \lbrace g : E \to \mathbb{C} : \lVert g \rVert_p < \infty \text{ and } g = f \text{ a.e.} \rbrace$$
+
+rather than functions. But we still refer to elements as functions (as is custom in mathematics).
+
+</div>
 
 <div class="math-callout math-callout--remark" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Remark 134</span></p>
@@ -4663,9 +4961,9 @@ The space $L^p(E)$ with pointwise addition and natural scalar multiplication ope
 <div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Proposition 136</span></p>
 
-Let $E \subset \mathbb{R}$ be measurable. Then $f \in L^p(E)$ if and only if
+Let $E \subset \mathbb{R}$ be measurable.
 
-$$\lim_{n \to \infty} \int_{[-n,n] \cap E} \lvert f \rvert^p < \infty.$$
+$$f \in L^p(E) \quad \iff \quad \lim_{n \to \infty} \int_{[-n,n] \cap E} \lvert f \rvert^p < \infty.$$
 
 </div>
 
@@ -4696,6 +4994,15 @@ Let $a < b$ and $1 \le p < \infty$ so that $f \in L^p([a, b])$, and take some $\
 
 In other words, the space of continuous functions $C([a, b])$ is dense in $L^p([a, b])$, and it is a proper subset because we can find elements in $L^p$ that are not continuous.
 
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span>(Approximation Theorem: Density of Step and Compactly Supported Continuous Functions in $L^p$)</p>
+
+Let $a<b$, $1\le p<\infty$, and $f\in L^p([a,b])$. For all $\epsilon>0$ there exist a step function $\psi\in L^p([a,b])$ and $g\in C([a,b])$ with $g(a)=g(b)=0$ such that
+
+$$\|f-\psi\|_p+\|f-g\|_p<\epsilon.$$
+
+</div>
+
 ### Riesz–Fischer Theorem
 
 <div class="math-callout math-callout--theorem" markdown="1">
@@ -4709,11 +5016,20 @@ $$L^p(E) \quad\text{is a Banach space.}$$
 
 <div class="accordion">
   <details>
-    <summary>proof (for finite $p$)</summary>
+    <summary>Proof for finite $p$</summary>
     <p>Recall that a normed space is Banach if and only if every absolutely summable series is summable. Suppose $\lbrace f_k \rbrace$ is a sequence in $L^p(E)$ with $\sum_k \lVert f_k \rVert_p = M < \infty$.</p>
     <p>Define $g_n(x) = \sum_{k=1}^{n} \lvert f_k(x) \rvert$. By the triangle inequality, $\lVert g_n \rVert_p \le \sum_{k=1}^{n} \lVert f_k \rVert_p \le M$. By Fatou's lemma, $\int_E \left( \sum_{k=1}^{\infty} \lvert f_k \rvert \right)^p \le M^p < \infty$, so $\sum_k \lvert f_k(x) \rvert$ is finite a.e.</p>
     <p>Define $f(x) = \sum_k f_k(x)$ where the sum converges absolutely, and $f(x) = 0$ otherwise. Then $\lvert \sum_{k=1}^{n} f_k(x) - f(x) \rvert^p \to 0$ a.e. and $\lvert \sum_{k=1}^{n} f_k - f \rvert^p \le \lvert g \rvert^p$ a.e. where $g = \sum_k \lvert f_k \rvert$ satisfies $\lVert g \rVert_p \le M$ and $\int_E \lvert g \rvert^p < \infty$. By the Dominated Convergence Theorem, $\lim_{n \to \infty} \int_E \lvert \sum_{k=1}^{n} f_k - f \rvert^p = 0$, so $L^p$ is indeed a Banach space. $\square$</p>
   </details>
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Proof for $p=\infty$</summary>
+
+TODO: assignment 7, exercise 2(a).
+
+</details>
 </div>
 
 Since $C([a, b])$ is dense in $L^p([a, b])$ and the latter is a Banach space, we can think of the $L^p$ space as a **completion** of the continuous functions.
@@ -4964,7 +5280,118 @@ The example $\lbrace \underline{e}\_n \rbrace$ of sequences from above is a maxi
 
 </div>
 
-A countably infinite maximal orthonormal subset basically serves the same purpose as an orthonormal basis does in linear algebra, but not every element will be a **finite** linear combination of the orthonormal subset elements (like was possible with a Hamel basis).
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span></p>
+
+A **countably infinite maximal orthonormal subset** basically serves the same purpose as an **orthonormal basis** does in linear algebra, but not every element will be a **finite** linear combination of the orthonormal subset elements (like was possible with a Hamel basis).
+
+</div>
+
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span>(Hamel Basis)</p>
+
+A **Hamel basis** of a vector space \(V\) over a field \(\mathbb F\) is a subset \(B\subseteq V\) such that:
+
+1. \(B\) is **linearly independent**, and
+2. every \(v\in V\) can be written as a **finite** linear combination of elements of \(B\).
+
+Equivalently, for every \(v\in V\), there exist unique \(b_1,\dots,b_n\in B\) and scalars \(a_1,\dots,a_n\in\mathbb F\) such that
+
+$$
+v=\sum_{k=1}^n a_k b_k.
+$$
+
+The word **finite** is crucial.
+
+</div>
+
+<div class="math-callout math-callout--question" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Example</span>(Standard vectors is not Hamel Basis in infinite-dimensional Banach Spaces)</p>
+
+For example, in an infinite-dimensional Banach space such as \(\ell^2\), the standard vectors \(e_1,e_2,\dots\) are not a Hamel basis, because a general element
+
+$$x=(x_1,x_2,\dots)$$
+
+requires an infinite series
+
+$$x=\sum_{n=1}^\infty x_n e_n.$$
+
+They form instead a **Schauder basis**.
+
+So a Hamel basis is the purely algebraic notion of basis, with no topology or convergence involved.
+
+</div>
+
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span>(Schauder Basis)</p>
+
+A **Schauder basis** of a normed space \(X\) is a sequence \((e_n)_{n\ge 1}\subset X\) such that every \(x\in X\) can be written uniquely as a convergent infinite series
+
+$$
+x=\sum_{n=1}^\infty a_n e_n,
+$$
+
+where convergence is with respect to the norm of \(X\). Equivalently,
+
+$$
+\left\|x-\sum_{n=1}^N a_n e_n\right\|\to 0
+\qquad\text{as }N\to\infty.
+$$
+
+The coefficients \(a_n\) are uniquely determined by \(x\).
+
+The key difference from a Hamel basis is:
+
+* **Hamel basis:** finite linear combinations only.
+* **Schauder basis:** infinite norm-convergent series are allowed.
+
+For example, in \(\ell^2\), the standard unit vectors
+
+$$
+e_1=(1,0,0,\dots),\quad e_2=(0,1,0,\dots),\dots
+$$
+
+form a Schauder basis, because every \(x=(x_1,x_2,\dots)\in\ell^2\) satisfies
+
+$$
+x=\sum_{n=1}^\infty x_n e_n
+$$
+
+in the \(\ell^2\)-norm.
+
+One subtle point: not every separable Banach space has a Schauder basis. Separability only guarantees the existence of a countable dense set, which is much weaker.
+
+
+</div>
+
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span>(Separable Space)</p>
+
+A topological space $X$ is called **separable** if it contains a **countable dense subset**.
+
+That is, there exists a countable set
+
+$$D=\lbrace x_1,x_2,\dots\rbrace\subseteq X$$
+
+such that
+
+$$\overline{D}=X.$$
+
+For a metric space, this means that for every $x\in X$ and every $\varepsilon>0$, there exists some $d\in D$ such that
+
+$$d(x,d)<\varepsilon.$$
+
+So intuitively, a separable space may be uncountable, but it can be approximated arbitrarily well using only countably many points.
+
+</div>
+
+<div class="math-callout math-callout--question" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Example</span>(Separable Space)</p>
+
+* $\mathbb R$ is separable because $\mathbb Q$ is countable and dense in $\mathbb R$.
+* $\ell^2$ is separable because sequences with finite support and rational coordinates form a countable dense subset.
+
+</div>
 
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem 159</span></p>
@@ -5171,7 +5598,11 @@ For all $f \in L^2([-\pi, \pi])$, we have
 
 $$\sigma_N f(x) = \int_{-\pi}^{\pi} K_N(x - t) f(t)\,dt, \quad K_N(x) = \begin{cases} \frac{N+1}{2\pi} & x = 0, \\[6pt] \frac{1}{2\pi(N+1)} \left( \frac{\sin\left(\frac{N+1}{2} x\right)}{\sin \frac{x}{2}} \right)^2 & \text{otherwise}. \end{cases}$$
 
-The function $K_N(x)$ is called the **Fejér kernel**. It has the following properties: **(1)** $K_N(x) \ge 0$ and $K_N(x) = K_N(-x)$ for all $x$, **(2)** $K_N$ is periodic with period $2\pi$, **(3)** $\int_{-\infty}^{\infty} K_N(t)\,dt = 1$, and **(4)** for any $\delta \in (0, \pi)$ and for all $\delta \le \lvert x \rvert \le \pi$, we have $\lvert K_N(x) \rvert \le \frac{1}{2\pi(N+1) \sin^2 \frac{\delta}{2}}$.
+The function $K_N(x)$ is called the **Fejér kernel**. It has the following properties: 
+* **(1)** $K_N(x) \ge 0$ and $K_N(x) = K_N(-x)$ for all $x$, 
+* **(2)** $K_N$ is periodic with period $2\pi$, 
+* **(3)** $\int_{-\infty}^{\infty} K_N(t)\,dt = 1$, 
+* **(4)** for any $\delta \in (0, \pi)$ and for all $\delta \le \lvert x \rvert \le \pi$, we have $\lvert K_N(x) \rvert \le \frac{1}{2\pi(N+1) \sin^2 \frac{\delta}{2}}$.
 
 </div>
 
@@ -5549,7 +5980,7 @@ By the Pigeonhole Principle, all finite subsets are compact.
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem 192</span><span class="math-callout__name">(Heine–Borel)</span></p>
 
-A subset $K \subset \mathbb{R}$ (also $\mathbb{R}^n$ and $\mathbb{C}^n$) is compact if and only if $K$ is closed and bounded.
+A subset $K \subset \mathbb{R}$ (also $\mathbb{R}^n$ and $\mathbb{C}^n$) is compact $\iff$ $K$ is closed and bounded.
 
 </div>
 
