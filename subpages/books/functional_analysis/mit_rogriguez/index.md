@@ -1256,11 +1256,9 @@ Despite the name, this theorem has nothing to do with category theory. A powerfu
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Banach–Steinhaus Theorem: Uniform Boundedness Principle)</span></p>
 
-Let $B$ be a Banach space, and let $\lbrace T_n \rbrace$ be a sequence in $\mathcal{B}(B, V)$ (linear operators from $B$ into some normed space $V$). If for all $b \in B$ we have $\sup_n \lVert T_n b \rVert < \infty$ (pointwise boundedness), then 
+Let $B$ be a Banach space, $V$ be any normed space, and let $\lbrace T_n \rbrace$ be a sequence in $\mathcal{B}(B, V)$. If for all $b \in B$ we have $\sup_n \lVert T_n b \rVert < \infty$ (pointwise boundedness), then $\sup_n \lVert T_n \rVert < \infty$:
 
-$$\sup_n \lVert T_n \rVert < \infty$$ 
-
-(the operator norms are bounded).
+$$\forall b\in B: \ \sup_n \lVert T_n b \rVert < \infty \quad \implies \quad \sup_n \lVert T_n \rVert < \infty$$
 
 </div>
 
@@ -1287,7 +1285,7 @@ Let $B_1, B_2$ be two Banach spaces, and let $T \in \mathcal{B}(B_1, B_2)$ be a 
 <div class="accordion">
   <details>
     <summary>proof</summary>
-    <p>We first prove a specialized result: the image of the open unit ball $B_1(0, 1) = \lbrace b \in B_1 : \lVert b \rVert < 1 \rbrace$ contains an open ball in $B_2$ centered at 0.</p>
+    <p>We first prove a specialized result: the image of the open unit ball $B_1(0, 1) = \lbrace b \in B_1 : \lVert b \rVert < 1 \rbrace$ contains an open ball in $B_2$ centered at $0$.</p>
     <p><strong>Step 1: The closure $\overline{T(B(0, 1))}$ contains an open ball.</strong> Since $T$ is surjective, $B_2 = \bigcup_{n \in \mathbb{N}} \overline{T(B(0, n))}$. By Baire's theorem, some $\overline{T(B(0, n_0))}$ contains an open ball. By linearity, this is the same as $n_0 \overline{T(B(0, 1))}$, so $\overline{T(B(0, 1))}$ itself contains an open ball. Restated, there exist $v_0 \in B_2$ and $r > 0$ such that $B(v_0, 4r) \subset \overline{T(B(0, 1))}$.</p>
     <p><strong>Step 2: Show $B(0, r) \subset \overline{T(B(0, 1))}$.</strong> Pick $v_1 = Tu_1 \in T(B(0, 1))$ with $\lVert v_0 - v_1 \rVert < 2r$. Then $B(v_1, 2r) \subset B(v_0, 4r) \subset \overline{T(B(0, 1))}$. For any $\lVert v \rVert < r$, the element $\frac{1}{2}(2v + v_1)$ is in $\frac{1}{2}B(v_1, 2r) = \frac{1}{2}\overline{T(B(0, 1))}$. By linearity this equals $-T(u_1/2) + \overline{T(B(0, 1/2))}$, and since $u_1$ has norm less than 1, this set is contained in $\overline{T(B(0, 1))}$.</p>
     <p><strong>Step 3: Show $B(0, r) \subset T(B(0, 1))$.</strong> Take any $v \in B(0, r/2)$. By the closure property (with $n = 1$), there exists $b_1 \in B(0, 1/2)$ in $B_1$ with $\lVert v - Tb_1 \rVert < r/4$. Taking $n = 2$, there exists $b_2 \in B(0, 1/4)$ with $\lVert v - Tb_1 - Tb_2 \rVert < r/8$. Iterating, we get $\lbrace b_k \rbrace$ with $\lVert b_k \rVert < 2^{-k}$ and $\lVert v - \sum_{k=1}^{n} Tb_k \rVert < 2^{-n-1}r$. The series $\sum b_k$ is absolutely summable, so $b = \sum_{k=1}^{\infty} b_k$ converges in $B_1$ with $\lVert b \rVert < \sum 2^{-k} = 1$. Since $T$ is continuous, $Tb = \sum Tb_k = v$. So $v \in T(B(0, 1))$.</p>
@@ -1426,19 +1424,38 @@ In infinite-dimensional spaces, things get incredibly complicated and intuition 
 ### Zorn's Lemma and Hamel Bases
 
 <div class="math-callout math-callout--definition" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Partial Order)</span></p>
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Partial Order, Upper Bound, Maximal Element)</span></p>
 
-A **partial order** on a set $E$ is a relation $\preceq$ on $E$ with the following properties:
-
-* Reflexivity: $e \preceq e$ for all $e \in E$.
-* Antisymmetry: if $e \preceq f$ and $f \preceq e$, then $e = f$.
-* Transitivity: if $e \preceq f$ and $f \preceq g$, then $e \preceq g$.
-
-An **upper bound** of a set $D \subset E$ is an element $e \in E$ with $d \preceq e$ for all $d \in D$. A **maximal element** of $E$ is an element $e$ such that $e \preceq f \implies e = f$.
+* A **partial order** on a set $E$ is a relation $\preceq$ on $E$ with the following properties:
+  * Reflexivity: $e \preceq e$ for all $e \in E$.
+  * Antisymmetry: if $e \preceq f$ and $f \preceq e$, then $e = f$.
+  * Transitivity: if $e \preceq f$ and $f \preceq g$, then $e \preceq g$.
+* An **upper bound** of a set $D \subset E$ is an element $e \in E$ with $d \preceq e$ for all $d \in D$. 
+* A **greatest element** of $E$ is an upper bound $e$ of $E and $e\in E$.
+* A **maximal element** of $E$ is an element $e$ such that $e \preceq f \implies e = f$.
 
 </div>
 
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Upper Bound vs. Maximal Element vs. Greatest Element)</span></p>
+
 Notably, in a partial ordering a maximal element does not need to sit "on top" of everything — there can be incomparable elements "to the side."
+
+* **Can we have two upper bounds?**
+  * Yes. A set $D \subset E$ can have multiple distinct upper bounds. If $e_1$ and $e_2$ are upper bounds of $D$, then
+
+    $$d \preceq e_1 \quad\text{and}\quad d \preceq e_2 \qquad \forall d \in D,$$
+
+    but this does not imply that $e_1$ and $e_2$ are comparable. Even if they are comparable, they need not be equal.
+* **Can we have two upper greatest elements?**
+  * No, for two different greatest elements $e_1 \neq e_2: d \preceq e_1 \land d \preceq e_2 \forall d \in E \implies e_2 \preceq e_1 \land e_1 \preceq e_2$, but anyisymetry implies $e_1 = e_2$.
+* **Can we have two maximal elements?**
+  * Yes. Distinct maximal elements can coexist. They must be incomparable: if $e_1$ and $e_2$ are maximal and $e_1 \preceq e_2$, then maximality of $e_1$ implies $e_1=e_2$.
+* **Can an upper bound and a different maximal element coexist?**
+  * Yes. Being an upper bound is a property relative to a subset $D \subset E$, whereas being maximal is a property relative to the whole partially ordered set $E$. An upper bound of $D$ need not be maximal in $E$, and a maximal element of $E$ need not be an upper bound of $D$.
+  * In the special case $D=E$, an upper bound of $E$ is called a **greatest element**. A greatest element is necessarily maximal and, if it exists, is unique. Conversely, a maximal element need not be a greatest element.
+
+</div>
 
 <div class="math-callout math-callout--question" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Partial Order on Powerset)</span></p>
@@ -1473,7 +1490,7 @@ Let $V$ be a vector space. A **Hamel basis** $H \subset V$ is a linearly indepen
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Existence of Hamel Bases)</span></p>
 
-If $V$ is a vector space, then it has a Hamel basis.
+Every vector space $V$ has a Hamel basis.
 
 </div>
 
@@ -1540,7 +1557,9 @@ with $u'\vert_M = u$ and $\lvert u'(t') \rvert \le C \lVert t' \rVert$ for all $
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Existence of Norm-Achieving Functionals)</span></p>
 
-Let $V$ be a normed space. For all $v \in V \setminus \lbrace 0 \rbrace$, there exists $f \in V'$ with $\lVert f \rVert = 1$ and $f(v) = \lVert v \rVert$.
+Let $V$ be a normed space.
+
+$$\forall v \in V \setminus \lbrace 0 \rbrace \ \exists f \in V': \lVert f \rVert = 1 \ \land \ f(v) = \lVert v \rVert$$.
 
 </div>
 
@@ -1591,7 +1610,9 @@ Fix $v \in V$ and define $T_v : V' \to \mathbb{C}$ by $T_v(v') = v'(v)$ for all 
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Isometric Operator)</span></p>
 
-A bounded linear operator $T \in \mathcal{B}(V, W)$ is **isometric** if for all $v \in V$, $\lVert Tv \rVert = \lVert v \rVert$.
+A bounded linear operator $T \in \mathcal{B}(V, W)$ is **isometric** if for all $v \in V$,
+
+$$\lVert Tv \rVert = \lVert v \rVert.$$
 
 </div>
 
@@ -6053,7 +6074,7 @@ We can also characterize compact sets without reference to an orthonormal basis:
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem 199</span></p>
 
-A subset $K \subset H$ is compact if and only if $K$ is closed, bounded, and for all $\varepsilon > 0$, there exists a finite-dimensional subspace $W \subset H$ so that for all $u \in K$, $\inf_{w \in W} \lVert u - w \rVert < \varepsilon$.
+A subset $K \subset H$ is compact $\iff$ $K$ is closed, bounded, and for all $\varepsilon > 0$, there exists a finite-dimensional subspace $W \subset H$ so that for all $u \in K$, $\inf_{w \in W} \lVert u - w \rVert < \varepsilon$.
 
 </div>
 
