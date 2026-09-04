@@ -1494,22 +1494,55 @@ Every vector space $V$ has a Hamel basis.
 
 </div>
 
-<div class="accordion">
-  <details>
-    <summary>proof</summary>
-    <p>Let $E$ be the set of linearly independent subsets of $V$, ordered by inclusion $\preceq$. If $C$ is a chain in $E$, define $c = \bigcup_{e \in C} e$. We claim $c$ is linearly independent: given $v_1, \dots, v_n \in c$, pick $e_j \in C$ with $v_j \in e_j$. Since $C$ is a chain, there is some $e_J$ containing all the $e_j$, so $v_1, \dots, v_n \in e_J$, which is linearly independent. Thus $c$ is an upper bound for $C$.</p>
-    <p>By Zorn's lemma, $E$ has a maximal element $H$. If $H$ does not span $V$, there exists $v \in V$ not in the span of $H$, so $H \cup \lbrace v \rbrace$ is linearly independent, contradicting maximality. Thus $H$ spans $V$ and is a Hamel basis. $\square$</p>
-  </details>
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>proof</summary>
+
+Let $E$ be the set of linearly independent subsets of $V$, ordered by inclusion $\preceq$. If $C$ is a chain in $E$, define $c = \bigcup_{e \in C} e$. We claim $c$ is linearly independent and thus $c$ is an upper bound for $C$.
+
+By Zorn's lemma, $E$ has a maximal element $H$. If $H$ does not span $V$, there exists $v \in V$ not in the span of $H$, so $H \cup \lbrace v \rbrace$ is linearly independent, contradicting maximality. Thus $H$ spans $V$ and is a Hamel basis. $\square$
+
+</details>
 </div>
 
-### Statement and Proof of Hahn-Banach
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Why is every element a finite combination of vectors from the maximal set?</summary>
+
+The missing point is simply what **“span” means**. By definition,
+
+$$\operatorname{span}(H) = \left\lbrace \sum_{i=1}^n a_i h_i : n\in\mathbb N,\; a_i\in\mathbb F,\; h_i\in H \right\rbrace.$$
+
+So the span contains **only finite linear combinations** of elements of $H$. There is no notion of an infinite linear combination in an arbitrary vector space.
+
+So Zorn's lemma itself does not somehow produce finite representations. Finiteness is already built into the algebraic notion of $\operatorname{span}$. This is precisely what distinguishes a Hamel basis from, say, a Schauder basis in a Banach space, where infinite convergent series are allowed.
+
+</details>
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Hamel Bases can be uncountable)</span></p>
+
+A **Hamel basis can be uncountable**, and for many infinite-dimensional spaces it must be uncountable.
+
+The important distinction is:
+* the basis set $H$ itself may be uncountable;
+* each individual vector $v\in V$ is represented using only finitely many elements of $H$.
+
+For example, a Hamel basis of $\mathbb R$ as a vector space over $\mathbb Q$ is uncountable. Yet every real number is a finite $\mathbb Q$-linear combination of basis elements.
+
+This is one reason Hamel bases in Banach spaces behave very differently from Schauder bases: a Schauder basis is countable and represents vectors by infinite norm-convergent series, whereas a Hamel basis may be huge but uses only finite combinations.
+
+</div>
+
+### Hahn-Banach
 
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Hahn-Banach)</span></p>
 
 Let $V$ be a normed space, and let $M \subset V$ be a subspace. If 
 
-$$u : M \to \mathbb{C} \quad\text{is a linear map with}\quad \lvert u(t) \rvert \le C \lVert t \rVert \quad \forall t \in M,$$
+$$u : M \to \mathbb{C} \quad\text{is a linear map with}\quad \lVert u(t) \rVert \le C \lVert t \rVert \quad \forall t \in M,$$
 
 i.e., $u$ is a bounded linear functional on $M$, then there exists a **continuous extension** $U : V \to \mathbb{C}$ (an element of $V' = \mathcal{B}(V, \mathbb{C})$) such that with the same constant $C$
 
@@ -1522,12 +1555,23 @@ The key intermediate step is extending by one dimension at a time:
 <div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Lemma</span><span class="math-callout__name">(One-Dimensional Extension)</span></p>
 
-Let $V$ be a normed space, $M \subset V$ a subspace, and $u : M \to \mathbb{C}$ linear with $\lvert u(t) \rvert \le C \lVert t \rVert$ for all $t \in M$. If $x \notin M$, then there exists $u' : M' \to \mathbb{C}$ linear on 
+Let $V$ be a normed space, $M \subset V$ a subspace, and $u : M \to \mathbb{C}$ linear with $\lVert u(t) \rVert \le C \lVert t \rVert$ for all $t \in M$. If $x \notin M$, then there exists $u' : M' \to \mathbb{C}$ linear on 
 
 $$M' = M + \mathbb{C}x = \lbrace t + ax : t \in M, a \in \mathbb{C} \rbrace,$$
 
-with $u'\vert_M = u$ and $\lvert u'(t') \rvert \le C \lVert t' \rVert$ for all $t' \in M'$.
+with $u'\vert_M = u$ and $\lVert u'(t') \rVert \le C \lVert t' \rVert$ for all $t' \in M'$.
 
+</div>
+
+<div class="accordion">
+  <details>
+    <summary>proof of the one-dimensional extension lemma</summary>
+    <p>The representation $t' = t + ax$ for $t \in M$, $a \in \mathbb{C}$ is unique (if $t + ax = \tilde{t} + \tilde{a}x$, then $(a - \tilde{a})x = \tilde{t} - t \in M$, which forces $a = \tilde{a}$ since $x \notin M$). Define $u'(t + ax) = u(t) + a\lambda$ for some $\lambda \in \mathbb{C}$ to be chosen. This is clearly linear.</p>
+    <p>If $C = 0$, we use $\lambda = 0$. Otherwise, assume $C = 1$ (by scaling). We need $\lvert u(t) + a\lambda \rvert \le \lVert t + ax \rVert$ for all $t \in M$, $a \in \mathbb{C}$. For $a \ne 0$, dividing by $\lvert a \rvert$ gives $\lvert u(t/(-a)) - \lambda \rvert \le \lVert t/(-a) - x \rVert$.</p>
+    <p><strong>Choosing $\lambda$ (real part).</strong> Let $w(t) = \frac{u(t) + \overline{u(t)}}{2}$ be the real part. Since $w$ is real-valued and $\lvert w(t) \rvert \le \lVert t \rVert$, we get $w(t_1) - w(t_2) = w(t_1 - t_2) \le \lVert t_1 - t_2 \rVert \le \lVert t_1 - x \rVert + \lVert t_2 - x \rVert$. Thus</p>
+    $$\sup_{t \in M} (w(t) - \lVert t - x \rVert) \le \inf_{t \in M} (w(t) + \lVert t - x \rVert).$$
+    <p>Choose $\alpha \in \mathbb{R}$ between these bounds. Then $\lvert w(t) - \alpha \rvert \le \lVert t - x \rVert$ for all $t \in M$. Repeat the argument with $ix$ instead of $x$ to choose the imaginary part. This defines $u'$ on $M + \mathbb{C}x$ with the desired bound. $\square$</p>
+  </details>
 </div>
 
 <div class="accordion">
@@ -1538,17 +1582,6 @@ with $u'\vert_M = u$ and $\lvert u'(t') \rvert \le C \lVert t' \rVert$ for all $
     <p>with partial order $(v_1, N_1) \preceq (v_2, N_2)$ if $N_1 \subset N_2$ and $v_2\vert_{N_1} = v_1$. This is nonempty (it contains $(u, M)$).</p>
     <p>For any chain $C = \lbrace (v_i, N_i) : i \in I \rbrace$, define $N = \bigcup_{i \in I} N_i$. This is a subspace, and we define $v : N \to \mathbb{C}$ by $v(t) = v_i(t)$ for any $i$ with $t \in N_i$ (well-defined because $C$ is a chain). Then $(v, N)$ is an upper bound. By Zorn's lemma, $E$ has a maximal element $(U, N)$.</p>
     <p>If $N \ne V$, there exists $x \in V \setminus N$, and the one-dimensional extension lemma gives a continuous extension of $U$ to $N + \mathbb{C}x$, contradicting maximality. So $N = V$. $\square$</p>
-  </details>
-</div>
-
-<div class="accordion">
-  <details>
-    <summary>proof of the one-dimensional extension lemma</summary>
-    <p>The representation $t' = t + ax$ for $t \in M$, $a \in \mathbb{C}$ is unique (if $t + ax = \tilde{t} + \tilde{a}x$, then $(a - \tilde{a})x = \tilde{t} - t \in M$, which forces $a = \tilde{a}$ since $x \notin M$). Define $u'(t + ax) = u(t) + a\lambda$ for some $\lambda \in \mathbb{C}$ to be chosen. This is clearly linear.</p>
-    <p>If $C = 0$, we use $\lambda = 0$. Otherwise, assume $C = 1$ (by scaling). We need $\lvert u(t) + a\lambda \rvert \le \lVert t + ax \rVert$ for all $t \in M$, $a \in \mathbb{C}$. For $a \ne 0$, dividing by $\lvert a \rvert$ gives $\lvert u(t/(-a)) - \lambda \rvert \le \lVert t/(-a) - x \rVert$.</p>
-    <p><strong>Choosing $\lambda$ (real part).</strong> Let $w(t) = \frac{u(t) + \overline{u(t)}}{2}$ be the real part. Since $w$ is real-valued and $\lvert w(t) \rvert \le \lVert t \rVert$, we get $w(t_1) - w(t_2) = w(t_1 - t_2) \le \lVert t_1 - t_2 \rVert \le \lVert t_1 - x \rVert + \lVert t_2 - x \rVert$. Thus</p>
-    $$\sup_{t \in M} w(t) - \lVert t - x \rVert \le \inf_{t \in M} w(t) + \lVert t - x \rVert.$$
-    <p>Choose $\alpha \in \mathbb{R}$ between these bounds. Then $\lvert w(t) - \alpha \rvert \le \lVert t - x \rVert$ for all $t \in M$. Repeat the argument with $ix$ instead of $x$ to choose the imaginary part. This defines $u'$ on $M + \mathbb{C}x$ with the desired bound. $\square$</p>
   </details>
 </div>
 
@@ -1568,6 +1601,207 @@ $$\forall v \in V \setminus \lbrace 0 \rbrace \ \exists f \in V': \lVert f \rVer
     <summary>proof</summary>
     <p>Define $u : \mathbb{C}v \to \mathbb{C}$ by $u(\lambda v) = \lambda \lVert v \rVert$. Then $\lvert u(t) \rvert \le \lVert t \rVert$ for all $t \in \mathbb{C}v$, and $u(v) = \lVert v \rVert$. By Hahn-Banach, extend $u$ to $f \in V'$ with $\lVert f(t) \rVert \le \lVert t \rVert$ for all $t \in V$. So $\lVert f \rVert \le 1$, and since $f(v) = \lVert v \rVert$, applying $f$ to $v / \lVert v \rVert$ gives $f(v/\lVert v \rVert) = 1$, so $\lVert f \rVert = 1$. $\square$</p>
   </details>
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Altenrative form of the theorem on Existence of Norm-Achieving Functionals)</span></p>
+
+If $F$ is a closed subspace of $E$, then for all $y^\ast \in F^\ast$ there exists an $x^\ast \in E^\ast$ such that $x^\ast\mid\_F = y^\ast$ and $\lVert x^\ast\rVert = \lVert y^\ast\rVert$. This easily implies that for all $x \in E$ we have
+
+$$\|x\| = \sup_{\|x^*\|\le 1} |\langle x,x^*\rangle|,$$
+
+where by convention is $x^\ast$ is an element of the dual space and $x^\ast(x) = \lvert\langle x,x^\ast\rangle\rvert$.
+
+</div>
+
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Norming linear subspace)</span></p>
+
+A linear subspace $F$ of $E^\ast$ is called **norming** for a subset $S$ of $E$ if for all $x \in S$ we have
+
+$$\|x\| = \sup_{\substack{x^*\in F\\ \|x^*\|\le 1}} |\langle x,x^*\rangle|.$$
+
+A subspace of $E^\ast$ which is norming for $E$ is simply called **norming**. The following lemma will be used frequently.
+
+</div>
+
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Dense Sequence)</span></p>
+
+A **dense sequence** in a metric/normed space $E_0$ is a sequence $(x_n)\_{n=1}^\infty$ whose set of values is dense in $E_0$:
+
+$$\overline{\lbrace x_n:n\ge 1\rbrace}=E_0.$$
+
+Equivalently, for every $x\in E_0$ and every $\varepsilon>0$, there exists some $n$ such that
+
+$$\|x-x_n\|<\varepsilon.$$
+
+So the sequence gets arbitrarily close to every point of the space.
+
+</div>
+
+<div class="math-callout math-callout--question" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Dense Sequence)</span></p>
+
+$\mathbb Q\cap[0,1]$ can be enumerated as a sequence $(q_n)$, and that sequence is dense in $[0,1]$.
+
+</div>
+
+In the lemma below, separability of $E_0$ is used exactly here: by definition, a separable metric space has a countable dense subset, which we can enumerate as a sequence $(x_n)$.
+
+<div class="math-callout math-callout--lemma" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Lemma</span><span class="math-callout__name">(Countable Norming Reduction)</span></p>
+
+If $E_0$ is a separable subspace of $E$ and $F$ is a linear subspace of $E^\ast$ which is norming for $E_0$, then $F$ contains a sequence of unit vectors that is norming for $E_0$.
+
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>proof</summary>
+
+Choose a dense sequence $(x_n)\_{n=1}^\infty$ in $E_0$ and choose a sequence of unit vectors $(x_n^\ast)\_{n=1}^\infty$ in $F$ such that
+
+$$|\langle x_n,x_n^*\rangle|\ge(1-\varepsilon_n)\|x_n\|$$
+
+for all $n\ge 1$, where the numbers $0<\varepsilon_n\le 1$ satisfy
+
+$$\lim_{n\to\infty}\varepsilon_n=0.$$
+
+The sequence $(x_n^\ast)\_{n=1}^\infty$ is norming for $E_0$. To see this, fix an arbitrary $x\in E_0$ and let $\delta>0$. Pick $n_0\ge 1$ such that
+
+$$0<\varepsilon_{n_0}\le\delta\qquad\text{and}\qquad\|x-x_{n_0}\|\le\delta.$$
+
+Then,
+
+$$
+\begin{aligned}
+(1-\delta)\|x\|
+&\le
+(1-\varepsilon_{n_0})\|x\| \\
+&\le
+(1-\varepsilon_{n_0})\|x_{n_0}\|
++
+(1-\varepsilon_{n_0})\delta \\
+&\le
+|\langle x_{n_0},x_{n_0}^*\rangle|
++
+\delta \\
+&\le
+|\langle x,x_{n_0}^*\rangle|
++
+2\delta.
+\end{aligned}
+$$
+
+Since $\delta>0$ was arbitrary it follows that
+
+$$\|x\|\le\sup_{n\ge 1}|\langle x,x_n^*\rangle|.$$
+
+</details>
+</div>
+
+A linear subspace $F$ of $E^\ast$ is said to **separate the points** of a subset $S$ of $E$ if for every pair $x,y\in S$ with $x \neq y$ there exists an $x^\ast \in F$ with $\langle x,x^\ast\rangle \neq \langle y,x^\ast\rangle$. Clearly, norming subspaces separate points, but the converse need not be true.
+
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Lindelöf Property)</span></p>
+
+A metric space $X = (X, d)$ is said to be **Lindelöf** or to have the **Lindelöf property** if every cover of $X$ has a countable subcover.
+
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Separability, Countable Basis, Lindelöf)</span></p>
+
+The following statements about a metric space $X$ are equivalent.
+
+1. $X$ is separable.
+2. $X$ has a countable basis.
+3. $X$ has the Lindelöf property.
+
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Proof</summary>
+
+**(1)$\Rightarrow$(2):** Let $X$ be separable and let $M$ be a countable dense subset. Set
+
+$$\mathcal{B} = \lbrace \Omega(m, r) \mid m \in M,\; r \text{ rational} \rbrace.$$
+
+$\mathcal{B}$ is obviously countable; we show it is a basis. Let $U$ be open and let $x \in U$. Then there is an $\varepsilon > 0$ such that $\Omega(x, \varepsilon) \subseteq U$. Choose an $m\_x \in M$ and a rational $r\_x$ such that $d(x, m\_x) < \tfrac{1}{3}\varepsilon$ and $\tfrac{1}{3}\varepsilon < r\_x < \tfrac{2}{3}\varepsilon$. Then
+
+$$x \in \Omega(m_x, r_x) \subseteq \Omega(x, \varepsilon) \subseteq U.$$
+
+Indeed, $x \in \Omega(m\_x, r\_x)$ trivially and if $y \in \Omega(m\_x, r\_x)$ then $d(x, y) \le d(x, m\_x) + d(m\_x, y) < \tfrac{1}{3}\varepsilon + \tfrac{2}{3}\varepsilon = \varepsilon$. Thus $U = \bigcup \lbrace \Omega(m\_x, r\_x) \mid x \in U \rbrace$.
+
+**(2)$\Rightarrow$(3):** Let $\mathcal{B}$ be a countable basis and let $\mathcal{U}$ be a cover of $X$. Since $U = \bigcup \lbrace B \mid B \in \mathcal{B},\; B \subseteq U \rbrace$ for each $U \in \mathcal{U}$ we have
+
+$$X = \bigcup \lbrace B \in \mathcal{B} \mid \exists U_B \supseteq B,\; U_B \in U \rbrace.$$
+
+The cover $\mathcal{A} = \lbrace B \in \mathcal{B} \mid \exists U\_B \supseteq B,\; U\_B \in U \rbrace$ is countable and hence so is also the cover $\mathcal{V} = \lbrace U\_B \mid B \in \mathcal{A} \rbrace$.
+
+**(3)$\Rightarrow$(1):** Let $X$ be Lindelöf. For covers $\mathcal{U}\_n = \lbrace \Omega(x, \tfrac{1}{n}) \mid x \in X \rbrace$, choose countable subcovers
+
+$$\Omega(x_{n1}, \tfrac{1}{n}),\; \Omega(x_{n2}, \tfrac{1}{n}),\; \dots,\; \Omega(x_{nk}, \tfrac{1}{n}),\; \dots$$
+
+Then $\lbrace x\_{nk} \mid n = 1, 2, \dots,\; k = 1, 2, \dots \rbrace$ is dense. $\square$
+
+</details>
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span></p>
+
+1. In more general **topological spaces**, the equivalence of Theorem above does not hold. The existence of a countable basis implies both separability and the Lindelöf property, but none of the other implications hold in general.
+2. A countable basis is inherited by every subspace, so for metric spaces:
+   - every subspace of a separable space is separable, and
+   - every subspace of a Lindelöf space is Lindelöf.
+
+   The latter statement is somewhat surprising — compare with compactness, which is inherited by closed subspaces only.
+
+</div>
+
+<div class="math-callout math-callout--lemma" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Lemma</span><span class="math-callout__name">(Countable Separating Reduction)</span></p>
+
+If $E_0$ is a separable subspace of $E$ and $F$ is a linear subspace of $E^\ast$ which separates the points of $E_0$, then $F$ contains a sequence that separates the points of $E_0$.
+
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>proof</summary>
+
+By the Hahn–Banach theorem, for each $x \in E_0 \setminus \lbrace 0\rbrace$ there exists a vector $x^\ast(x) \in F$ such that
+
+$$\langle x, x^*(x)\rangle \neq 0.$$
+
+Defining
+
+$$V_x := \lbrace y \in E_0 \setminus \lbrace 0\rbrace : \langle y, x^*(x)\rangle \neq 0\rbrace,$$
+
+we obtain an open cover
+
+$$\lbrace V_x\rbrace_{x \in E_0 \setminus \lrbrace 0\rbrace}$$
+
+of $E_0 \setminus \lbrace 0\rbrace$.
+
+Since every open cover of a separable metric space admits a countable subcover, it follows that there exists a sequence $(x_n)\_{n=1}^\infty$ in $E_0 \setminus \lbrace 0\rbrace$ such that
+
+$$\lbrace V_{x_n}\rbrace_{n=1}^\infty$$
+
+covers $E_0 \setminus \lbrace 0\rbrace$.
+
+Then the sequence
+
+$$\lbrace x^*(x_n)\rbrace_{n=1}^\infty$$
+
+separates the points of $E_0$: indeed, every $x \in E_0 \setminus \lbrace 0\rbrace$ belongs to some $V\_{x_n}$, which means that
+
+$$\langle x, x^*(x_n)\rangle \neq 0.$$
+
+</details>
 </div>
 
 <div class="math-callout math-callout--question" markdown="1">
