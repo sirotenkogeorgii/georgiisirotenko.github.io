@@ -13,51 +13,160 @@ tags:
    
    $$\lVert a \rVert^2 - \lVert b \rVert^2 = \langle a-b, a+b \rangle$$
 
-2. **Cauchy-Schwarz (for any inner product)**
+2. **Transcendental inequality** 
+   
+    $$\log_2(x) < x - 1$$
+
+3. **Cauchy-Schwarz (for any inner product)**
    
    $$\lvert \langle a, b \rangle \rvert \leq \lVert a \rVert \cdot \lVert b \rVert$$
 
-3. Convexity for $\alpha \in [0, h]$
+4. Convexity for $\alpha \in [0, h]$
 
-4. **Young inequality (general)**
+5. **Young inequality (general)**
    
    $$ab \leq \frac{a^p}{p} + \frac{b^q}{q} \qquad \forall a,b\in\mathbb{R},$$
    
    $$\frac{1}{p} + \frac{1}{q} = 1 \qquad \forall p,q > 1$$
 
-5. **Young inequality (frequent instance)**
+6. **Young inequality (frequent instance)**
    
    $$ab \leq \frac{1}{2}a^2 + \frac{1}{2}b^2 \qquad \forall a,b\in\mathbb{R}$$
 
-6. Gronwall inequality
-7. Bessel inequality
-8. Minkowski's Inequality
-9. Minkowski's Integral Inequality
-10. Fenchel Inequality
-11. Cauchy-Schwarz inequality for $L^2$ complex-valued functions
-12. **The Matrix Exponential**
+7. **AM-GM inequality**
+
+   For nonnegative reals $a_1, \dots, a_n$, an we have
+
+   $$\frac{a_1 + \dots + a_n}{n} \geq \sqrt[n]{a_1\cdot\dots a_n}$$
+
+   Equality only if $a_1 = \dots = a_n$.
+
+   <div class="accordion" markdown="1">
+   <details markdown="1">
+   <summary>Proof</summary>
+
+    https://en.wikipedia.org/wiki/AM–GM_inequality#Proofs_of_the_AM–GM_inequality
+    
+   </details>
+   </div> 
+
+8. **Weighted AM-GM inequality**
+
+   Let $x_1,\dots,x_m>0$ and weights $\lambda_1,\dots,\lambda_m\ge 0$ satisfy $\sum_{j=1}^m \lambda_j=1$. Then
+
+   $$\prod_{j=1}^m x_j^{\lambda_j}\le \sum_{j=1}^m \lambda_jx_j.$$
+
+   <div class="accordion" markdown="1">
+   <details markdown="1">
+   <summary>Proof</summary>
+
+    If some $\lambda_j=0$, that variable is irrelevant, so we may assume $\lambda_j>0$.
+
+    **Key idea.** The logarithm turns products into sums, and $\log$ is concave.
+
+    Since
+
+    $$(\log x)^{''}=-\frac1{x^2}<0,$$
+
+    Jensen's inequality for the concave function $\log$ gives
+
+    $$\log\left(\sum_{j=1}^m\lambda_jx_j\right) \ge \sum_{j=1}^m\lambda_j\log x_j.$$
+
+    But
+
+    $$\sum_{j=1}^m\lambda_j\log x_j = \log\left(\prod_{j=1}^m x_j^{\lambda_j}\right).$$
+
+    Therefore
+
+    $$\log\left(\sum_j\lambda_jx_j\right) \ge \log\left(\prod_jx_j^{\lambda_j}\right).$$
+
+    Since $\log$ is increasing,
+
+    $$\boxed{\sum_{j=1}^m\lambda_jx_j\ge\prod_{j=1}^m x_j^{\lambda_j}.}$$
+
+    **Equality.** Because $\log$ is strictly concave, equality in Jensen occurs, for positive weights, iff
+
+    $$x_1=x_2=\cdots=x_m.$$
+
+    So weighted AM–GM is really just the statement that
+
+    $$\log(\text{weighted arithmetic mean})\ge\text{weighted mean of the logs}.$$
+
+    Equivalently, the logarithm of the arithmetic mean dominates the logarithm of the geometric mean.
+
+   </details>
+   </div> 
+
+9. **Generalized Hölder’s Inequality**
+   
+   * Let $\lambda_a, \lambda_b, \dots, \lambda_z$ be positive reals
+     * $\lambda_a + \lambda_b + \dots + \lambda_z = 1$. 
+   * Let $a_1, a_2, \dots, a_n$ be positive reals.
+   * Let $b_1, b_2, \dots, b_n$, be positive reals.
+   * $\dots$ 
+   * Let $z_1, z_2, \dots, z_n$ be positive reals.
+  
+   $$(a_1 + \dots + a_n)^{\lambda_a} (b_1 + \dots + b_n)^{\lambda_b} \dots (z_1 + \dots + z_n)^{\lambda_z} \geq \sum_{i=1}^n a_i^{\lambda_a} b_i^{\lambda_b} \dots z_i^{\lambda_z}$$
+   
+   <div class="accordion" markdown="1">
+   <details markdown="1">
+   <summary>Proof</summary>
+
+    1. **WLOG.** $a_1 + \dots + a_n = b_1 + \dots + b_n = \dots = z_1 + \dots + z_n = 1$
+    2. **Why WLOG.** the normalizing constant $(1/N_x)^\lambda_x$ will cancel out on both sides.
+    3. Then
+    
+       $$
+       \begin{aligned}
+       (a_1 + \dots + a_n)^{\lambda_a} (b_1 + \dots + b_n)^{\lambda_b} \dots (z_1 + \dots + z_n)^{\lambda_z} = 1 
+       &= \sum_i^n \lambda_a a_i + \lambda_b b_i + \dots + \lambda_z z_i \\
+       &= \prod_i^n a_i^{\lambda_a} b_i^{\lambda_b} \dots z_i^{\lambda_z} \qquad (\text{weighted AM-GM inequality}),
+       \end{aligned}
+       $$
+
+    4. By weighted AM-GM inequality we used
+       
+       $$\lambda_a a_i + \lambda_b b_i + \dots + \lambda_z z_i \geq a_i^{\lambda_a} b_i^{\lambda_b} \dots z_i^{\lambda_z}$$
+
+   </details>
+   </div> 
+
+10. **From Minkowski to Holder path**
+
+    $$|a+b|^p = |a+b|\cdot |a+b|^{p-1} \leq (|a|+|b|)\cdot |a+b|^{p-1} = |a|\cdot|a+b|^{p-1} + |b|\cdot|a+b|^{p-1},$$
+
+    where we used $\lvert a+b\rvert \leq \lvert a\rvert + \lvert b\rvert$.
+
+11. Gronwall inequality
+12. Bessel inequality
+13. Minkowski's Inequality
+14. Minkowski's Integral Inequality
+15. Fenchel Inequality
+16. Cauchy-Schwarz inequality for $L^2$ complex-valued functions
+
+17. **The Matrix Exponential**
     
     $$e^A = \sum_{k=0}^{\infty} \frac{A^k}{k!}$$
 
-13. **The Scalar Exponential**
+18. **The Scalar Exponential**
 
     $$e^x = \sum_{k=0}^{\infty} \frac{x^k}{k!}$$
 
-15. **Log and sqrt:**
+19. **Log and sqrt:**
     
     $$\sqrt{x} - 1 \geq \frac{\log x}{2} \qquad \forall x\geq 0$$
 
-16. **$l1 < \sqrt n l2$**
+20. **$l1 < \sqrt n l2$**
     
     $$n\sum_{i=1}^n a_i^2 \;-\; \Big(\sum_{i=1}^n a_i\Big)^2 \;=\; \sum_{1\le i<j\le n} (a_i - a_j)^2$$
 
-17. For $p,q\geq 0$
+21. For $p,q\geq 0$
     
     $$\lvert p - q \rvert = \lvert \sqrt{p} - \sqrt{q} \rvert (\sqrt{p} + \sqrt{q})$$
 
     * derived from $a^2-b^2 = (a-b)(a+b)$
 
-18. Some algebraic inequality: 
+22. **Some algebraic inequality:**
 
     $$1−(1−t)^k \leq \min(1,kt) \text{for } t\in[0,1]$$
 
@@ -66,15 +175,15 @@ tags:
       <!-- <figcaption>Left (b): the dual basis $\check e^1 = (1, -1)$, $\check e^2 = (0, 1)$ for the oblique basis $e_1, e_2$. Faded red lines are level sets of $\check e^1$ (diagonals along direction $e_2$); faded orange lines are level sets of $\check e^2$ (horizontals along $e_1$). Each covector $\check e^i$ kills $e_j$ for $j \ne i$. Right (c): the canonical basis under the canonical inner product is self-dual.</figcaption> -->
     </figure>
     
-19. **Apollonius's Theorem**
+23. **Apollonius's Theorem**
     
     $$\text{Side}_1^2 + \text{Side}_2^2 = 2 \cdot (\text{Median})^2 + 2 \cdot \left(\frac{\text{Base}}{2}\right)^2$$
 
-20. **Corollary of Appollonius's Theorem (useful for Gaussian kernels decomposition)**
+24. **Corollary of Appollonius's Theorem (useful for Gaussian kernels decomposition)**
 
     $$\lVert t-x \rVert^2 + \lVert t-y \rVert^2 = 2 \left\lVert t - \frac{x+y}{2} \right\rVert^2 + 2 \left( \frac{\lVert x-y \rVert}{2} \right)^2$$
 
-21. **Euler–Poisson integral**
+25. **Euler–Poisson integral**
 
     $$\int_{\infty}^{\infty} e^{-ax^2} = \sqrt{\frac{\pi}{a}}$$
 
@@ -170,199 +279,83 @@ $$I = \sqrt{\frac{\pi}{a}}$$
      
      $$\lvert K(x-y) f(y)\rvert = \lvert K(x-y)\rvert^{1/2} \cdot \lvert K(x-y)\rvert^{1/2} \lvert f(y)\rvert$$
 
-## Criteria
+## Proof Techniques
 
-### Space Compactness Criteria
+1. Proving $\sup_s A(s) \le \inf_t B(t)$ by pairwise comparison
+    
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Technique</summary>
 
-Key criteria:
+Suppose we want to prove
 
-* **Arzelà-Ascoli Theorem:** A classic criterion in real analysis that determines if a family of continuous functions in $C(X)$ is compact. It requires the family to be uniformly bounded and equicontinuous.
-* **Kolmogorov-Riesz Theorem:** A criterion applied to $L^{p}$ spaces that determines when a subset of functions is compact, primarily relying on tightness and $L^{p}$-bounded translation conditions.
-* **Dunford-Pettis Theorem:** A standard weak compactness criterion in probability and measure theory that asserts a subset of $L^{1}$ is weakly compact if and only if it is uniformly integrable
+$$\sup_{s\in S} A(s)\le \inf_{t\in T} B(t).$$
 
-### Operator Compactness Criteria
+A sufficient—and in fact equivalent—condition is
 
-## Definition
+$$A(s)\le B(t)\qquad\forall s\in S,\ \forall t\in T.$$
 
-A compact operator is a bounded linear operator $T: X \rightarrow Y$ between Banach spaces where the image of the closed unit ball is relatively compact.
+Indeed, if $A(s)\le B(t)$ for every pair $(s,t)$, then for each fixed $t$,
 
-## Core Criteria (Equivalent Conditions)
+$$\sup_{s\in S} A(s)\le B(t),$$
 
-* **Sequential Definition:** Every bounded sequence $\lbrace x_n\rbrace$ in $X$ has a subsequence $\lbrace x_{n_k}\rbrace$ such that $\lbrace Tx_{n_k}\rbrace$ converges in $Y$.
-* **Relative Compactness:** The closure of the image of the closed unit ball, $\overline{T(B_1(0))}$, is a compact set in $Y$.
-* **Finite Rank Approximation:** The operator $T$ is the uniform limit of a sequence of finite-rank operators (when $Y$ has the approximation property, which includes all Hilbert spaces).
-* **Schauder's Theorem:** The operator $T$ is compact if and only if its adjoint operator $T^\ast$ is compact.
+and therefore
 
-## Hilbert Space Characterization
+$$\sup_{s\in S} A(s)\le \inf_{t\in T} B(t).$$
 
-* **Singular Values:** $T$ is compact if and only if its sequence of singular values $s_n(T)$ converges to $0$ as $n \rightarrow \infty$.
-* **Hilbert-Schmidt Condition:** If $\sum s_n(T)^2 < \infty$, the operator is Hilbert-Schmidt, which automatically makes it compact.
+**How to discover the pairwise inequality**
 
-## Essential Spectral Properties
+Work backwards from
 
-* **Eigenvalues:** Non-zero eigenvalues are isolated and have finite multiplicity.
-* **Accumulation Point:** The only possible accumulation point for the spectrum is $0$.
-* **Zero Value:** If the space is infinite-dimensional, $0$ is always in the spectrum.
+$$A(s)\le B(t).$$
 
+Rearrange it until it becomes an inequality controlled by the available structure: triangle inequality, Lipschitz continuity, convexity, monotonicity, Cauchy–Schwarz, etc.
 
+A common metric-space form is
 
-### Boundedness Criteria
+$$f(s)-r(s)\le f(t)+r(t),$$
 
-For a **linear operator**
+equivalently
 
-$$T:X\to Y$$
+$$f(s)-f(t)\le r(s)+r(t).$$
 
-between normed vector spaces, the main criterion is:
+If $f$ is $1$-Lipschitz and $r(z)=d(z,x)$, then
 
-$$\boxed{\exists C\ge 0 \text{ such that } |Tx|_Y \le C|x|_X \quad \forall x\in X.}$$
-
-If such a constant exists, then $T$ is called **bounded**.
-
-Equivalently,
-
-$$\boxed{\sup_{|x|_X\le 1}|Tx|_Y <\infty.}$$
-
-This supremum is the **operator norm**:
-
-$$|T|_{\mathcal L(X,Y)} = \sup_{|x|\le 1}|Tx| = \sup_{|x|=1}|Tx|.$$
-
-So the practical test is:
-
-$$T \text{ is bounded} \iff T \text{ sends the unit ball to a bounded set.}$$
-
-## Equivalent criteria for linear operators
-
-For a linear operator $T:X\to Y$, the following are equivalent:
-
-$$\boxed{T \text{ is bounded}}$$
-
-$$\boxed{\exists C>0:|Tx|\le C|x|\ \forall x}$$
-
-$$\boxed{T \text{ is continuous everywhere}}$$
-
-$$\boxed{T \text{ is continuous at }0}$$
-
-$$\boxed{T \text{ maps bounded sets to bounded sets}}$$
-
-$$\boxed{\sup_{|x|\le 1}|Tx|<\infty}$$
-
-The most important fact is:
-
-$$\boxed{\text{For linear maps, boundedness } \Longleftrightarrow \text{ continuity}.}$$
-
-This is special to **linear** operators.
-
-<div class="math-callout math-callout--question" markdown="1">
-<p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Matrix operator is always bounded)</span></p>
-
-If $A:\mathbb R^n\to \mathbb R^m$ is given by a matrix, then
-
-$$T(x)=Ax$$
-
-is always bounded.
-
-Why? In finite dimensions, all linear maps are continuous, hence bounded.
-
-So in finite-dimensional spaces:
-
-$$\boxed{\text{Every linear operator is bounded.}}$$
-
-The difficulty appears mainly in infinite-dimensional spaces.
-
-</div>
-
-## Example of an unbounded operator
-
-Consider
-
-$$D:C^1[0,1]\to C[0,1], \qquad Df=f',$$
-
-with the norm
-
-$$|f|_\infty=\sup_{x\in[0,1]}|f(x)|.$$
-
-Take
-
-$$f_n(x)=\sin(nx).$$
-
-Then
-
-$$|f_n|_\infty=1,$$
-
-but
-
-$$Df_n(x)=n\cos(nx),$$
+$$f(s)-f(t) \le d(s,t) \le d(s,x)+d(t,x),$$
 
 so
 
-$$|Df_n|_\infty=n.$$
+$$f(s)-d(s,x)\le f(t)+d(t,x).$$
 
-Therefore,
+Hence
 
-$$\sup_{|f|_\infty\le 1}|Df|_\infty=\infty.$$
+$$\sup_s\bigl(f(s)-d(s,x)\bigr)\le\inf_t\bigl(f(t)+d(t,x)\bigr).$$
 
-So $D$ is **not bounded** with this choice of norm.
+**Interval interpretation**
 
-The derivative can make functions oscillate more and more wildly without increasing their sup norm.
+If one needs to choose a scalar $\alpha$ satisfying
 
----
+$$L(t)\le \alpha\le U(t)\qquad \forall t,$$
 
-## Important Hilbert space criterion
+then such an $\alpha$ exists whenever
 
-If $H,K$ are Hilbert spaces and $T:H\to K$ is linear, then $T$ is bounded iff
+$$\sup_t L(t)\le \inf_t U(t).$$
 
-$$\exists C>0:|Tx|_K^2\le C^2|x|_H^2 \quad \forall x\in H.$$
+To prove this, it is often easiest to show the stronger pairwise statement
 
-Same idea, just squared.
+$$L(s)\le U(t)\qquad \forall s,t.$$
 
-Also, for a linear functional $L:H\to \mathbb R$ or $\mathbb C$,
+**Heuristic**
 
-$$L \text{ is bounded} \iff \exists C>0:\ |L(x)|\le C|x|.$$
+When you see
 
-For example, if
+$$\sup A \le \inf B,$$
 
-$$L(x)=\langle x,a\rangle,$$
+do not attack the supremum and infimum directly. Try instead to prove
 
-then by Cauchy-Schwarz,
+$$A(s)\le B(t)$$
 
-$$|L(x)|=|\langle x,a\rangle| \le |x||a|.$$
+for arbitrary independent points $s,t$, and then use the structure of the problem to control the difference.
 
-So $L$ is bounded and
-
-$$|L|=|a|.$$
-
-This is the basic mechanism behind the Riesz representation theorem.
-
----
-
-## Practical checklist
-
-To prove $T$ is bounded, try to show:
-
-$$|Tx|\le C|x|.$$
-
-Usually you use inequalities such as:
-
-$$|\langle x,y\rangle|\le |x||y|,$$
-
-or
-
-$$|Ax|\le |A||x|,$$
-
-or estimates involving integrals, expectations, or supremums.
-
-To prove $T$ is unbounded, construct a sequence $x_n$ such that
-
-$$|x_n|\le 1$$
-
-but
-
-$$|Tx_n|\to\infty.$$
-
-That shows the image of the unit ball is not bounded.
-
-## Being \mathcal{L}(X,Y) operator
-
-Convention: \mathcal{L}(X,Y) is ...
-
----
+</details>
+</div>

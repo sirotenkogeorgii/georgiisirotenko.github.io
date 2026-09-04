@@ -1,6 +1,12 @@
 {
  "entries": [
   {
+   "title": "Cookbook Tricks",
+   "url": "/notes/cookbook_tricks/",
+   "date": "2026-09-04",
+   "added": false
+  },
+  {
    "title": "Introduction to Functional Analysis",
    "url": "/subpages/books/functional_analysis/mit_rogriguez/",
    "date": "2026-09-04",
@@ -171,12 +177,6 @@
   {
    "title": "Algorithms for Combinatorial Optimization",
    "url": "/subpages/books/aco/",
-   "date": "2026-07-05",
-   "added": false
-  },
-  {
-   "title": "Embedded Machine Learning",
-   "url": "/notes/embedded-machine-learning/",
    "date": "2026-07-05",
    "added": false
   }
