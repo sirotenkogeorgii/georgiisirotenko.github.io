@@ -1,14 +1,14 @@
 {
  "entries": [
   {
-   "title": "Cookbook Tricks",
-   "url": "/notes/cookbook_tricks/",
-   "date": "2026-09-04",
+   "title": "Introduction to Functional Analysis",
+   "url": "/subpages/books/functional_analysis/mit_rogriguez/",
+   "date": "2026-09-05",
    "added": false
   },
   {
-   "title": "Introduction to Functional Analysis",
-   "url": "/subpages/books/functional_analysis/mit_rogriguez/",
+   "title": "Cookbook Tricks",
+   "url": "/notes/cookbook_tricks/",
    "date": "2026-09-04",
    "added": false
   },

@@ -841,8 +841,6 @@ In finite-dimensional vector spaces, all linear transformations are continuous. 
 
 ### Bounded Operators
 
-TODO: can we write $\lVert Tv \rVert_W \le O(\lVert v \rVert_V)$.
-
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Continuous Linear Operator $\iff$ Bounded Linear Operator)</span></p>
 
@@ -889,6 +887,13 @@ $$\frac{\lVert Tv \rVert_W}{\lVert v\rVert_V} = \frac{\lVert T(\frac{\lVert v\rV
     $$\left\lVert T\!\left(\frac{r}{2\lVert v \rVert_V} v\right) \right\rVert_W < 1 \implies \lVert Tv \rVert_W \le \frac{2}{r} \lVert v \rVert_V. \quad\square$$
   </details>
 </div> -->
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Boundedness in Big-O notation)</span></p>
+
+One may write $\lVert Tv\rVert_W=O(\lVert v\rVert_V)$ as $v\to0$, provided the implied constant is uniform in $v$. For linear $T$, this is equivalent to boundedness. However, the explicit inequality $\lVert Tv\rVert_W\le C\lVert v\rVert_V$ is usually preferable because it makes the global uniform bound transparent.
+
+</div>
 
 <div class="math-callout math-callout--remark" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Continuous Linear Operators are Lipschitz Continuous)</span></p>
@@ -1043,7 +1048,7 @@ If $V$ is a normed vector space and $W$ is a Banach space $\implies$ $\mathcal{B
 
 Fix a Cauchy sequence $(T_n)\_{n\in\mathbb{N}}$ in $\mathcal{B}(V, W)$ space and **any** vector $v\in V$. Then the sequence $(T_n v)\_{n\in\mathbb{N}}$ in $W$ is Cauchy:
 
-$$\|T_m v - T_n v\| = \|(T_m - T_n)v\| \leq \|(T_m - T_n)\| \cdot |\v|\ \le \varepsilon |\v|\,$$
+$$\|T_m v - T_n v\| = \|(T_m - T_n)v\| \leq \|(T_m - T_n)\| \cdot \|v|\ \le \varepsilon \|v\|\,$$
 
 and has a limit, since $W$ is Banach. For each fixed $v\in V$, since $(T_n v)\_{n\in\mathbb{N}}$ is Cauchy in $W$, define
 
@@ -1074,7 +1079,7 @@ $$\|(T_m - T_n)v\| \to \|(T-T_n)v\|$$
 
 by convergence in $W$ and since for all $m>n\geq N: \lVert (T_m - T_n)v\rVert \le \varepsilon \lVert v \rVert$ for any small $\varepsilon$ and sufficiently large $N$ and, by continuity of a norm,
 
-$$\|(T-T_n)v\| \leq \varepsilon |\v|\.$$
+$$\|(T-T_n)v\| \leq \varepsilon \|v\|.$$
 
 Since it holds for any $v\in V$,
 
@@ -1349,54 +1354,6 @@ The Open Mapping Theorem implies the Closed Graph Theorem, and we can also show 
 ## The Hahn-Banach Theorem
 
 <div class="math-callout math-callout--info" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Motivation</span><span class="math-callout__name">(The Hahn-Banach Theorem)</span></p>
-
-Each of the results so far has been trying to answer a question, and the **Hahn-Banach Theorem** answers the question whether the dual space of a general nontrivial normed space is trivial. We want to know whether there are any normed spaces whose space of functionals $\mathcal{B}(V, \mathbb{K})$ contains only the zero function.
-
-It proves that the dual space of any non-trivial normed space is always **rich and highly non-trivial**, containing plenty of continuous linear functionals to completely separate and distinguish every single vector in the space.
-
-**1. What a Trivial Dual Space Would Mean**
-
-The dual space $X^\ast$ consists of all continuous linear functionals $f: X \to \mathbb{R}$.
-If the dual space were trivial, it would mean that the only continuous linear functional in existence is the zero functional:
-
-$$f(x) = 0 \quad \text{for all } x \in X$$ 
-
-If this were true, geometry in abstract spaces would collapse. Every single vector would collapse to zero under evaluation, meaning you could never use functionals to measure distances, define coordinates, or separate points.
-
-**2. How Hahn-Banach Constructs Non-Zero Functionals**
-
-To prove the dual space is not trivial, we just need to find at least one continuous linear functional that is not identically zero. Hahn-Banach lets us manufacture these at will. 
-
-Suppose you have a non-trivial normed space $X$, and you pick any non-zero vector x₀ ∈ X (x₀ ≠ 0).
-
-   1. **Step 1:** Start Small. Create a tiny 1-dimensional subspace $M$ spanned by your vector x₀. Every vector in this subspace looks like c ⋅ x₀ for some scalar c.
-   2. **Step 2:** Define a Functional on $M$. Define a linear functional $f$ on this tiny subspace by setting:
-   
-      $$f(c \cdot x_0) = c \Vert{}x_0\Vert{}$$ 
-
-      Notice that for the specific vector x₀ (where c=1), $f(x_0) = \Vert{}x_0\Vert{}$. Since x₀ ≠ 0, its norm is positive, so f(x₀) ≠ 0. This functional is clearly non-zero, and its norm on M is exactly 1.
-   3. **Step 3:** Apply Hahn-Banach. The Hahn-Banach theorem says you can extend this $f$ from the tiny subspace M to a new functional F defined on the entire space X, without changing its norm ($\Vert{}F\Vert{} = \Vert{}f\Vert{} = 1$).
-
-Because $F$ is an extension of $f$, it inherits the exact same value at x₀:
-
-$$F(x_0) = \Vert{}x_0\Vert{} \neq 0$$ 
-
-**3. The Consequence: The Dual Space Separates Points**
-
-Because we can do this for any non-zero vector, Hahn-Banach guarantees that $X^\ast$ is packed with non-zero functionals.
-
-In fact, it yields a massive geometric corollary known as total separation:
-
-If you have two distinct vectors $x$ and $y$ ($x\neq y$), then $x - y \neq 0$. By applying the construction above to the vector $x-y$, Hahn-Banach guarantees there exists a continuous linear functional $F \in X^\ast$ such that:
-
-$$F(x - y) \neq 0 \implies F(x) \neq F(y)$$ 
-
-Without Hahn-Banach, we would constantly worry if infinite-dimensional spaces were "blind" environments where no continuous linear measurements could be made. Hahn-Banach guarantees that the dual space always has enough "eyes" ($F \in X^\ast$) to perfectly distinguish every single unique point in the space.
-
-</div>
-
-<div class="math-callout math-callout--info" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Motivation</span><span class="math-callout__name">(Two main perspectives on Hahn-Banach Theorem)</span></p>
 
 The **Hahn-Banach theorem** is a cornerstone of functional analysis that guarantees you can extend a mathematical rule (a linear functional) from a small subspace to an entire vector space without losing its core properties. It essentially ensures that abstract vector spaces have a sufficiently "rich" structure to be analyzed. 
@@ -1431,7 +1388,7 @@ In infinite-dimensional spaces, things get incredibly complicated and intuition 
   * Antisymmetry: if $e \preceq f$ and $f \preceq e$, then $e = f$.
   * Transitivity: if $e \preceq f$ and $f \preceq g$, then $e \preceq g$.
 * An **upper bound** of a set $D \subset E$ is an element $e \in E$ with $d \preceq e$ for all $d \in D$. 
-* A **greatest element** of $E$ is an upper bound $e$ of $E and $e\in E$.
+* A **greatest element** of $E$ is an upper bound $e$ of $E$ and $e\in E$.
 * A **maximal element** of $E$ is an element $e$ such that $e \preceq f \implies e = f$.
 
 </div>
@@ -1448,7 +1405,9 @@ Notably, in a partial ordering a maximal element does not need to sit "on top" o
 
     but this does not imply that $e_1$ and $e_2$ are comparable. Even if they are comparable, they need not be equal.
 * **Can we have two upper greatest elements?**
-  * No, for two different greatest elements $e_1 \neq e_2: d \preceq e_1 \land d \preceq e_2 \forall d \in E \implies e_2 \preceq e_1 \land e_1 \preceq e_2$, but anyisymetry implies $e_1 = e_2$.
+  * No, for two different greatest elements $e_1 \neq e_2$: 
+    * $d \preceq e_1 \land d \preceq e_2 \forall d \in E \implies e_2 \preceq e_1 \land e_1 \preceq e_2$, 
+    * but anyisymetry implies $e_1 = e_2$.
 * **Can we have two maximal elements?**
   * Yes. Distinct maximal elements can coexist. They must be incomparable: if $e_1$ and $e_2$ are maximal and $e_1 \preceq e_2$, then maximality of $e_1$ implies $e_1=e_2$.
 * **Can an upper bound and a different maximal element coexist?**
@@ -1563,7 +1522,492 @@ with $u'\vert_M = u$ and $\lVert u'(t') \rVert \le C \lVert t' \rVert$ for all $
 
 </div>
 
-<div class="accordion">
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>my proof</summary>
+
+The idea is the following:
+
+1. Start with the mapping $u$ and extend it by defining the value $u'(x)$, while preserving the norm bound.
+2. Then for all $y=t+ax\in M'$,
+
+   $$u'(y)=u'(t+ax)=u(t)+au'(x).$$
+
+3. Thus we want
+
+   $$\lVert u'(y)\rVert = |u(t)+au'(x)| \le C\lVert t+ax\rVert = C\lVert y\rVert.$$
+
+* If $C=0$, then $|u(t)|\le 0$ for every $t\in M$, so $u=0$, and the zero extension works.
+
+* Otherwise, assume $C=1$ without loss of generality. Indeed, replace $u$ by $u/C$, construct an extension with bound $1$, and multiply the resulting extension back by $C$.
+
+The problem is now to choose the new value $u'(x)\in\mathbb C$ in such a way that
+
+$$|u(t)+au'(x)|\le \|t+ax\|$$
+
+for every $t\in M$ and every $a\in\mathbb C$.
+
+For $a=0$, this is already true because $u$ satisfies the original bound. So consider $a\neq0$.
+
+Set
+
+$$\tilde t:=\frac{t}{-a}\in M.$$
+
+This is legitimate because $M$ is a complex linear subspace ($\tilde t$ is an equivalent to $t$ vector in a dual sense). Therefore the desired inequality is equivalent to
+
+$$|u(\tilde t)-u'(x)|\le\|\tilde t-x\|.$$
+
+Renaming $\tilde t$ back to $t$, the problem becomes:
+
+> Choose $u'(x)\in\mathbb C$ such that
+>
+> $$|u(t)-u'(x)|\le\|t-x\|\qquad\forall t\in M.$$
+
+The problem is that the mapping $u$ takes complex values. The straightforward idea would be to control separately
+
+$$|\operatorname{Re}u(t)-\operatorname{Re}u'(x)|$$
+
+and
+
+$$|\operatorname{Im}u(t)-\operatorname{Im}u'(x)|.$$
+
+However, if we later simply add these two estimates, we may obtain an unnecessary factor $2$. Also, complex numbers themselves cannot be ordered, so the supremum/infimum interval argument cannot be applied directly to $u(t)\in\mathbb C$.
+
+Therefore we first isolate the real-valued part of the problem.
+
+Define
+
+$$w(t):=\operatorname{Re}u(t).$$
+
+Then $w:M\to\mathbb R$ is real-linear and
+
+$$|w(t)|\le|u(t)|\le\|t\|.$$
+
+We first ask: how can we choose the value of the real extension at $x$?
+
+Suppose
+
+$$W(x)=\alpha\in\mathbb R.$$
+
+Then for $t\in M$, preserving the norm bound requires
+
+$$|w(t)-\alpha|\le\|t-x\|.$$
+
+Equivalently,
+
+$$w(t)-\|t-x\|\le\alpha\lew(t)+\|t-x\|.$$
+
+Thus every $t\in M$ gives an interval of admissible values for $\alpha$:
+
+$$I_t=\left[w(t)-\|t-x\|,\,w(t)+\|t-x\|\right].$$
+
+We need to show that all these intervals have a common point.
+
+To understand why such a common point exists, consider how much two values of $w$ could differ:
+
+$$
+\begin{aligned}
+w(t_1)-w(t_2)
+&=
+w(t_1-t_2)\\
+&\le
+|w(t_1-t_2)|\\
+&\le
+\|t_1-t_2\|\\
+&\le
+\|t_1-x\|+\|t_2-x\|.
+\end{aligned}
+$$
+
+Therefore
+
+$$
+w(t_1)-\|t_1-x\|
+\le
+w(t_2)+\|t_2-x\|
+$$
+
+for arbitrary $t_1,t_2\in M$.
+
+In other words, every lower endpoint of every admissible interval lies below every upper endpoint of every admissible interval.
+
+Hence
+
+$$
+\sup_{t\in M}
+\left(
+w(t)-\|t-x\|
+\right)
+\le
+\inf_{t\in M}
+\left(
+w(t)+\|t-x\|
+\right).
+$$
+
+Thus we may choose
+
+$$
+\alpha
+\in
+\left[
+\sup_{t\in M}
+\left(
+w(t)-\|t-x\|
+\right),
+\,
+\inf_{t\in M}
+\left(
+w(t)+\|t-x\|
+\right)
+\right].
+$$
+
+This gives a real-linear extension
+
+$$
+W_1:M+\mathbb Rx\to\mathbb R
+$$
+
+satisfying
+
+$$
+|W_1(z)|\le \|z\|.
+$$
+
+At this point we have chosen the real part of the desired complex extension in the new direction $x$.
+
+However, adding the complex direction $x$ means more than adding only the real direction $x$. As a real vector space,
+
+$$
+M+\mathbb Cx
+=
+M+\mathbb Rx+\mathbb R(ix).
+$$
+
+Thus there is one more real direction to add, namely $ix$.
+
+We now repeat exactly the same interval argument, but starting with the already-constructed real-linear functional $W_1$ on
+
+$$
+M+\mathbb Rx
+$$
+
+and adding the direction $ix$.
+
+This is important: the second choice is not made independently of the first one. We extend the already-defined $W_1$, so compatibility with the value chosen at $x$ is automatically preserved.
+
+The same reasoning produces a real-linear functional
+
+$$
+W:M+\mathbb Rx+\mathbb R(ix)\to\mathbb R
+$$
+
+such that
+
+$$
+|W(z)|\le \|z\|.
+$$
+
+But
+
+$$
+M+\mathbb Rx+\mathbb R(ix)
+=
+M+\mathbb Cx
+=
+M',
+$$
+
+so $W$ is now defined on all of $M'$.
+
+Moreover,
+
+$$
+W|_M=w=\operatorname{Re}u.
+$$
+
+We now use $W$ to reconstruct a complex-valued functional. Define
+
+$$
+u'(y)
+:=
+W(y)-iW(iy),
+\qquad y\in M'.
+$$
+
+First check that this agrees with $u$ on $M$.
+
+For $t\in M$,
+
+$$
+W(t)
+=
+\operatorname{Re}u(t).
+$$
+
+Also, because $u$ is complex-linear,
+
+$$
+u(it)=iu(t).
+$$
+
+If
+
+$$
+u(t)=a+ib,
+$$
+
+then
+
+$$
+u(it)=ia-b=-b+ia,
+$$
+
+so
+
+$$
+W(it)
+=
+\operatorname{Re}u(it)
+=
+-b
+=
+-\operatorname{Im}u(t).
+$$
+
+Therefore
+
+$$
+\begin{aligned}
+u'(t)
+&=
+W(t)-iW(it)\\
+&=
+\operatorname{Re}u(t)
++i\operatorname{Im}u(t)\\
+&=
+u(t).
+\end{aligned}
+$$
+
+Thus $u'\mid_M=u$.
+
+We also need $u'$ to be complex-linear.
+
+Real linearity follows immediately from the real linearity of $W$. Moreover,
+
+$$
+\begin{aligned}
+u'(iy)
+&=
+W(iy)-iW(i^2y)\\
+&=
+W(iy)+iW(y)\\
+&=
+i\left(W(y)-iW(iy)\right)\\
+&=
+iu'(y).
+\end{aligned}
+$$
+
+Real linearity together with
+
+$$
+u'(iy)=iu'(y)
+$$
+
+implies full complex linearity.
+
+It remains to prove that the norm bound has not increased.
+
+At first glance, from
+
+$$
+u'(y)=W(y)-iW(iy)
+$$
+
+one might try
+
+$$
+|u'(y)|
+\le
+|W(y)|+|W(iy)|
+\le
+2\|y\|.
+$$
+
+But this introduces the unwanted constant $2$.
+
+To avoid it, the trick is to rotate the complex value $u'(y)$ by a suitable phase so that it becomes a nonnegative real number.
+
+Take arbitrary
+
+$$
+y=t+ax\in M'.
+$$
+
+Choose $\theta\in\mathbb R$ such that
+
+$$
+r
+:=
+e^{i\theta}u'(y)
+=
+|u'(y)|
+\in\mathbb R_{\ge0}.
+$$
+
+Because $u'$ is complex-linear,
+
+$$
+r
+=
+e^{i\theta}u'(y)
+=
+u'(e^{i\theta}y).
+$$
+
+Now define
+
+$$
+\tilde y:=e^{i\theta}y.
+$$
+
+Since
+
+$$
+y=t+ax,
+$$
+
+we have
+
+$$
+\tilde y
+=
+e^{i\theta}t+e^{i\theta}ax.
+$$
+
+Let
+
+$$
+t_r:=e^{i\theta}t,
+\qquad
+a_r:=e^{i\theta}a.
+$$
+
+Then
+
+$$
+\tilde y=t_r+a_rx.
+$$
+
+We must verify that the rotated vector still lies in $M'$.
+
+Because $M$ is a complex linear subspace,
+
+$$
+t_r=e^{i\theta}t\in M.
+$$
+
+Also,
+
+$$
+a_r=e^{i\theta}a\in\mathbb C.
+$$
+
+Therefore
+
+$$
+\tilde y=t_r+a_rx\in M'.
+$$
+
+So the phase rotation does not take us outside the domain of $u'$.
+
+This is not an arbitrary ambient-space rotation: multiplication by $e^{i\theta}$ is complex scalar multiplication, and every complex subspace is invariant under it.
+
+Now $u'(\tilde y)=r$ is real. Hence
+
+$$
+r
+=
+\operatorname{Re}u'(\tilde y).
+$$
+
+But by the definition
+
+$$
+u'(z)=W(z)-iW(iz),
+$$
+
+we have
+
+$$
+\operatorname{Re}u'(z)=W(z).
+$$
+
+Therefore
+
+$$
+\begin{aligned}
+|u'(y)|
+&=
+r\\
+&=
+\operatorname{Re}u'(\tilde y)\\
+&=
+W(\tilde y)\\
+&\le
+|W(\tilde y)|\\
+&\le
+\|\tilde y\|.
+\end{aligned}
+$$
+
+Finally, multiplication by $e^{i\theta}$ preserves the norm:
+
+$$
+\|\tilde y\|
+=
+\|e^{i\theta}y\|
+=
+|e^{i\theta}|\|y\|
+=
+\|y\|.
+$$
+
+Consequently,
+
+$$
+|u'(y)|
+\le
+\|y\|.
+$$
+
+Thus $u'$ is a complex-linear extension of $u$ from $M$ to
+
+$$
+M'=M+\mathbb Cx
+$$
+
+satisfying the same norm bound.
+
+Undoing the normalization $C=1$, we obtain
+
+$$
+|u'(y)|
+\le
+C\|y\|
+\qquad
+\forall y\in M'.
+$$
+
+Hence the required one-dimensional extension exists.
+
+</details>
+</div>
+
+<!-- <div class="accordion">
   <details>
     <summary>proof of the one-dimensional extension lemma</summary>
     <p>The representation $t' = t + ax$ for $t \in M$, $a \in \mathbb{C}$ is unique (if $t + ax = \tilde{t} + \tilde{a}x$, then $(a - \tilde{a})x = \tilde{t} - t \in M$, which forces $a = \tilde{a}$ since $x \notin M$). Define $u'(t + ax) = u(t) + a\lambda$ for some $\lambda \in \mathbb{C}$ to be chosen. This is clearly linear.</p>
@@ -1572,7 +2016,7 @@ with $u'\vert_M = u$ and $\lVert u'(t') \rVert \le C \lVert t' \rVert$ for all $
     $$\sup_{t \in M} (w(t) - \lVert t - x \rVert) \le \inf_{t \in M} (w(t) + \lVert t - x \rVert).$$
     <p>Choose $\alpha \in \mathbb{R}$ between these bounds. Then $\lvert w(t) - \alpha \rvert \le \lVert t - x \rVert$ for all $t \in M$. Repeat the argument with $ix$ instead of $x$ to choose the imaginary part. This defines $u'$ on $M + \mathbb{C}x$ with the desired bound. $\square$</p>
   </details>
-</div>
+</div> -->
 
 <div class="accordion">
   <details>
@@ -1592,7 +2036,7 @@ with $u'\vert_M = u$ and $\lVert u'(t') \rVert \le C \lVert t' \rVert$ for all $
 
 Let $V$ be a normed space.
 
-$$\forall v \in V \setminus \lbrace 0 \rbrace \ \exists f \in V': \lVert f \rVert = 1 \ \land \ f(v) = \lVert v \rVert$$.
+$$\forall v \in V \setminus \lbrace 0 \rbrace \ \exists f \in V': \lVert f \rVert = 1 \ \land \ f(v) = \lVert v \rVert.$$
 
 </div>
 
@@ -1649,7 +2093,7 @@ $\mathbb Q\cap[0,1]$ can be enumerated as a sequence $(q_n)$, and that sequence 
 
 In the lemma below, separability of $E_0$ is used exactly here: by definition, a separable metric space has a countable dense subset, which we can enumerate as a sequence $(x_n)$.
 
-<div class="math-callout math-callout--lemma" markdown="1">
+<div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Lemma</span><span class="math-callout__name">(Countable Norming Reduction)</span></p>
 
 If $E_0$ is a separable subspace of $E$ and $F$ is a linear subspace of $E^\ast$ which is norming for $E_0$, then $F$ contains a sequence of unit vectors that is norming for $E_0$.
@@ -1701,7 +2145,12 @@ $$\|x\|\le\sup_{n\ge 1}|\langle x,x_n^*\rangle|.$$
 </details>
 </div>
 
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Separation of the points by a linear subspace)</span></p>
+
 A linear subspace $F$ of $E^\ast$ is said to **separate the points** of a subset $S$ of $E$ if for every pair $x,y\in S$ with $x \neq y$ there exists an $x^\ast \in F$ with $\langle x,x^\ast\rangle \neq \langle y,x^\ast\rangle$. Clearly, norming subspaces separate points, but the converse need not be true.
+
+</div>
 
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Lindelöf Property)</span></p>
@@ -1762,7 +2211,7 @@ Then $\lbrace x\_{nk} \mid n = 1, 2, \dots,\; k = 1, 2, \dots \rbrace$ is dense.
 
 </div>
 
-<div class="math-callout math-callout--lemma" markdown="1">
+<div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Lemma</span><span class="math-callout__name">(Countable Separating Reduction)</span></p>
 
 If $E_0$ is a separable subspace of $E$ and $F$ is a linear subspace of $E^\ast$ which separates the points of $E_0$, then $F$ contains a sequence that separates the points of $E_0$.
@@ -1783,7 +2232,7 @@ $$V_x := \lbrace y \in E_0 \setminus \lbrace 0\rbrace : \langle y, x^*(x)\rangle
 
 we obtain an open cover
 
-$$\lbrace V_x\rbrace_{x \in E_0 \setminus \lrbrace 0\rbrace}$$
+$$\lbrace V_x\rbrace_{x \in E_0 \setminus \lbrace 0\rbrace}$$
 
 of $E_0 \setminus \lbrace 0\rbrace$.
 
@@ -1802,27 +2251,6 @@ separates the points of $E_0$: indeed, every $x \in E_0 \setminus \lbrace 0\rbra
 $$\langle x, x^*(x_n)\rangle \neq 0.$$
 
 </details>
-</div>
-
-<div class="math-callout math-callout--question" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(For $x\neq y$ in normed space $\exists$ continuous linear functional $f$ s.t. $f(x)\neq f(y)$.)</span></p>
-
-Original [math.stackexchange](https://math.stackexchange.com/questions/333231/hahn-banach-theorem).
-
-**Question:**
-
-> It is stated often that the Hahn Banach Theorem makes the study of the dual space "interesting". What does this exactly mean though? I.e what is exactly meant by "interesting"?
-> 
-> I am puzzled as to why it follows immediately from Hahn-Banach that the dual of a (non-zero) normed vector space is non-trivial.
-
-**Answer:**
-
-A consequence of Hahn Banach is that linear functionals separate points. This implies a certain richness of the space of linear functionals.
-
-Separating points means that given two distinct points $x$ and $y$ there is a continuous linear functional $f$ such that $f(x)\neq f(y)$.
-
-To prove that there is such a functional, consider the one-dimensional subspace $\mathbb{C}(x-y)$ (complex multiples of $x-y$). You can easily show that on this subspace $f(\lambda(x-y))=\lambda\|x-y\|$ defines a continuous linear functional. You can then extend this to your whole space by Hahn-Banach and by linearity it will follow that $f(x)-f(y)=f(x-y)=\|x-y\|\neq 0$, so $f(𝑥)\neq f(𝑦)$, as desired.
-
 </div>
 
 ### Double Dual and Reflexivity
@@ -5229,6 +5657,57 @@ $$f \in L^p(E) \quad \iff \quad \lim_{n \to \infty} \int_{[-n,n] \cap E} \lvert 
   </details>
 </div>
 
+### Convergence in $L^p$ and Almost Everywhere Convergence
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Riesz Subsequence Theorem — $L^1$ Version)</span></p>
+
+Let $E \subset \mathbb{R}$ be measurable, and let $h_n \in L^1(E)$, $n \in \mathbb{N}$, such that
+
+$$\int_E |h_n| \to 0$$
+
+as $n \to \infty$. Then there exists a subsequence $\lbrace h_{n_j}\rbrace_j$ such that for almost every $x \in E$,
+
+$$\lim_{j\to\infty} h_{n_j}(x) = 0.$$
+
+</div>
+
+<div class="accordion">
+  <details>
+    <summary>proof</summary>
+    <p>TODO:</p>
+  </details>
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Relation to Markov/Chebyshev Inequality)</span></p>
+
+The assumption
+
+$$\int_E |h_n| \to 0$$
+
+means precisely that $h_n \to 0$ in $L^1(E)$. Markov's inequality applied to the nonnegative function $\lvert h_n\rvert$ gives, for every $\varepsilon>0$,
+
+$$m\big(\lbrace x\in E:|h_n(x)|>\varepsilon\rbrace\big)\le\frac{1}{\varepsilon}\int_E |h_n|.$$
+
+Hence
+
+$$m\big(\lbrace |h_n|>\varepsilon\rbrace\big)\to 0,$$
+
+so $h_n\to 0$ **in measure**.
+
+Thus Markov's inequality provides the bridge
+
+$$L^1\text{-convergence}\quad\Longrightarrow\quad\text{convergence in measure}.$$
+
+The Riesz subsequence theorem then says that from convergence in measure one can extract a subsequence converging almost everywhere:
+
+$$h_n\to 0\text{ in measure}\quad\Longrightarrow\quad\exists\,h_{n_j}\to 0\text{ a.e.}$$
+
+The inequality above is often also referred to as **Chebyshev's inequality** (or the Markov–Chebyshev inequality); Markov's inequality is the more general name for this form.
+
+</div>
+
 <div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Corollary 137</span></p>
 
@@ -6317,6 +6796,24 @@ A subset $K \subset H$ is compact $\iff$ $K$ is closed, bounded, and for all $\v
 
 Let $K$ be the set (not subspace) of sequences $\lbrace a_k \rbrace_k$ in $\ell^2$ satisfying $\lvert a_k \rvert \le 2^{-k}$ — this set is known as the **Hilbert cube**, and it is compact.
 
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem 199</span>(Arzela-Ascoli)</p>
+
+Let $f_n \in C([a, b])$, $n \in \mathbb{N}$, such that
+* there exists $B \geq 0$ such that for all $n\in\mathbb{N}$, $\lVert f_n \rVert_\infty \leq B$,
+* the sequence $\lbrace f_n\rbrace_n$ is **equi-continuous**: for all $\varepsilon > 0$ there exists $\deta > 0$ such that if $\lvert x − y\rvert <\delta$, then for all $n\in\mathbb{N}$, $\lvert fn(x) − fn(y)\rvert <\varepsilon$.
+
+Then there exists a subsequence $\lbrace f_{n_j}\rbrace_j$ converging in $C([a, b])$.
+
+</div>
+
+<div class="accordion">
+  <details>
+    <summary>proof</summary>
+    <p>TODO:</p>
+  </details>
 </div>
 
 ## Classes of Operators
