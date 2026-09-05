@@ -6787,7 +6787,9 @@ We can also characterize compact sets without reference to an orthonormal basis:
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem 199</span></p>
 
-A subset $K \subset H$ is compact $\iff$ $K$ is closed, bounded, and for all $\varepsilon > 0$, there exists a finite-dimensional subspace $W \subset H$ so that for all $u \in K$, $\inf_{w \in W} \lVert u - w \rVert < \varepsilon$.
+A subset $K \subset H$ is compact $\iff$ $K$ is closed, bounded, and for all $\varepsilon > 0$, there exists a finite-dimensional subspace $W \subset H$ so that for all $u \in K$ 
+
+$$\inf_{w \in W} \lVert u - w \rVert < \varepsilon.$$
 
 </div>
 
@@ -6799,11 +6801,16 @@ Let $K$ be the set (not subspace) of sequences $\lbrace a_k \rbrace_k$ in $\ell^
 </div>
 
 <div class="math-callout math-callout--theorem" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Theorem 199</span>(Arzela-Ascoli)</p>
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span>(Arzela-Ascoli)</p>
 
 Let $f_n \in C([a, b])$, $n \in \mathbb{N}$, such that
-* there exists $B \geq 0$ such that for all $n\in\mathbb{N}$, $\lVert f_n \rVert_\infty \leq B$,
-* the sequence $\lbrace f_n\rbrace_n$ is **equi-continuous**: for all $\varepsilon > 0$ there exists $\deta > 0$ such that if $\lvert x − y\rvert <\delta$, then for all $n\in\mathbb{N}$, $\lvert fn(x) − fn(y)\rvert <\varepsilon$.
+* there exists $B \geq 0$ such that for all $n\in\mathbb{N}$
+  
+  $$\lVert f_n \rVert_\infty \leq B,$$
+
+* the sequence $\lbrace f_n\rbrace_n$ is **equi-continuous**: $\forall \varepsilon > 0 \exists \delta > 0: \lvert x − y\rvert <\delta \implies \forall n\in\mathbb{N}$
+  
+  $$\lvert f_n(x) − f_n(y)\rvert <\varepsilon.$$
 
 Then there exists a subsequence $\lbrace f_{n_j}\rbrace_j$ converging in $C([a, b])$.
 

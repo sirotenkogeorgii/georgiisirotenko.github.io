@@ -7,6 +7,12 @@
    "added": false
   },
   {
+   "title": "Partial Differential Equations in Data Science",
+   "url": "/subpages/books/pdeds/",
+   "date": "2026-09-05",
+   "added": false
+  },
+  {
    "title": "Cookbook Tricks",
    "url": "/notes/cookbook_tricks/",
    "date": "2026-09-04",
@@ -147,12 +153,6 @@
   {
    "title": "Graph Algorithms",
    "url": "/subpages/books/graph_algorithms/",
-   "date": "2026-07-10",
-   "added": false
-  },
-  {
-   "title": "Partial Differential Equations in Data Science",
-   "url": "/subpages/books/pdeds/",
    "date": "2026-07-10",
    "added": false
   },

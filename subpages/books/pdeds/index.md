@@ -90,14 +90,13 @@ By classical ODE theory (Picard–Lindelöf / Cauchy–Lipschitz), there exists 
 
 Differentiating the energy along the trajectory,
 
-$$
-\frac{d}{dt} E(x(t)) = dE(x(t)).\dot{x}(t) = \langle \nabla E(x(t)), \dot{x}(t) \rangle = -|\dot{x}(t)|^2 \le 0. \tag{1.2}
-$$
+$$\frac{d}{dt} E(x(t)) = dE(x(t)).\dot{x}(t) = \langle \nabla E(x(t)), \dot{x}(t) \rangle = -|\dot{x}(t)|^2 \le 0. \tag{1.2}$$
 
 </div>
 
-<div class="math-callout math-callout--remark" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(On the dot in $dE(x(t)).\dot{x}(t)$)</span></p>
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>On the dot in $dE(x(t)).\dot{x}(t)$</summary>
 
 The dot "$.$" here is **not multiplication** — it denotes *application of a linear map to a vector*. Reading it as $dE(x(t))/\dot{x}(t)$ or $\frac{dE(x(t))}{dx(t)} \cdot \dot{x}(t)$ would be a category error, because $dE(x(t))$ is itself a linear map, not a quantity one multiplies by.
 
@@ -111,6 +110,7 @@ The dot "$.$" here is **not multiplication** — it denotes *application of a li
 
 In finite dimensions, one *could* equivalently write $\frac{\partial E}{\partial x}(x(t)) \cdot \dot{x}(t)$ (Jacobian row times velocity), and arithmetically the answer is the same. The reason the pedantic notation is preferred here is that the course will soon generalize to non-Euclidean settings where "$dE/dx$" no longer makes sense, while the differential $dE$ as a linear map continues to.
 
+</details>
 </div>
 
 <div class="math-callout math-callout--remark" markdown="1">
@@ -126,13 +126,11 @@ The notation above is pedantic on purpose, distinguishing between the **differen
 </div>
 
 <div class="math-callout math-callout--proposition" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Proposition</span><span class="math-callout__name">(Energy is non-decreasing in time in gradient flow)</span></p>
+  <p class="math-callout__title"><span class="math-callout__label">Proposition</span><span class="math-callout__name">(Energy is non-increasing in time in gradient flow)</span></p>
 
 The energy is **non-increasing** in time. Integrating (1.2) yields, for any $T > 0$,
 
-$$
-E(x(T)) + \int_0^T |\dot{x}(t)|^2 \, dt \le E(x(0)). \tag{1.3}
-$$
+$$E(x(T)) + \int_0^T |\dot{x}(t)|^2 \, dt \le E(x(0)). \tag{1.3}$$
 
 </div>
 
@@ -142,27 +140,19 @@ $$
 
 Fix $T > 0$. Equation (1.2) states that, along the trajectory,
 
-$$
-\frac{d}{dt} E(x(t)) = -|\dot{x}(t)|^2 \quad \text{for all } t \in (0, T).
-$$
+$$\frac{d}{dt} E(x(t)) = -|\dot{x}(t)|^2 \quad \text{for all } t \in (0, T).$$
 
 Both sides are continuous in $t$ (assuming $x \in C^1$, which follows from $\nabla E$ being Lipschitz), so we may integrate from $0$ to $T$:
 
-$$
-\int_0^T \frac{d}{dt} E(x(t)) \, dt = -\int_0^T |\dot{x}(t)|^2 \, dt.
-$$
+$$\int_0^T \frac{d}{dt} E(x(t)) \, dt = -\int_0^T |\dot{x}(t)|^2 \, dt.$$
 
 By the **fundamental theorem of calculus**, the left-hand side equals $E(x(T)) - E(x(0))$, so
 
-$$
-E(x(T)) - E(x(0)) = -\int_0^T |\dot{x}(t)|^2 \, dt,
-$$
+$$E(x(T)) - E(x(0)) = -\int_0^T |\dot{x}(t)|^2 \, dt,$$
 
 or, rearranging,
 
-$$
-E(x(T)) + \int_0^T |\dot{x}(t)|^2 \, dt = E(x(0)). \tag{$\ast$}
-$$
+$$E(x(T)) + \int_0^T |\dot{x}(t)|^2 \, dt = E(x(0)). \tag{\ast}$$
 
 This is in fact an **equality**, which is strictly stronger than (1.3). The inequality form in (1.3) is stated because:
 
@@ -184,9 +174,7 @@ In the smooth Euclidean setting treated here, ($\ast$) and (1.3) are equivalent,
 
 $-\nabla E(x(t))$ is the **direction of steepest descent** of the energy (or entropy) $E$. For all $v \in \mathbb{R}^N$ with $\|v\| = \|\nabla E(x(t))\|$,
 
-$$
--\langle \nabla E(x(t)), \nabla E(x(t)) \rangle \le \langle v, \nabla E(x(t)) \rangle.
-$$
+$$-\langle \nabla E(x(t)), \nabla E(x(t)) \rangle \le \langle v, \nabla E(x(t)) \rangle.$$
 
 This is exactly what characterizes a gradient flow: **it is the steepest descent in an energy landscape**. Moreover, we expect that in the long-time limit $t \to \infty$, the trajectory $x(t)$ converges to a critical point, or a local (or even global!) minimizer of $E$.
 
@@ -483,21 +471,15 @@ $$
 
 Then the equation
 
-$$
-m \frac{dv}{dt} = -\nabla E(x(t)) - \lambda v(t)
-$$
+$$m \frac{dv}{dt} = -\nabla E(x(t)) - \lambda v(t)$$
 
 transforms into
 
-$$
-\frac{m}{\lambda} \frac{d v'}{dt'} = -\nabla E(x'(t')) - v'(t').
-$$
+$$\frac{m}{\lambda} \frac{d v'}{dt'} = -\nabla E(x'(t')) - v'(t').$$
 
 Taking $\lambda \to \infty$ yields $0 = -\nabla E(x'(t')) - v'(t')$, i.e.,
 
-$$
-\frac{d x'}{d t'} = -\nabla E(x'(t')),
-$$
+$$\frac{d x'}{d t'} = -\nabla E(x'(t')),$$
 
 which is precisely our gradient flow equation (1.1). In words: **the gradient flow is the overdamped limit of Newtonian mechanics with friction**.
 
@@ -542,8 +524,9 @@ Elements of $\partial E(x)$ are called **subgradients** of $E$ at $x$.
   <figcaption>The subdifferential at a kink. For $E(x)=\|x\|$ the graph at $x=0$ admits a whole interval of supporting affine minorants (slopes in $[-1,1]$, blue/green); a slope outside this interval (red, $1.4$) fails the inequality on one side. Hence $\partial E(0)=[-1,+1]$.</figcaption>
 </figure>
 
-<div class="math-callout math-callout--remark" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Is the subdifferential defined for convex functions only?)</span></p>
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Is the subdifferential defined for convex functions only?</summary>
 
 The definition (1.7) is meaningful only when $E$ is convex. The defining inequality $E(y)\ge E(x)+\langle p,y-x\rangle$ for **all** $y$ asks for a *global* supporting affine minorant tangent at $x$, and asking that to hold globally implicitly demands convexity. For a non-convex $E$ the set (1.7) is typically empty everywhere — there is no global affine minorant tangent at $x$.
 
@@ -583,6 +566,7 @@ $$
 
 and the long-time asymptotics rely on the fact that $0\in\partial E(x)$ is *equivalent* (not just necessary) to $x$ being a *global* minimizer. Both properties hold **only** for convex $E$. The non-convex generalizations above lose them: $0\in\partial^F E(x)$ is necessary but not sufficient for a local minimizer, and the operator $-\partial^F E$ is not monotone, so the contraction argument fails. This is why the course chooses convexity as a structural hypothesis — it is the regularity replacement that keeps the gradient-flow theory clean.
 
+</details>
 </div>
 
 <div class="math-callout math-callout--definition" markdown="1">
@@ -614,22 +598,23 @@ $$
 
 </div>
 
-<div class="math-callout math-callout--theorem" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Algorithm</span><span class="math-callout__name">(Minimizing movements)</span></p>
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Minimizing movements / JKO)</span></p>
 
 We will prove existence of solutions via the so-called **minimizing movements** (also known as JKO / variational) scheme. Minimizing movements, introduced by Ennio De Giorgi, refers to a variational approach for defining **gradient flows of non-smooth energies**, often approximating solutions by discretizing time and finding local minima at each step. It links to Euler schemes to describe steep descent for nonlinear diffusion, geometric evolution equations like mean curvature flow, and is used to study viscosity solutions. 
 
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Algorithm</span><span class="math-callout__name">(Minimizing movements)</span></p>
+
 Let $E: \mathbb{R}^N \to [0, \infty)$ be convex, let $x_0 \in \mathbb{R}^N$ be given, and let $h > 0$ denote a time-step size. For $\ell = 1, 2, 3, \dots$, define iteratively
 
-$$
-\chi_h^{(\ell)} := \arg \min_{x \in \mathbb{R}^N} \left\lbrace E(x) + \frac{1}{2h} \left| x - \chi_h^{(\ell-1)} \right|^2 \right\rbrace, \tag{1.10}
-$$
+$$\chi_h^{(\ell)} := \arg \min_{x \in \mathbb{R}^N} \left\lbrace E(x) + \frac{1}{2h} \left| x - \chi_h^{(\ell-1)} \right|^2 \right\rbrace, \tag{1.10}$$
 
 and let
 
-$$
-x_h(t) := \chi_h^{(\ell)} \quad \text{for } t \in [(\ell-1)h, \ell h) \tag{1.11}
-$$
+$$x_h(t) := \chi_h^{(\ell)} \quad \text{for } t \in [(\ell-1)h, \ell h) \tag{1.11}$$
 
 be its piecewise-constant interpolation in time.
 
@@ -637,21 +622,15 @@ be its piecewise-constant interpolation in time.
 
 The **Euler–Lagrange equation** for (1.10) — i.e. the *first-order optimality condition* for $\chi_h^{(\ell)}$ to be a minimizer of the bracketed functional, in the same variational sense as in §1.2 — is
 
-$$
-\frac{\chi_h^{(\ell)} - \chi_h^{(\ell-1)}}{h} \in -\partial E(\chi_h^{(\ell)}). \tag{1.12}
-$$
+$$\frac{\chi_h^{(\ell)} - \chi_h^{(\ell-1)}}{h} \in -\partial E(\chi_h^{(\ell)}). \tag{1.12}$$
 
 When $E$ is differentiable, this reduces to
 
-$$
-\frac{\chi_h^{(\ell)} - \chi_h^{(\ell-1)}}{h} = -\nabla E(\chi_h^{(\ell)}), \tag{1.13}
-$$
+$$\frac{\chi_h^{(\ell)} - \chi_h^{(\ell-1)}}{h} = -\nabla E(\chi_h^{(\ell)}), \tag{1.13}$$
 
 which is precisely the **implicit Euler scheme** for the ODE (1.1):
 
-$$
-\chi_h^{(\ell)}= \chi_h^{(\ell-1)} -h\nabla E(\chi_h^{(\ell)}).
-$$
+$$\chi_h^{(\ell)}= \chi_h^{(\ell-1)} -h\nabla E(\chi_h^{(\ell)}).$$
 
 <div class="accordion" markdown="1">
 <details markdown="1">
@@ -1590,15 +1569,11 @@ $$
 
 A standard fact from convex analysis (the $N$-dimensional version of the fact that the derivative of a convex function is non-decreasing) states that whenever $p_i \in \partial E(x_i(t))$ for $i = 1, 2$,
 
-$$
-\langle x_1(t) - x_2(t), \, p_1 - p_2 \rangle \ge 0.
-$$
+$$\langle x_1(t) - x_2(t), \, p_1 - p_2 \rangle \ge 0.$$
 
 By assumption, $-\dot{x}\_i(t) \in \partial E(x_i(t))$, so we may pick $p_i$ with $\dot{x}\_i(t) = -p_i$. Substituting,
 
-$$
-\frac{d}{dt} f = \langle x_1(t) - x_2(t), \, -(p_1 - p_2) \rangle = -\langle x_1(t) - x_2(t), \, p_1 - p_2 \rangle \le 0,
-$$
+$$\frac{d}{dt} f = \langle x_1(t) - x_2(t), \, -(p_1 - p_2) \rangle \le 0,$$
 
 which proves the monotonicity. **Uniqueness** follows by taking equal initial conditions $x_1(0) = x_2(0)$, so that $f(0) = 0$, and hence $f \equiv 0$. $\square$
 
@@ -1875,7 +1850,7 @@ Equivalently (in the smooth case), $\nabla^2 E(x)\succeq \lambda\,\mathrm{Id}$ f
 <div class="math-callout math-callout--remark" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Geometric meaning of uniform convexity)</span></p>
 
-Plain convexity says the graph of $E$ lies above every tangent plane:
+**Plain convexity** says the graph of $E$ lies above every tangent plane:
 
 $$E(y) \ge E(x) + \langle \nabla E(x),\,y-x\rangle.$$
 
@@ -2214,9 +2189,7 @@ A subtle point on logical structure: the result below assumes a-priori that a co
 
 Let $E$ be convex and differentiable, let $x:[0,\infty)\to\mathbb R^N$ solve the gradient-flow equation (1.1), and let $\chi_\ell:=\chi_h^{(\ell)}$ be the iterates of the minimizing-movements scheme (1.10) starting from the same initial condition $\chi_h^{(0)}=x_0=x(0)$. Then
 
-$$
-\sup_{\ell\in\mathbb N}\,|\chi_\ell - x(\ell h)| \;\le\; \frac{h}{\sqrt 2}\,|\nabla E(x_0)|. \tag{1.23}
-$$
+$$\sup_{\ell\in\mathbb N}\,|\chi_\ell - x(\ell h)| \;\le\; \frac{h}{\sqrt 2}\,|\nabla E(x_0)|. \tag{1.23}$$
 
 </div>
 
@@ -2235,61 +2208,43 @@ We pursue a one-step bound and iterate.
 
 **Step 1 — reduction to one step.** It suffices to prove
 
-$$
-|\chi_\ell - x(\ell h)|^2 + \tfrac{h^2}{2}\,|\nabla E(\chi_\ell)|^2 \;\le\; |\chi_{\ell-1}-x((\ell-1)h)|^2 + \tfrac{h^2}{2}\,|\nabla E(\chi_{\ell-1})|^2. \tag{1.24}
-$$
+$$|\chi_\ell - x(\ell h)|^2 + \tfrac{h^2}{2}\,|\nabla E(\chi_\ell)|^2 \;\le\; |\chi_{\ell-1}-x((\ell-1)h)|^2 + \tfrac{h^2}{2}\,|\nabla E(\chi_{\ell-1})|^2. \tag{1.24}$$
 
 Iterating (1.24) from $\ell=L$ down to $\ell=1$ and using $\chi_0=x(0)$,
 
-$$
-|\chi_L-x(Lh)|^2 + \tfrac{h^2}{2}|\nabla E(\chi_L)|^2 \;\le\; \tfrac{h^2}{2}|\nabla E(x_0)|^2,
-$$
+$$|\chi_L-x(Lh)|^2 + \tfrac{h^2}{2}|\nabla E(\chi_L)|^2 \;\le\; \tfrac{h^2}{2}|\nabla E(x_0)|^2,$$
 
 which gives $\|\chi_L-x(Lh)\|^2\le \tfrac{h^2}{2}\|\nabla E(x_0)\|^2$, i.e. (1.23).
 
 **Step 2 — one-step argument.** Without loss of generality $\ell=1$. Define the **convex-combination error**
 
-$$
-e(t) \;:=\; \frac{t}{h}\cdot\tfrac12|\chi_1-x(t)|^2 + \frac{h-t}{h}\cdot\tfrac12|x_0-x(t)|^2, \qquad t\in[0,h]. \tag{1.25}
-$$
+$$e(t) \;:=\; \frac{t}{h}\cdot\tfrac12|\chi_1-x(t)|^2 + \frac{h-t}{h}\cdot\tfrac12|x_0-x(t)|^2, \qquad t\in[0,h]. \tag{1.25}$$
 
 So $e(0)=\tfrac12\|x_0-x(0)\|^2=0$ (under matched initial conditions) and $e(h)=\tfrac12\|\chi_1-x(h)\|^2$.
 
 Differentiate $e$ in $t$:
 
-$$
-\dot e(t) = \tfrac{1}{2h}|\chi_1-x(t)|^2 - \tfrac{1}{2h}|x_0-x(t)|^2 + \tfrac{t}{h}\langle\chi_1-x(t),-\dot x(t)\rangle + \tfrac{h-t}{h}\langle x_0-x(t),-\dot x(t)\rangle.
-$$
+$$\dot e(t) = \tfrac{1}{2h}|\chi_1-x(t)|^2 - \tfrac{1}{2h}|x_0-x(t)|^2 + \tfrac{t}{h}\langle\chi_1-x(t),-\dot x(t)\rangle + \tfrac{h-t}{h}\langle x_0-x(t),-\dot x(t)\rangle.$$
 
 *First two terms.* Using the polarization identity $\|a\|^2-\|b\|^2=\langle a-b,a+b\rangle$ with $a=\chi_1-x(t),\ b=x_0-x(t)$:
 
-$$
-\tfrac{1}{2h}\bigl(|\chi_1-x(t)|^2-|x_0-x(t)|^2\bigr) \;=\; \tfrac12\bigl\langle \tfrac{\chi_1-x_0}{h},\,2(\chi_1-x(t))-(\chi_1-x_0)\bigr\rangle.
-$$
+$$\tfrac{1}{2h}\bigl(|\chi_1-x(t)|^2-|x_0-x(t)|^2\bigr) \;=\; \tfrac12\bigl\langle \tfrac{\chi_1-x_0}{h},\,2(\chi_1-x(t))-(\chi_1-x_0)\bigr\rangle.$$
 
 Apply the **Euler–Lagrange equation** (1.13), $\nabla E(\chi_1)+\tfrac{\chi_1-x_0}{h}=0$, i.e. $\tfrac{\chi_1-x_0}{h}=-\nabla E(\chi_1)$ and $\chi_1-x_0=-h\nabla E(\chi_1)$. Substituting,
 
-$$
-=\;-\tfrac12\bigl\langle\nabla E(\chi_1),\,2(\chi_1-x(t))+h\nabla E(\chi_1)\bigr\rangle \;=\; -\langle\nabla E(\chi_1),\chi_1-x(t)\rangle - \tfrac{h}{2}|\nabla E(\chi_1)|^2.
-$$
+$$=\;-\tfrac12\bigl\langle\nabla E(\chi_1),\,2(\chi_1-x(t))+h\nabla E(\chi_1)\bigr\rangle \;=\; -\langle\nabla E(\chi_1),\chi_1-x(t)\rangle - \tfrac{h}{2}|\nabla E(\chi_1)|^2.$$
 
 By convexity $E(x(t))\ge E(\chi_1)+\langle\nabla E(\chi_1),x(t)-\chi_1\rangle$, so $-\langle\nabla E(\chi_1),\chi_1-x(t)\rangle\le E(x(t))-E(\chi_1)$. Hence
 
-$$
-\tfrac{1}{2h}\bigl(|\chi_1-x(t)|^2-|x_0-x(t)|^2\bigr) \;\le\; -\tfrac{h}{2}|\nabla E(\chi_1)|^2 + E(x(t))-E(\chi_1).
-$$
+$$\tfrac{1}{2h}\bigl(|\chi_1-x(t)|^2-|x_0-x(t)|^2\bigr) \;\le\; -\tfrac{h}{2}|\nabla E(\chi_1)|^2 + E(x(t))-E(\chi_1).$$
 
 *Last two terms.* Use $\dot x(t)=-\nabla E(x(t))$ and convexity $\langle\nabla E(x(t)),y-x(t)\rangle\le E(y)-E(x(t))$ once for $y=\chi_1$ and once for $y=x_0$:
 
-$$
-\tfrac{t}{h}\langle\chi_1-x(t),-\dot x(t)\rangle + \tfrac{h-t}{h}\langle x_0-x(t),-\dot x(t)\rangle \;\le\; \tfrac{t}{h}E(\chi_1) + \tfrac{h-t}{h}E(x_0) - E(x(t)).
-$$
+$$\tfrac{t}{h}\langle\chi_1-x(t),-\dot x(t)\rangle + \tfrac{h-t}{h}\langle x_0-x(t),-\dot x(t)\rangle \;\le\; \tfrac{t}{h}E(\chi_1) + \tfrac{h-t}{h}E(x_0) - E(x(t)).$$
 
 *Combining.* The two estimates add to
 
-$$
-\dot e(t) \;\le\; -\tfrac{h}{2}|\nabla E(\chi_1)|^2 + \tfrac{h-t}{h}\bigl(E(x_0)-E(\chi_1)\bigr).
-$$
+$$\dot e(t) \;\le\; -\tfrac{h}{2}|\nabla E(\chi_1)|^2 + \tfrac{h-t}{h}\bigl(E(x_0)-E(\chi_1)\bigr).$$
 
 *Bound the energy gap.* Apply convexity in the form $E(\chi_1)\ge E(x_0)+\langle\nabla E(x_0),\chi_1-x_0\rangle$ together with EL ($\chi_1-x_0=-h\nabla E(\chi_1)$):
 
@@ -3306,10 +3261,10 @@ $$
 
 Weak duality bounds the left side from below by the dual minimum and the right side from above by it — so both inequalities are equalities, and both $\pi$ and $(\varphi,\varphi^\ast)$ are optimal.
 
-**Step 2: Argument for (2.8) in (ii) (the map structure).** Assume now that $\mu$ does not give mass to small sets, and take $\varphi$ from Step 1. Since $\varphi\in L^1(\mu)$, it is finite $\mu$-a.e., so $\mu(\\{\varphi=+\infty\\})=0$. The boundary $\partial\\{\varphi<+\infty\\}$ of a convex set has Hausdorff dimension $\le d-1$, so by hypothesis $\mu(\partial\\{\varphi<+\infty\\})=0$; combined,
+**Step 2: Argument for (2.8) in (ii) (the map structure).** Assume now that $\mu$ does not give mass to small sets, and take $\varphi$ from Step 1. Since $\varphi\in L^1(\mu)$, it is finite $\mu$-a.e., so $\mu(\\{\varphi=+\infty\\})=0$. The boundary $\partial\\{\varphi<+\infty\\}$ of a convex set has Hausdorff dimension $\le d-1$, so by hypothesis $\mu(\partial\\lbrace\varphi<+\infty\\rbrace)=0$; combined,
 
 $$
-\mu\bigl(\operatorname{Int}\{\varphi<+\infty\}\bigr) \;=\; 1.
+\mu\bigl(\operatorname{Int}\lbrace\varphi<+\infty\rbrace\bigr) \;=\; 1.
 $$
 
 On the interior of its domain, the convex function $\varphi$ is locally Lipschitz, hence by Rademacher differentiable a.e. with respect to Lebesgue — and the non-differentiability set has Hausdorff dimension $\le d-1$, hence (again by hypothesis) is $\mu$-null. So $\partial\varphi(x)=\lbrace\nabla\varphi(x)\rbrace$ for $\mu$-a.e. $x$, and the Knott–Smith condition (2.7) collapses to $y=\nabla\varphi(x)$ for $\pi$-a.e. $(x,y)$. This is exactly $\pi=(\mathrm{id},\nabla\varphi)\_\\#\mu$, proving (2.8). The pushforward identity $(\nabla\varphi)\_\\#\mu=\nu$ follows because the second marginal of $\pi$ is $\nu$.
