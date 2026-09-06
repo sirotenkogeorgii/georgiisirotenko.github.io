@@ -1,6 +1,12 @@
 {
  "entries": [
   {
+   "title": "Calculus of Variations — Gelfand & Fomin",
+   "url": "/subpages/books/calculus_of_variations_fomin/",
+   "date": "2026-09-06",
+   "added": false
+  },
+  {
    "title": "Introduction to Functional Analysis",
    "url": "/subpages/books/functional_analysis/mit_rogriguez/",
    "date": "2026-09-06",
@@ -172,12 +178,6 @@
    "title": "Computability and Complexity",
    "url": "/notes/computability-and-complexity/",
    "date": "2026-07-07",
-   "added": false
-  },
-  {
-   "title": "Algorithms for Combinatorial Optimization",
-   "url": "/subpages/books/aco/",
-   "date": "2026-07-05",
    "added": false
   }
  ]

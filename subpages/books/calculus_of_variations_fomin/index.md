@@ -11,6 +11,10 @@ tags:
 
 # Calculus of Variations — Gelfand & Fomin
 
+**Table of Contents**
+- TOC
+{:toc}
+
 ## Chapter 1: Elements of the Theory
 
 ### 1. Functionals. Some Simple Variational Problems
