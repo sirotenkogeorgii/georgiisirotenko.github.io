@@ -3681,7 +3681,7 @@ Let $E \subset \mathbb{R}$ be measurable and $f : E \to [-\infty, \infty]$. The 
 
 If $E$ is measurable and $f : E \to \mathbb{R}$ is a measurable function, then 
 
-$$f^{-1}(F) \text{ is measurable } \forall F \in \mathcal{B}f^{-1}(F).$$
+$$f^{-1}(F) \text{ is measurable } \quad \forall F \in \mathcal{B}.$$
 
 </div>
 
@@ -3802,7 +3802,7 @@ Also
 
 $$f^{-1}((n, \infty)) = f^{-1}\mid\_E((n, \infty)) \cup f^{-1}\mid\_F((n, \infty)).$$
 
-Hence $f^{-1}((n, \infty))$ is measurable as a unition of measurable sets.
+Hence $f^{-1}((n, \infty))$ is measurable as a union of measurable sets.
 
 </details>
 </div>
@@ -3848,8 +3848,8 @@ Suppose that $E$ is a measurable set, and $u : E \to \mathbb{R}$ and $v : E \to 
 By Algebra of Measurable Functions,
 * $u,v$ are measurable $\implies$ $u^2,v^2$ are measurable.
 * $u^2,v^2$ are measurable $\implies$ $u^2 + v^2$ is measurable
-* $u^2 + v^2$ is measurable \implies $(u^2 + v^2)^{1/2}$
-  * u^2 + v^2 is non-negative
+* $u^2 + v^2$ is measurable $\implies$ $(u^2 + v^2)^{1/2}$ is measurable
+  * $u^2 + v^2$ is non-negative
 
   $$(g^{1/2})^{-1}((n, \infty)) = \begin{cases} g^{-1}((n^2, \infty)) & \text{if } n \ge 0 \\ E & \text{if } n < 0 \end{cases}$$
 
@@ -3973,13 +3973,13 @@ $$m\left(\bigcap_n F_n\right) = \lim_n m(F_n).$$
 We verify the pre-requests of the theorem to apply it:
 
 1. $m(F_1(k)) < \infty$:
-   $* F_1(k) = \bigcup_{m=1}^\infty \lbrace x\in E\mid \lvert f_m(x) - f(x) \rvert \geq k^{-1} \rbrace$
+   * $F\_1(k) = \bigcup\_{m=1}^\infty \lbrace x\in E\mid \lvert f\_m(x) - f(x) \rvert \geq k^{-1} \rbrace$
    * $m(F_1(k)) \leq m(E) < \infty$
 2. Nested structure of $F_n(k)$ sets is obvious from the union.
 
 Now show that $\bigcap_{n=1}^\infty F_n(k)$ set has measure zero.
 
-$$\bigcap_{n=1}^\infty \bigcup_{m=n}^\infty \lbrace x\in E \mid \lvert f_m(x) - f(x) \rvert \geq k^{-1} \rbrace \subseteq \lbrace x\in E \mid \lvert \limsup_{n\to\infty} \lvert f_n(x) - f(x) \rvert \geq k^{-1} \rbrace.$$
+$$\bigcap_{n=1}^\infty \bigcup_{m=n}^\infty \lbrace x\in E \mid \lvert f_m(x) - f(x) \rvert \geq k^{-1} \rbrace \subseteq \lbrace x\in E \mid \limsup_{n\to\infty} \lvert f_n(x) - f(x) \rvert \geq k^{-1} \rbrace.$$
 
 By assumption the latter set has measure zero: $f_n$ converges to $f$ a.e., so the amount of $x\in E$, where the given inequality holds is zero by the definition of a.e. convergence. So
 
@@ -6804,13 +6804,13 @@ Let $K$ be the set (not subspace) of sequences $\lbrace a_k \rbrace_k$ in $\ell^
   <p class="math-callout__title"><span class="math-callout__label">Theorem</span>(Arzela-Ascoli)</p>
 
 Let $f_n \in C([a, b])$, $n \in \mathbb{N}$, such that
-* there exists $B \geq 0$ such that for all $n\in\mathbb{N}$
+* the sequence is **uniformly bounded**:
   
-  $$\lVert f_n \rVert_\infty \leq B,$$
+  $$\exists B \geq 0\forall n\in\mathbb{N}: \lVert f_n \rVert_\infty \leq B,$$
 
-* the sequence $\lbrace f_n\rbrace_n$ is **equi-continuous**: $\forall \varepsilon > 0 \exists \delta > 0: \lvert x − y\rvert <\delta \implies \forall n\in\mathbb{N}$
+* the sequence $\lbrace f_n\rbrace_n$ is **equi-continuous**: 
   
-  $$\lvert f_n(x) − f_n(y)\rvert <\varepsilon.$$
+  $$\forall \varepsilon > 0 \exists \delta > 0: \lvert x − y\rvert <\delta \implies \forall n\in\mathbb{N}: \lvert f_n(x) − f_n(y)\rvert <\varepsilon.$$
 
 Then there exists a subsequence $\lbrace f_{n_j}\rbrace_j$ converging in $C([a, b])$.
 
