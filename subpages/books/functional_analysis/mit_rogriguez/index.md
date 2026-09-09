@@ -6790,7 +6790,7 @@ Let $K$ be the set (not subspace) of sequences $\lbrace a_k \rbrace_k$ in $\ell^
 </div>
 
 <div class="math-callout math-callout--theorem" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Theorem</span>(Arzela-Ascoli)</p>
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Arzela-Ascoli)</span></p>
 
 Let $f_n \in C([a, b])$, $n \in \mathbb{N}$, such that
 * the sequence is **uniformly bounded**:
@@ -6810,6 +6810,58 @@ Then there exists a subsequence $\lbrace f_{n_j}\rbrace_j$ converging in $C([a, 
     <summary>proof</summary>
     <p>TODO:</p>
   </details>
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Compact vs. Non-Compact Domains)</span></p>
+
+The formulation above assumes that the domain $[a,b]$ is compact. Hence the subsequence obtained by Arzelà--Ascoli converges **uniformly on the whole domain**:
+
+$$\lVert f_{n_j}-f\rVert_\infty = \sup_{x\in[a,b]} |f_{n_j}(x)-f(x)| \longrightarrow 0.$$
+
+For a non-compact domain $X$, one commonly uses a local version of Arzelà--Ascoli. Under suitable local boundedness and equicontinuity assumptions, one obtains a subsequence that converges **uniformly on every compact subset** $K\subset X$:
+
+$$\forall K\subset X \text{ compact}, \qquad \sup_{x\in K}|f_{n_j}(x)-f(x)| \longrightarrow 0.$$
+
+This mode of convergence is called **locally uniform convergence**, or **uniform convergence on compact subsets**.
+
+Thus,
+
+$$\boxed{X\text{ compact} \quad\Longrightarrow\quad \text{locally uniform convergence} = \text{uniform convergence}.}$$
+
+When $X$ is non-compact, locally uniform convergence is generally strictly weaker than uniform convergence on all of $X$.
+
+A common proof strategy on a non-compact domain is to choose an increasing sequence of compact sets
+
+$$K_1\subset K_2\subset\cdots, \qquad \bigcup_{m=1}^{\infty}K_m=X,$$
+
+apply Arzelà--Ascoli successively on each $K_m$, and then use a diagonal subsequence. The resulting subsequence converges uniformly on every $K_m$, and hence locally uniformly on $X$.
+
+In this language, the generalized theorem can be viewed as a compactness criterion in $C_{\mathrm{loc}}(X)$, whose natural topology is uniform convergence on compact subsets.
+
+</div>
+
+<div class="math-callout math-callout--question" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Example</span><span class="math-callout__name">(Local version of Arzelà--Ascoli: Locally Uniform Convergence)</span></p>
+
+Consider the function $f_n(x)=\tanh(x/n)$,  $x\in\mathbb R$. For any fixed compact interval $[-R,R]$,
+
+$$
+\sup_{|x|\le R}|\tanh(x/n)|
+\le
+\tanh(R/n)\to0,
+$$
+
+so $f_n\to0$ uniformly on every compact subset of $\mathbb R$.
+
+But globally,
+
+$$\sup_{x\in\mathbb R}|\tanh(x/n)|=1$$
+
+for every $n$, so convergence is **not uniform on $\mathbb R$**.
+
+#TODO: make a plot
+
 </div>
 
 <div class="math-callout math-callout--theorem" markdown="1">
@@ -6988,11 +7040,136 @@ An operator $K \in \mathcal{B}(H)$ is a **compact operator** if $\overline{K(\lb
 <div class="math-callout math-callout--question" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Example 208</span></p>
 
-Illustrative examples of compact operators include $K : \ell^2 \to \ell^2$ sending $a = (a_1, a_2, a_3, \dots)$ to $\left( \frac{a_1}{1}, \frac{a_2}{2}, \frac{a_3}{3}, \dots \right)$, as well as $T : L^2 \to L^2$ sending $f(x)$ to $\int_0^1 K(x, y) f(y)\,dy$ for some continuous function $K : [0, 1] \times [0, 1] \to \mathbb{R}$.
+Illustrative examples of compact operators include $K : \ell^2 \to \ell^2$ sending 
+
+$$a = (a_1, a_2, a_3, \dots) \mapsto \left( \frac{a_1}{1}, \frac{a_2}{2}, \frac{a_3}{3}, \dots \right),$$
+
+as well as $T : L^2 \to L^2$ 
+
+$$f(x) \mapsto \int_0^1 K(x, y) f(y)\,dy$$
+
+for some continuous function $K : [0, 1] \times [0, 1] \to \mathbb{R}$.
 
 </div>
 
-The integral operator is particularly important because it comes up in solutions to differential equations: for instance, if we take $K(x, y) = (x-1)y$ for $0 \le y \le x \le 1$ and $K(x, y) = x(y-1)$ for $0 \le x \le y \le 1$, then $u(x) = \int_0^1 K(x, y) f(y)\,dy$ satisfies $u'' = f$, $u(0) = u(1) = 0$.
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span>(Importance of integral operators)</p>
+
+The **integral operator** is particularly important because it comes up in solutions to differential equations: for instance, if we take $K(x, y) = (x-1)y$ for $0 \le y \le x \le 1$ and $K(x, y) = x(y-1)$ for $0 \le x \le y \le 1$, then $u(x) = \int_0^1 K(x, y) f(y)\,dy$ satisfies $u'' = f$, $u(0) = u(1) = 0$.
+
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Integral Operators with Continuous Kernels are Compact)</span></p>
+
+Let
+
+$$K \in C([a,b]\times[a,b]),$$
+
+and define the integral operator
+
+$$Tf(x) = \int_a^b K(x,y)f(y)\,dy, \qquad f\in L^2([a,b]).$$
+
+Then
+
+$$T\in\mathcal B(L^2([a,b])),$$
+
+and $T$ is compact.
+
+Equivalently, for every bounded sequence $\lbrace f_n\rbrace_n$ in $L^2([a,b])$, the sequence $\lbrace Tf_n\rbrace_n$ has a subsequence converging in $L^2([a,b])$.
+
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Proof</summary>
+
+We first show that $T$ is bounded.
+
+Since $K$ is continuous on the compact set $[a,b]\times[a,b]$, it is bounded. Let
+
+$$M:=\sup_{(x,y)\in[a,b]^2}|K(x,y)|<\infty.$$
+
+For every $x\in[a,b]$, by Cauchy--Schwarz,
+
+$$
+\begin{aligned}
+|Tf(x)|
+&=
+\left|
+\int_a^b K(x,y)f(y)\,dy
+\right|\\
+&\le
+\left(
+\int_a^b |K(x,y)|^2\,dy
+\right)^{1/2}
+\lVert f\rVert_2\\
+&\le
+M\sqrt{b-a}\,\lVert f\rVert_2.
+\end{aligned}
+$$
+
+Therefore
+
+$$\lVert Tf\rVert_\infty \le M\sqrt{b-a}\,\lVert f\rVert_2.$$
+
+Hence
+
+$$\lVert Tf\rVert_2 \le\sqrt{b-a}\,\lVert Tf\rVert_\infty\le M(b-a)\lVert f\rVert_2,$$
+
+so $T$ is bounded.
+
+Now let $\lbrace f_n\rbrace_n$ be a bounded sequence in $L^2([a,b])$. Thus there exists $C>0$ such that
+
+$$\lVert f_n\rVert_2\le C$$
+
+for all $n$.
+
+The previous estimate gives
+
+$$\lVert Tf_n\rVert_\infty \le M\sqrt{b-a}\,C,$$
+
+so $\lbrace Tf_n\rbrace_n$ is uniformly bounded.
+
+Next, for $x,z\in[a,b]$,
+
+$$
+\begin{aligned}
+|Tf_n(x)-Tf_n(z)|
+&=
+\left|
+\int_a^b
+\bigl(K(x,y)-K(z,y)\bigr)f_n(y)\,dy
+\right|\\
+&\le
+\left(
+\int_a^b
+|K(x,y)-K(z,y)|^2\,dy
+\right)^{1/2}
+\lVert f_n\rVert_2\\
+&\le
+C\sqrt{b-a}\,
+\sup_{y\in[a,b]}
+|K(x,y)-K(z,y)|.
+\end{aligned}
+$$
+
+Because $K$ is continuous on the compact set $[a,b]^2$, it is uniformly continuous. Hence the right-hand side tends to $0$ as $\lvert x-z\rvert\to0$, uniformly in $n$.
+
+Therefore $\lbrace Tf_n\rbrace_n$ is equicontinuous.
+
+By the Arzelà--Ascoli theorem, there exists a subsequence $\lbrace Tf_{n_j}\rbrace_j$ converging uniformly on $[a,b]$.
+
+Since uniform convergence implies $L^2$ convergence on a finite interval,
+
+$$\lVert Tf_{n_j}-g\rVert_2 \le \sqrt{b-a}\, \lVert Tf_{n_j}-g\rVert_\infty \to0.$$
+
+Thus every bounded sequence in $L^2([a,b])$ has an image subsequence converging in $L^2([a,b])$.
+
+Hence $T$ is compact.
+
+</details>
+</div>
 
 <div class="math-callout math-callout--question" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Example 209</span></p>
