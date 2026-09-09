@@ -6024,16 +6024,14 @@ A **countably infinite maximal orthonormal subset** basically serves the same pu
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition</span>(Hamel Basis)</p>
 
-A **Hamel basis** of a vector space \(V\) over a field \(\mathbb F\) is a subset \(B\subseteq V\) such that:
+A **Hamel basis** of a vector space $V$ over a field $\mathbb F$ is a subset $B\subseteq V$ such that:
 
-1. \(B\) is **linearly independent**, and
-2. every \(v\in V\) can be written as a **finite** linear combination of elements of \(B\).
+1. $B$ is **linearly independent**, and
+2. every $v\in V$ can be written as a **finite** linear combination of elements of $B$.
 
-Equivalently, for every \(v\in V\), there exist unique \(b_1,\dots,b_n\in B\) and scalars \(a_1,\dots,a_n\in\mathbb F\) such that
+Equivalently, for every $v\in V$, there exist unique $b_1,\dots,b_n\in B$ and scalars $a_1,\dots,a_n\in\mathbb F$ such that
 
-$$
-v=\sum_{k=1}^n a_k b_k.
-$$
+$$v=\sum_{k=1}^n a_k b_k.$$
 
 The word **finite** is crucial.
 
@@ -6042,7 +6040,7 @@ The word **finite** is crucial.
 <div class="math-callout math-callout--question" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Example</span>(Standard vectors is not Hamel Basis in infinite-dimensional Banach Spaces)</p>
 
-For example, in an infinite-dimensional Banach space such as \(\ell^2\), the standard vectors \(e_1,e_2,\dots\) are not a Hamel basis, because a general element
+For example, in an infinite-dimensional Banach space such as $\ell^2$, the standard vectors $e_1,e_2,\dots$ are not a Hamel basis, because a general element
 
 $$x=(x_1,x_2,\dots)$$
 
@@ -6059,39 +6057,30 @@ So a Hamel basis is the purely algebraic notion of basis, with no topology or co
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition</span>(Schauder Basis)</p>
 
-A **Schauder basis** of a normed space \(X\) is a sequence \((e_n)_{n\ge 1}\subset X\) such that every \(x\in X\) can be written uniquely as a convergent infinite series
+A **Schauder basis** of a normed space $X$ is a sequence $(e_n)\_{n\ge 1}\subset X$ such that every $x\in X$ can be written uniquely as a convergent infinite series
 
-$$
-x=\sum_{n=1}^\infty a_n e_n,
-$$
+$$x=\sum_{n=1}^\infty a_n e_n,$$
 
-where convergence is with respect to the norm of \(X\). Equivalently,
+where convergence is with respect to the norm of $X$. Equivalently,
 
-$$
-\left\|x-\sum_{n=1}^N a_n e_n\right\|\to 0
-\qquad\text{as }N\to\infty.
-$$
+$$\left\|x-\sum_{n=1}^N a_n e_n\right\|\to 0 \qquad\text{as }N\to\infty.$$
 
-The coefficients \(a_n\) are uniquely determined by \(x\).
+The coefficients $a_n$ are uniquely determined by $x$.
 
 The key difference from a Hamel basis is:
 
 * **Hamel basis:** finite linear combinations only.
 * **Schauder basis:** infinite norm-convergent series are allowed.
 
-For example, in \(\ell^2\), the standard unit vectors
+For example, in $\ell^2$, the standard unit vectors
 
-$$
-e_1=(1,0,0,\dots),\quad e_2=(0,1,0,\dots),\dots
-$$
+$$e_1=(1,0,0,\dots),\quad e_2=(0,1,0,\dots),\dots$$
 
-form a Schauder basis, because every \(x=(x_1,x_2,\dots)\in\ell^2\) satisfies
+form a Schauder basis, because every $x=(x_1,x_2,\dots)\in\ell^2$ satisfies
 
-$$
-x=\sum_{n=1}^\infty x_n e_n
-$$
+$$x=\sum_{n=1}^\infty x_n e_n$$
 
-in the \(\ell^2\)-norm.
+in the $\ell^2$-norm.
 
 One subtle point: not every separable Banach space has a Schauder basis. Separability only guarantees the existence of a countable dense set, which is much weaker.
 
@@ -6821,6 +6810,97 @@ Then there exists a subsequence $\lbrace f_{n_j}\rbrace_j$ converging in $C([a, 
     <summary>proof</summary>
     <p>TODO:</p>
   </details>
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem</span><span class="math-callout__name">(Compactness from Uniform $L^2$ Bounds on a Function and its Derivative)</span></p>
+
+Let $\lbrace f_n\rbrace_n$ be a sequence of continuously differentiable functions on $[0,1]$ such that
+
+$$B := \sup_n \left[\lVert f_n\rVert_2 + \lVert f_n'\rVert_2\right] < \infty.$$
+
+Then:
+
+1. For every $n\in\mathbb N$,
+
+   $$\lVert f_n\rVert_\infty \le B.$$
+
+2. For every $n\in\mathbb N$ and $x,y\in[0,1]$,
+
+   $$|f_n(x)-f_n(y)| \le B|x-y|^{1/2}.$$
+
+3. There exists a subsequence $\lbrace f_{n_j}\rbrace\_j$ converging in $L^2([0,1])$.
+
+</div>
+
+<div class="accordion" markdown="1">
+<details markdown="1">
+<summary>Proof</summary>
+
+**Step 1: Uniform boundedness.**
+
+Prove that for every $x,y\in[0,1]$,
+
+$$|f_n(x)|\le|f_n(y)|+\lVert f_n'\rVert_2.$$
+
+Then integrate with respect to $y\in[0,1]$.
+
+**Step 2: Uniform equicontinuity.**
+
+Using the Fundamental Theorem of Calculus, prove that for every $x,y\in[0,1]$,
+
+$$|f_n(x)-f_n(y)| \le B|x-y|^{1/2}.$$
+
+**Step 3: Compactness.**
+
+Use Steps 1 and 2 together with the Arzelà–Ascoli theorem to extract a uniformly convergent subsequence. Then show that uniform convergence on $[0,1]$ implies convergence in $L^2([0,1])$.
+
+</details>
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Sobolev-Space Formulation)</span></p>
+
+The assumption
+
+$$\sup_n\left(\lVert f_n\rVert_{L^2(0,1)}+\lVert f_n'\rVert_{L^2(0,1)}\right)<\infty$$
+
+is precisely the statement that the sequence $\lbrace f_n\rbrace_n$ is bounded in the Sobolev space $H^1(0,1)$, up to the equivalent choice of norm
+
+$$\lVert f\rVert_{H^1}=\left(\lVert f\rVert_{L^2}^2+\lVert f'\rVert_{L^2}^2\right)^{1/2}.$$
+
+Thus the theorem can be reformulated as follows:
+
+> Every bounded sequence in $H^1(0,1)$ admits a subsequence that converges strongly in $L^2(0,1)$.
+
+Equivalently, the embedding
+
+$$H^1(0,1)\Subset L^2(0,1)$$
+
+is compact.
+
+In fact, the proof gives more. In one dimension, every $f\in H^1(0,1)$ has an absolutely continuous representative and
+
+$$f(x)-f(y)=\int_y^x f'(t)\,dt.$$
+
+Hence, by Cauchy--Schwarz,
+
+$$|f(x)-f(y)|\le\lVert f'\rVert_{L^2}|x-y|^{1/2}.$$
+
+Therefore
+
+$$H^1(0,1)\hookrightarrow C^{0,1/2}([0,1])$$
+
+continuously. A bounded subset of $H^1(0,1)$ is consequently uniformly bounded and equicontinuous, so Arzelà--Ascoli yields the stronger compact embedding
+
+$$H^1(0,1)\Subset C([0,1]).$$
+
+The compact embedding into $L^2(0,1)$ then follows immediately from
+
+$$C([0,1])\hookrightarrow L^2(0,1).$$
+
+This is a one-dimensional instance of the Sobolev--Morrey embedding together with the Rellich--Kondrachov compactness theorem.
+
 </div>
 
 ## Classes of Operators
