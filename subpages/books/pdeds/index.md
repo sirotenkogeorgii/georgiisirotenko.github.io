@@ -4391,6 +4391,11 @@ Here are the three basic examples of functionals that are very interesting:
 
 </div>
 
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/ot_three_functionals.png' | relative_url }}" alt="Two-row figure. Top row: four unit-mass densities labelled A to D drawn over the same grey dashed tilted double-well potential — A a narrow blue bump on the left, B the same narrow bump translated to the right in green, C a wide orange bump centred where A is, D a purple pair of narrow bumps split to left and right. Bottom row: three bar charts giving the value of each functional on A, B, C, D. The internal energy bars are negative and equal for A and B (-0.73, -0.73), lower for C (-1.60) and D (-1.42). The potential energy bars differ for A and B (0.11 versus 0.86), with C largest at 1.93 and D at 0.49. The interaction energy bars are again equal for A and B (0.25) with C at 1.44 and D largest at 2.50" loading="lazy">
+  <figcaption>The three functionals, evaluated on four arrangements of the same unit mass, before any convexity question is asked. Each is sensitive to something different, and that is exactly why Theorem 32 will test them with three different criteria. $\mathcal U$ depends only on the <em>profile</em> of the density — how concentrated it is — so it is translation-invariant and cannot tell A from B; spreading out (C) or halving the height (D) lowers it. $\mathcal V$ is the only one <em>linear</em> in $\rho$, a plain average of a fixed landscape, and the only one that knows <em>where</em> the mass sits: A and B differ. $\mathcal W$ is quadratic in $\rho$ and compares the mass with itself, so it too is translation-invariant, but it reads pairwise distances — here $W(z)=z^2/2$ makes it exactly the variance, which is why the split configuration D costs most. Keep A versus B in mind: it is the single test that separates $\mathcal V$ from the other two.</figcaption>
+</figure>
+
 A special example of internal energy is the **(Boltzmann) entropy**
 
 $$
@@ -4506,7 +4511,7 @@ Note also that condition 2. and 3. compare cleanly: convexity of the density is 
   <figcaption>McCann's condition (2.19) as convexity along dilations (here $d=2$). <strong>Left.</strong> Dilating a uniform blob by $r$ scales its volume like $r^d$ and its density like $r^{-d}$, so the internal energy of the dilation family is exactly $\Psi(r)=r^d\,U(r^{-d})$. The dotted rays show why dilations <em>are</em> displacement interpolations: every particle travels radially in a straight line at constant speed. <strong>Right.</strong> $\Psi$ (shifted to vanish at $r=1$) for the two standard checks — entropy $U(s)=s\log s$ gives $\Psi=-d\log r$, the power law $U(s)=s^2$ gives $\Psi=r^{-d}$ — and for the borderline porous-medium exponent $m=1-\frac{1}{d}$, where $\Psi$ degenerates to a straight line: convex and non-increasing, but only just.</figcaption>
 </figure>
 
-We will only give the full proof of part 2., which is rather straightforward, and sketch part 3., which follows the same lines. Note that part 1. is subtle (as can already be seen from the more involved statement itself).
+Parts 2. and 3. are straightforward, and we prove them first. Part 1. is genuinely subtle — as the more involved statement already suggests — and gets a subsection of its own below: its proof is where the geometry of displacement interpolation actually shows itself, and every step of it can be drawn.
 
 <details class="proof" markdown="1">
 <summary>Proof of Theorem 32, part 2 — potential energy</summary>
@@ -4562,6 +4567,213 @@ $$
 The converse direction again tests with Dirac measures. $\square$
 
 </details>
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/ot_interaction_displacement.png' | relative_url }}" alt="Three-panel figure for the interaction energy. Left panel: two symmetric atoms travelling apart in straight lines, plotted as position against interpolation time t, with double-headed arrows marking the difference z_t = 3, 5, 7 at t = 0, 0.5, 1. Middle panel: two interaction potentials rescaled to the unit range — a green convex parabola W(z) = z^2/2 and an orange dashed attractive Gaussian well W(z) = -exp(-z^2/8) — with the range of z_t shaded in grey on both sides. Right panel: the interaction energy along the interpolation, affinely rescaled so both curves run from 0 to 1; the convex potential gives a curve below the dotted chord, the well gives a curve above it" loading="lazy">
+  <figcaption>Theorem 32, part 3, on the smallest example that shows the mechanism: $\mu$ and $\nu$ are two symmetric atoms each, so the optimal plan is the monotone one and the interaction energy collapses to $\mathcal W(\rho_t)=\frac12 W(0)+\frac12 W(z_t)$. <strong>(a)</strong> The atoms fly along straight lines, so their <em>difference</em> $z_t=(1-t)(x-x')+t(y-y')$ is affine in $t$ — that affineness is the only thing the proof uses. <strong>(b)</strong> Two interaction potentials, rescaled to a common range: the convex $W(z)=z^2/2$, and an attractive Gaussian well, which is concave outside $\lvert z\rvert=2$. <strong>(c)</strong> The resulting energies, affinely rescaled so that both share one chord: the convex $W$ stays below it, the well rises above. The single change from part 2. is that convexity of $W$ is tested along <em>differences</em> rather than positions — and differences of straight-line trajectories are themselves straight lines.</figcaption>
+</figure>
+
+#### Why McCann's condition is the right one
+
+Part 1. is the one place in this section where we have to watch what displacement interpolation does to a *density* rather than to a point, and it is worth doing in full: the proof is short, every step of it is a picture, and it explains the otherwise unmotivated shape of condition (2.19).
+
+Throughout, let $\mu=\rho\_0\,dx$ and $\nu=\rho\_1\,dx$ be absolutely continuous with Brenier map $\nabla\varphi$, and let
+
+$$
+T_t = (1-t)\,\mathrm{id} + t\nabla\varphi, \qquad \rho_t = (T_t)_\sharp\mu
+$$
+
+be the displacement interpolation of Theorem 27. Because $\varphi$ is convex, $\nabla^2\varphi(x)$ is symmetric positive semi-definite, and therefore so is
+
+$$
+\nabla T_t(x) = (1-t)\,I + t\,\nabla^2\varphi(x), \qquad t\in[0,1].
+$$
+
+Write $J\_t(x):=\det\nabla T\_t(x)\ge 0$ for its Jacobian determinant.
+
+**Step 1: the Monge–Ampère bookkeeping.** Assuming $T\_t$ is a diffeomorphism, the density of a push-forward is governed by the change-of-variables (Monge–Ampère) identity
+
+$$
+\rho_t\bigl(T_t(x)\bigr)\,J_t(x) = \rho_0(x).
+$$
+
+In words: a small cell of mass sitting at $x$ is carried to a cell at $T\_t(x)$ whose volume has been multiplied by $J\_t(x)$ — so its density is divided by exactly the same factor. Nothing else happens to it. Mass does not split, merge or mix along a displacement interpolation; it is only *stretched*.
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/ot_jacobian_mass_element.png' | relative_url }}" alt="Two-panel figure of the Jacobian bookkeeping. Left panel: a circular mass cell at t = 0 is carried along a straight dashed red trajectory and deformed into progressively more elongated ellipses at t = 0.25, 0.5, 0.75, 1, coloured by time from purple to yellow, each labelled with its Jacobian J_t; faint dotted curves track eight tracer particles on the boundary. Right panel: the volume J_t rising from 1 to a maximum near t = 0.69 and back to 1.30, and the density rho_0 over J_t falling as its exact reciprocal, plotted against interpolation time" loading="lazy">
+  <figcaption>The identity $\rho_t(T_t x)\,J_t(x)=\rho_0(x)$, drawn. <strong>Left.</strong> A mass cell around $x$ is carried by $T_t$ and stretched by $\nabla T_t=(1-t)I+t\nabla^2\varphi$; in the eigenframe of $\nabla^2\varphi$ its semi-axes scale as $(1-t)+t\lambda_i$, so the eigenvalues $\lambda_i$ of the Hessian are exactly the stretching rates. Here $\lambda=(2.6,\,0.5)$: one direction expands, the other compresses. <strong>Right.</strong> Volume and density are exact reciprocals of one another at every time. Note that $J_t$ is <em>not</em> monotone — it is a polynomial in $t$, and it is this polynomial whose $d$-th root the next step is about.</figcaption>
+</figure>
+
+Changing variables $y=T\_t(x)$ in the energy therefore gives
+
+$$
+\mathcal U(\rho_t) = \int_{\mathbb R^d} U(\rho_t(y))\,dy
+= \int_{\mathbb R^d} U\!\left(\frac{\rho_0(x)}{J_t(x)}\right)J_t(x)\,dx .
+$$
+
+Now set $r:=\bigl(J\_t(x)/\rho\_0(x)\bigr)^{1/d}$, so that $\rho\_0/J\_t=r^{-d}$ and $J\_t=\rho\_0\,r^d$. The integrand becomes
+
+$$
+J_t\,U\!\left(\frac{\rho_0}{J_t}\right) = \rho_0\, r^d\,U\bigl(r^{-d}\bigr) = \rho_0\,\Psi(r),
+$$
+
+and hence
+
+$$
+\mathcal U(\rho_t) = \int_{\mathbb R^d}\rho_0(x)\,
+\Psi\!\left(\left(\frac{J_t(x)}{\rho_0(x)}\right)^{1/d}\right) dx .
+$$
+
+This is the entire reason for the strange-looking $\Psi(r)=r^d\,U(r^{-d})$ in (2.19). It is precisely the function that rewrites the internal energy as an average against the **fixed** measure $\rho\_0\,dx$ of a quantity depending on $t$ only through $J\_t(x)^{1/d}$. The time variable has been isolated inside a scalar function of one scalar, so convexity in $t$ can now be checked pointwise in $x$ and then integrated.
+
+**Step 2: the $d$-th root of the Jacobian is concave in $t$.**
+
+<div class="math-callout math-callout--proposition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Lemma</span><span class="math-callout__name">(Concavity of $\det^{1/d}$ along affine paths of matrices)</span></p>
+
+Let $A$ be a symmetric positive semi-definite $d\times d$ matrix. Then
+
+$$
+[0,1]\ni t\;\longmapsto\;\bigl(\det((1-t)I+tA)\bigr)^{1/d}
+$$
+
+is concave. It is affine (equality in the concavity inequality for all $t$) if and only if $A$ is a multiple of the identity.
+
+</div>
+
+<details class="proof" markdown="1">
+<summary>Proof of the Lemma — AM–GM</summary>
+
+Diagonalise $A$ with eigenvalues $\lambda\_1,\dots,\lambda\_d\ge 0$. Since $(1-t)I+tA$ has eigenvalues $a\_i(t):=(1-t)+t\lambda\_i$,
+
+$$
+G(t) := \bigl(\det((1-t)I+tA)\bigr)^{1/d} = \Bigl(\prod_{i=1}^d a_i(t)\Bigr)^{1/d},
+$$
+
+the **geometric mean of $d$ non-negative affine functions of $t$**. Each $a\_i$ is affine, so for $t=(1-\theta)t\_0+\theta t\_1$ we have $a\_i(t)=(1-\theta)a\_i(t\_0)+\theta a\_i(t\_1)$.
+
+Assume first $a\_i(t)>0$ for all $i$. Dividing by $G(t)$ and applying the AM–GM inequality to each of the two products,
+
+$$
+\begin{aligned}
+\frac{(1-\theta)G(t_0)+\theta G(t_1)}{G(t)}
+&= (1-\theta)\prod_{i=1}^d\Bigl(\frac{a_i(t_0)}{a_i(t)}\Bigr)^{1/d}
+ + \theta\prod_{i=1}^d\Bigl(\frac{a_i(t_1)}{a_i(t)}\Bigr)^{1/d}\\
+&\le (1-\theta)\,\frac1d\sum_{i=1}^d\frac{a_i(t_0)}{a_i(t)}
+ + \theta\,\frac1d\sum_{i=1}^d\frac{a_i(t_1)}{a_i(t)}\\
+&= \frac1d\sum_{i=1}^d\frac{(1-\theta)a_i(t_0)+\theta a_i(t_1)}{a_i(t)}
+ = \frac1d\sum_{i=1}^d 1 = 1,
+\end{aligned}
+$$
+
+i.e. $(1-\theta)G(t\_0)+\theta G(t\_1)\le G(t)$, which is concavity. If some $a\_i(t)=0$ then $G(t)=0$; but $a\_i(t)=(1-t)+t\lambda\_i$ with $\lambda\_i\ge0$ can only vanish at $t=1$ with $\lambda\_i=0$, an endpoint, where the inequality is trivial.
+
+Equality in AM–GM forces all the ratios $a\_i(t\_0)/a\_i(t)$ to coincide, and likewise all $a\_i(t\_1)/a\_i(t)$; since the $a\_i$ are affine with the same value at $t=0$, this happens for every choice of $t\_0,t\_1$ exactly when all $\lambda\_i$ are equal, i.e. $A=\lambda I$. $\square$
+
+</details>
+
+The lemma is the whole reason for the exponent $1/d$: the determinant itself is a degree-$d$ polynomial in $t$ and is in general *not* concave (for $A=\lambda I$ and $d\ge 2$ it is $(1-t+t\lambda)^d$, strictly convex whenever $\lambda\ne 1$), while its $d$-th root always is. Readers who have met the **Brunn–Minkowski inequality** will recognise it: for convex bodies $A,B\subset\mathbb R^d$,
+
+$$
+\bigl\lvert (1-t)A+tB\bigr\rvert^{1/d} \;\ge\; (1-t)\lvert A\rvert^{1/d} + t\,\lvert B\rvert^{1/d},
+$$
+
+where $(1-t)A+tB$ is the Minkowski combination and equality holds iff $A$ and $B$ are homothetic. The lemma is exactly this inequality **for boxes**: working in the eigenframe of $\nabla^2\varphi$, let $A$ be the unit cube and $B$ the box with side lengths $\lambda\_1,\dots,\lambda\_d$. Then $(1-t)A+tB$ is the box with side lengths $(1-t)+t\lambda\_i$, and Brunn–Minkowski reads
+
+$$
+\prod_{i=1}^d\bigl((1-t)+t\lambda_i\bigr)^{1/d} \;\ge\; (1-t) + t\prod_{i=1}^d\lambda_i^{1/d},
+$$
+
+which is precisely the AM–GM computation above. (For general matrices the same statement is known as **Minkowski's determinant inequality**, $\det(S+T)^{1/d}\ge\det S^{1/d}+\det T^{1/d}$ for symmetric positive semi-definite $S,T$.)
+
+Remarkably the implication also runs the other way, and displacement convexity returns Brunn–Minkowski for *arbitrary* convex bodies. Let $\mu,\nu$ be the uniform probability measures on $A$ and $B$. Every particle travels from a point of $A$ to a point of $B$, so $\rho\_t$ is supported in $(1-t)A+tB$. Apply the Boltzmann entropy $\mathcal E(\rho)=\int\rho\log\rho$, which is displacement convex: since $\mathcal E(\mu)=-\log\lvert A\rvert$ and $\mathcal E(\nu)=-\log\lvert B\rvert$,
+
+$$
+\mathcal E(\rho_t) \;\le\; -(1-t)\log\lvert A\rvert - t\log\lvert B\rvert ,
+$$
+
+while among probability densities supported in a set $S$ the entropy is smallest for the uniform one, so $\mathcal E(\rho\_t)\ge-\log\lvert(1-t)A+tB\rvert$ by Jensen. Comparing the two bounds,
+
+$$
+\bigl\lvert (1-t)A+tB\bigr\rvert \;\ge\; \lvert A\rvert^{1-t}\,\lvert B\rvert^{t},
+$$
+
+the multiplicative form of Brunn–Minkowski, from which the $1/d$ form follows by first rescaling $A$ and $B$ to have equal volume. So displacement convexity of the entropy and Brunn–Minkowski really are two readings of one inequality — the first hint of the deep link, developed by Sturm, Lott and Villani, between displacement convexity of the entropy and **lower Ricci curvature bounds**.
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/ot_det_root_concave.png' | relative_url }}" alt="Three-panel figure. Top-left: four curves of det((1-t)I + t A)^{1/d} against t for spectra (4,4,4), (10,4,1.6), (25,2.56,1) and (40,1.6,1), all with determinant 64 so all run from 1 to 4 and share one chord; the (4,4,4) curve coincides with the dotted red chord while the others bulge above it, the more spread the spectrum the larger the bulge. Top-right: the quantity |(1-t)A + tB|^{1/d} for a disk A and a thin bar B, a blue curve bulging above its dashed grey chord with the gap shaded. Bottom, spanning the width: five convex bodies drawn side by side, morphing from a purple disk at t = 0 through blue, teal and green stadium shapes to a yellow thin bar at t = 1, each labelled with its area to the power 1/d" loading="lazy">
+  <figcaption>Why the exponent $1/d$ is exactly right. <strong>(a)</strong> Four Hessian spectra chosen with the same determinant $64$, so all four curves run from $1$ to $4$ and share a single chord. The homothety $(4,4,4)$ sits exactly on the chord — the equality case of the lemma — and the more anisotropic the stretching, the further $J_t^{1/d}$ bulges above it. Without the $d$-th root the grey curve would read $(1+3t)^3$, which is strictly <em>convex</em>. <strong>(b), (c)</strong> The same inequality for sets: the Minkowski interpolants $(1-t)A+tB$ between a disk and a thin bar morph continuously from one to the other, and their volumes to the power $1/d$ again exceed the chord. This is Brunn–Minkowski for general convex bodies; panel (a) is the same inequality specialised to <em>boxes</em>, which is the case the lemma actually needs.</figcaption>
+</figure>
+
+**Step 3: convex $\circ$ concave, rescued by monotonicity.** A convex function of a concave function is nothing in particular. But if $\Psi$ is convex **and non-increasing** and $g$ is concave, then $\Psi\circ g$ is convex:
+
+$$
+\Psi\bigl(g((1-\theta)t_0+\theta t_1)\bigr)
+\;\le\; \Psi\bigl((1-\theta)g(t_0)+\theta g(t_1)\bigr)
+\;\le\; (1-\theta)\,\Psi(g(t_0)) + \theta\,\Psi(g(t_1)),
+$$
+
+the first inequality because $g$ is concave and $\Psi$ reverses order, the second by convexity of $\Psi$. Both hypotheses of (2.19) are used here, and neither is decorative.
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/ot_psi_composition.png' | relative_url }}" alt="Two-by-two figure. Panel (a): the inner function g(t) = J_t^{1/d} for spectrum (6, 0.6, 1) in d = 3, a teal concave curve above its dashed chord. Panel (b): two outer functions Psi shifted to vanish at r = 1 — the entropy's Psi = -d log r as a blue decreasing convex curve, and Psi = r^{d/2} coming from U(s) = sqrt(s) as a red dashed increasing convex curve. Panel (c): the composite for the entropy, -log J_t, a blue curve lying below its chord, labelled displacement convex. Panel (d): the composite for U(s) = sqrt(s), the square root of J_t, a red curve lying above its chord, labelled displacement convexity fails" loading="lazy">
+  <figcaption>Why (2.19) asks for convex <em>and</em> non-increasing. The example is honest rather than schematic: take $\mu$ uniform on the unit cube and $\nu=\mathrm{diag}(\lambda)_\sharp\mu$ with $\lambda=(6,0.6,1)$ — a linear Brenier map, so $\rho_0\equiv 1$ and $J_t$ are constant in $x$ and the pointwise integrand <em>is</em> the energy. <strong>(a)</strong> The inner function $g(t)=J_t^{1/d}$ is concave, by the lemma. <strong>(b)</strong> Two admissible internal energies, both with $U\ge 0$, $U(0)=0$ and $\Psi$ convex: the entropy $U(s)=s\log s$ gives $\Psi=-d\log r$, decreasing; $U(s)=\sqrt s$ gives $\Psi=r^{d/2}$, which for $d>2$ is convex but <em>increasing</em>. <strong>(c)</strong> Decreasing $\Psi$: the composite $-\log J_t$ falls below its chord. <strong>(d)</strong> Increasing $\Psi$: the composite $\sqrt{J_t}$ rises above it, so $\mathcal U$ is genuinely not displacement convex. Monotonicity of $\Psi$ is what converts concavity of $g$ into convexity of the composite; drop it and the argument does not merely fail, the conclusion does.</figcaption>
+</figure>
+
+Putting the three steps together:
+
+<details class="proof" markdown="1">
+<summary>Proof of Theorem 32, part 1 — internal energy</summary>
+
+Let $\mu,\nu\in A$ with densities $\rho\_0,\rho\_1$ and let $\rho\_t=[\mu,\nu]\_t$. By Step 1,
+
+$$
+\mathcal U(\rho_t) = \int_{\mathbb R^d}\rho_0(x)\,\Psi\bigl(g_x(t)\bigr)\,dx,
+\qquad
+g_x(t) := \left(\frac{J_t(x)}{\rho_0(x)}\right)^{1/d},
+$$
+
+the integral running over $\lbrace\rho\_0>0\rbrace$; the complementary region contributes nothing to $\mathcal U(\rho\_t)$ because $U(0)=0$.
+
+Fix $x$ with $\rho\_0(x)>0$. By the Lemma, $t\mapsto J\_t(x)^{1/d}$ is concave, and multiplying by the positive constant $\rho\_0(x)^{-1/d}$ preserves concavity, so $g\_x$ is concave on $[0,1]$. By hypothesis $\Psi$ is convex and non-increasing, so by Step 3 the map $t\mapsto\Psi(g\_x(t))$ is convex. Hence for every $t=(1-\theta)t\_0+\theta t\_1$,
+
+$$
+\rho_0(x)\,\Psi\bigl(g_x(t)\bigr) \le (1-\theta)\,\rho_0(x)\,\Psi\bigl(g_x(t_0)\bigr)
++ \theta\,\rho_0(x)\,\Psi\bigl(g_x(t_1)\bigr)
+$$
+
+pointwise in $x$, since $\rho\_0(x)\ge0$. Integrating in $x$ preserves the inequality, and gives
+
+$$
+\mathcal U(\rho_t) \le (1-\theta)\,\mathcal U(\rho_{t_0}) + \theta\,\mathcal U(\rho_{t_1}),
+$$
+
+i.e. $t\mapsto\mathcal U(\rho\_t)$ is convex. Taking $t\_0=0$, $t\_1=1$ gives the stated inequality between $\mathcal U(\mu)$ and $\mathcal U(\nu)$.
+
+For the converse, suppose $\Psi$ is non-increasing and $\mathcal U$ is displacement convex on $\mathcal P\_{ac}(\mathbb R^d)$. Test with the dilation family of the Remark above: for $\rho\_r$ uniform of unit mass on a ball of radius $r$ one has $\mathcal U(\rho\_r)=\Psi(c\_d\,r)$ exactly, with $c\_d=\lvert B\_1\rvert^{1/d}$, and dilations are displacement interpolations with $r\_t$ affine in $t$, so displacement convexity of $\mathcal U$ says precisely that $\Psi$ is convex. $\square$
+
+</details>
+
+<div class="math-callout math-callout--info" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Caveat</span><span class="math-callout__name">(What Step 1 quietly assumed)</span></p>
+
+The change of variables was performed as if $T\_t$ were a smooth diffeomorphism and $\varphi$ twice differentiable. Neither is automatic: $\varphi$ is merely convex, so $\nabla\varphi$ need not be continuous, and $\rho\_t$ need not have a density in any classical sense. The repair is standard but not cheap. By **Aleksandrov's theorem** a convex function is twice differentiable almost everywhere, and the Monge–Ampère identity holds with $\nabla^2\varphi$ read in the Aleksandrov sense and the determinant taken of the absolutely continuous part; for $t<1$ the map $T\_t=(1-t)\mathrm{id}+t\nabla\varphi$ is in addition injective with Lipschitz inverse, because it is the gradient of the *uniformly* convex function $(1-t)\frac{\lvert x\rvert^2}{2}+t\varphi$. That is exactly what makes Proposition 28.3 (absolute continuity at interior times) true. None of this changes the three steps above — the convexity is still checked pointwise and integrated — which is why it is legitimate to read the picture and skip the measure theory on a first pass.
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Where the porous-medium exponent comes from)</span></p>
+
+With the normalisation $U(s)=\frac{s^m}{m-1}$ the two clauses of (2.19) can now be read off. Here $\Psi(r)=\frac{r^{d(1-m)}}{m-1}$, so with $a:=d(1-m)$:
+
+* $m>1$: the coefficient $\frac1{m-1}$ is positive and $a<0$, so $\Psi$ is a positive multiple of $r^a$ with negative exponent — decreasing and convex. ✓
+* $m<1$: the coefficient is negative and $a>0$, so $\Psi=-\lvert c\rvert r^a$ is decreasing, and convex precisely when $r^a$ is concave, i.e. when $a\le 1$. That is $d(1-m)\le 1$, i.e. $m\ge 1-\frac1d$. ✓
+
+So (2.19) holds exactly for $m\ge 1-\frac1d$ — the exponent range of the porous-medium equation, as claimed after Theorem 32. Below it, $\Psi$ turns concave and the argument collapses at Step 3.
+
+The sign convention decides *which* clause breaks, and it is worth noticing that both are real. Our counterexample $U(s)=\sqrt s$ is the same exponent $m=\frac12<1-\frac1d$ carrying the opposite sign: $\Psi=r^{d/2}$ is then convex but increasing, while the normalised $U(s)=-2\sqrt s$ gives $\Psi=-2r^{d/2}$, decreasing but concave. Either way $m=\frac12$ fails McCann's condition in $d=3$ — the two clauses are not independent decorations but two faces of one requirement.
+
+</div>
 
 #### The Eulerian viewpoint: from trajectories to densities
 
@@ -5987,6 +6199,22 @@ where the last equality uses the optimality of $\pi$. (This is the proof of Theo
 Adding the two inequalities yields the claim. $\square$
 
 </details>
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/wgf_lambda_displacement_convex.png' | relative_url }}" alt="Two-panel figure. Left panel: the energy along a displacement geodesic between two Gaussians for lambda = 1, showing three curves — a grey dashed chord at the top, an orange dashed parabolic curve below it obtained by subtracting the lambda-margin, and the blue energy curve lowest of all; the band between chord and orange curve is shaded orange and labelled the lambda-margin, the band between orange curve and blue curve shaded blue and labelled slack. Right panel: the gap between chord and energy plotted against t for lambda = 0, 0.5, 1 and 2 as solid coloured curves, each paired with a dashed curve of the same colour showing the parabola lambda over 2 times t(1-t)W_2^2; every solid curve lies above its dashed partner, and at lambda = 0 the dashed curve is flat at zero while the solid curve still bulges" loading="lazy">
+  <figcaption>Lemma 44 on the Gaussian family, where every term is explicit: for $V=\frac\lambda2\lvert x\rvert^2$ the displacement geodesic between $\mathcal N(m_0,\sigma_0^2)$ and $\mathcal N(m_1,\sigma_1^2)$ has both $m_t$ and $\sigma_t$ affine in $t$, and $W_2^2=(m_1-m_0)^2+(\sigma_1-\sigma_0)^2$. <strong>Left.</strong> $\lambda$-displacement convexity asks for more than "below the chord": the energy must stay below the chord lowered by the parabola $\frac{\lambda}{2}t(1-t)W_2^2$. It does, with room to spare. <strong>Right.</strong> The actual gap below the chord (solid) against the parabola the definition demands (dashed), for four values of $\lambda$. The parabola scales linearly in $\lambda$ and is always a genuine lower bound; the leftover is the entropy's own convexity, which is why at $\lambda=0$ the dashed curve is flat at zero while the solid one still bulges.</figcaption>
+</figure>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Reading the $\lambda$-margin)</span></p>
+
+Three things are worth extracting from the picture.
+
+* **It is the same parabola as in Chapter 1.** The definition differs from plain displacement convexity by the single term $\frac{\lambda}{2}t(1-t)W\_2^2$, which vanishes at both endpoints and is largest at $t=\frac12$ — exactly the shape of uniform convexity (1.16), with the Euclidean $\lvert x-y\rvert^2$ replaced by $W\_2^2(\mu,\nu)$. Nothing about the notion is new; only the geodesics are.
+* **The margin comes from $V$ alone.** In the proof of Lemma 44 the potential part produces the parabola *exactly* — for $V=\frac\lambda2\lvert x\rvert^2$ the pointwise identity is an equality — while the entropy contributes only $\lambda=0$. So the $\lambda$ one may use is the $\lambda$ of the potential and no better, which is why Theorem 45 states its rate in terms of the convexity of $V$. The extra slack visible in the figure is real but not quantified by the definition.
+* **Why $\lambda>0$ is worth having.** For $\lambda>0$ the energy is *strictly* convex along every geodesic with a uniform quadratic margin. In Chapter 1 that was exactly the hypothesis that forced a unique minimizer and an exponential rate; transplanted here it gives uniqueness of the Gibbs measure among all of $\mathcal P^2\_{ac}(\mathbb R^d)$ and the decay $e^{-2\lambda t}$ of Theorem 45. Displacement convexity alone ($\lambda=0$) buys neither.
+
+</div>
 
 This suggests that we can apply the methods from Chapter 1 in this case, too. Indeed, we have the following exponential convergence to equilibrium.
 
