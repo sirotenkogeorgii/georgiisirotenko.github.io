@@ -3804,9 +3804,7 @@ with **free-slip** boundary condition $v\cdot n=0$ on $\partial\Omega$. The pres
 
 Let $v$ be a smooth solution to the incompressible Euler equations (2.10)–(2.11) on $[0,T)\times\Omega$. Then the kinetic energy is conserved in time:
 
-$$
-\int_\Omega \tfrac12 |v(x,t)|^2\,dx \;=\; \int_\Omega \tfrac12 |v_0(x)|^2\,dx \qquad\text{for all }t\in[0,T).
-$$
+$$\int_\Omega \tfrac12 |v(x,t)|^2\,dx \;=\; \int_\Omega \tfrac12 |v_0(x)|^2\,dx \qquad\text{for all }t\in[0,T).$$
 
 </div>
 
@@ -3825,7 +3823,7 @@ $$
 
 The convective term is a perfect gradient: using 
 
-$$v\cdot(v\cdot\nabla)v = v\_j\partial\_j v\_i\cdot v\_i = \tfrac12 v\_j\partial\_j\\|v\\|^2 = v\cdot\nabla(\tfrac12\\|v\\|^2),$$
+$$v\cdot(v\cdot\nabla)v = v_j\partial_j v_i\cdot v_i = \tfrac12 v_j\partial_j\\|v\\|^2 = v\cdot\nabla(\tfrac12\\|v\\|^2),$$
 
 $$
 \frac{d}{dt}\int_\Omega\tfrac12|v|^2\,dx \;=\; -\int_\Omega v\cdot\nabla\bigl(\tfrac12|v|^2+p\bigr)\,dx.
