@@ -5641,6 +5641,36 @@ $$
 
 This is precisely the structure that the linearization of $W\_2$ exhibited in (2.39) — there the infimum came out as the $\dot H^{-1}(d\mu)$-norm of the perturbation, attained at a *gradient* velocity field — and it is the metric tensor whose induced geodesic distance the Benamou–Brenier formula (Theorem 40) identifies as $W\_2$.
 
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Why the infimum is attained at a gradient field)</span></p>
+
+The infimum in the metric tensor is not a formality. In $d\ge 2$ the velocity field representing a given $\delta\rho$ is genuinely non-unique: if $\nabla\cdot(\rho w)=0$, then $v$ and $v+w$ move $\rho$ in *exactly* the same way, and writing $\rho w=\nabla^\perp\psi$ produces such a $w$ for any stream function $\psi$ — an infinite-dimensional family of competitors. (In $d=1$ there is no freedom at all: $(\rho w)^{\prime}=0$ forces $\rho w$ constant, hence zero.)
+
+The reason the cheapest representative is the *gradient* field is a one-line orthogonality computation. For $v=\nabla\varphi$,
+
+$$
+\int_{\mathbb R^d}\nabla\varphi\cdot w\,d\rho
+= \int_{\mathbb R^d}\nabla\varphi\cdot\nabla^\perp\psi\,dx = 0,
+$$
+
+by parts, since $\nabla\cdot\nabla^\perp\psi=0$. The cross term vanishes, so
+
+$$
+\int_{\mathbb R^d}\lvert\nabla\varphi+w\rvert^2\,d\rho
+= \int_{\mathbb R^d}\lvert\nabla\varphi\rvert^2\,d\rho
++ \int_{\mathbb R^d}\lvert w\rvert^2\,d\rho
+\;\geq\; \int_{\mathbb R^d}\lvert\nabla\varphi\rvert^2\,d\rho .
+$$
+
+This is a Pythagoras identity: the admissible fields form an affine space, the $\rho$-divergence-free fields are its direction space, and $g\_\rho$ measures the *orthogonal projection* onto the gradients. Swirl is pure wasted cost — it moves mass around without moving $\rho$. That is why gradient fields are the tangent vectors of Wasserstein geometry, and why the velocity (3.3) came out as a gradient rather than merely as some field.
+
+</div>
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/wgf_otto_tangent_space.png' | relative_url }}" alt="Four-panel figure. Panel (a): a two-bump density shown as blue contours with a dark blue quiver of the gradient velocity field on top, arrows fanning smoothly outward with no rotation. Panel (b): the same density with an orange quiver of the competitor field, which shows a pronounced circular swirl around the centre. Panel (c): the tangent vector delta rho as a red-blue diverging colour map, negative blue on the left and positive red on the right, with the density contours overlaid, captioned as identical for panels (a) and (b). Panel (d): kinetic energy against swirl amplitude epsilon, a purple parabola with its minimum exactly at epsilon = 0, where a blue dot marks the gradient field and an orange dot at epsilon = 1 marks the competitor, with a horizontal dashed blue line at the minimum value" loading="lazy">
+  <figcaption>Otto's metric tensor, drawn. The construction is exact: a potential $\varphi$ is chosen and the tangent vector is <em>defined</em> as $\delta\rho:=-\nabla\cdot(\rho\nabla\varphi)$, and the competitor is built as $\rho w=\nabla^\perp\psi$, so that $\nabla\cdot(\rho w)=0$ holds to machine precision. <strong>(a)</strong> The cheapest representative $v=\nabla\varphi$: irrotational, every arrow doing useful work. <strong>(b)</strong> A competitor $v+w$ carrying an added swirl. <strong>(c)</strong> Both fields produce the <em>identical</em> tangent vector $\delta\rho$ — mass leaving the blue region and arriving in the red, with $\int\delta\rho\,dx=0$, as a tangent vector at a probability measure must satisfy. Arrows and colours are shown only where there is mass to move. <strong>(d)</strong> The cost along the family $v+\epsilon w$ is a parabola with its vertex exactly at $\epsilon=0$ — no linear term, because the cross term vanishes. The infimum defining $g_\rho(\delta\rho,\delta\rho)$ is an orthogonal projection, and the gradient field wins it.</figcaption>
+</figure>
+
 Using §1.10, we can formally define the gradient flow
 
 $$
@@ -5754,6 +5784,11 @@ Next, we want to understand this with some specific examples. Note that the ener
 
 </div>
 
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/wgf_gradient_flow_zoo.png' | relative_url }}" alt="Two-by-two figure of four one-dimensional density evolutions, each drawn as five filled curves coloured from dark purple at the initial time to yellow at the latest. Top left, the heat equation: a Gaussian spreading and flattening. Top right, Fokker-Planck: a narrow Gaussian starting at x = 2.2 sliding left and broadening until it coincides with the grey shaded standard Gaussian marked as the Gibbs measure. Bottom left, the porous medium equation: parabola-shaped Barenblatt profiles that meet the axis at sharp edges, the edges moving outward with time. Bottom right, McKean-Vlasov: a broad Gaussian narrowing and growing into a tall spike at the origin" loading="lazy">
+  <figcaption>Example 7 as four movies. The formalism is identical in all four panels — $\partial_t\rho=\nabla\cdot(\rho\,\nabla\frac{\delta E}{\delta\rho})$ — and only the energy changes, yet the qualitative outcomes could hardly differ more. <strong>1.</strong> The entropy alone spreads mass forever, and instantly: the heat kernel is positive everywhere for every $t>0$. <strong>2.</strong> Adding a potential gives the flow somewhere to go; it relaxes onto the Gibbs measure $\bar\rho\propto e^{-V}$ (grey) and stops. <strong>3.</strong> The power law $E=\frac{1}{m-1}\int\rho^m$ also spreads, but the Barenblatt solutions have <em>compact support</em> and a front travelling at finite speed — the dots mark the edge, at $\lvert x\rvert\propto t^{1/(m+1)}$. That is the sharpest possible contrast with panel 1, and it is caused purely by the choice of $U$. <strong>4.</strong> An attractive interaction runs the film backwards: with $W(z)=\lvert z\rvert^2/2$ one gets $\nabla(W\ast\rho)(x)=x-\bar m$, so every particle moves toward the mean and the density collapses onto a Dirac as $\sigma_t=\sigma_0e^{-t}$. Every curve shown is an explicit solution, not a numerical approximation.</figcaption>
+</figure>
+
 <div class="math-callout math-callout--remark" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(One equation, several gradient structures — why bother?)</span></p>
 
@@ -5829,6 +5864,11 @@ is called the **partition function**.
 
 </div>
 
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/wgf_fokker_planck_particles.png' | relative_url }}" alt="Three-panel figure. Panel (a): seven simulated particle paths against time in a double-well potential at inverse temperature four; most stay near the left well at minus one, and one path crosses to the right well and returns. Panel (b): histograms of nine thousand particles at t = 0.25, 1 and 8 for inverse temperature one, the latest histogram tracking a red dashed bimodal Gibbs curve closely across both wells. Panel (c): the same histograms at inverse temperature four, where all three remain concentrated in the left well and only a small bump appears under the right lobe of the red dashed Gibbs curve" loading="lazy">
+  <figcaption>The Interpretation callout, simulated with Euler–Maruyama on $V(x)=(x^2-1)^2$. <strong>(a)</strong> Individual particles: downhill drift plus thermal kicks, with occasional rare crossings of the barrier. <strong>(b)</strong> At $\beta=1$ the law of $X_t$ really does settle onto $\bar\rho=\frac1Ze^{-\beta V}$ — by $t=8$ the measured mass in the right well is $0.496$ against the exact value $\tfrac12$. <strong>(c)</strong> At $\beta=4$ the identical experiment is still stuck in the well it started in: the measured mass on the right is $0.102$, not $0.5$. Nothing has gone wrong — the barrier costs $\beta\Delta V=4$ and Kramers' law makes the escape rate $O(e^{-\beta\Delta V})$, so equilibration is exponentially slow. This is precisely the case §3.3 must exclude: a double well is not $\lambda$-convex for any $\lambda>0$, so Lemma 44 gives nothing and Theorem 45's rate $e^{-2\lambda t}$ is unavailable. Convexity of $V$ is not a technical convenience in that theorem; it is what rules out panel (c).</figcaption>
+</figure>
+
 <div class="math-callout math-callout--proposition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Proposition 41</span><span class="math-callout__name">(The scheme is well-defined)</span></p>
 
@@ -5863,6 +5903,11 @@ $$
 $$
 
 Then we get compactness of these functions, and the limit solves the Fokker–Planck equation:
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/wgf_jko_step.png' | relative_url }}" alt="Three-panel figure over the plane of Gaussian parameters, mean on the horizontal axis and width on the vertical. Panel (a): the energy as a blue filled contour map with its minimum marked by a green star at mean zero and width one labelled Gibbs, a red dot at mean 2.2 and width 0.4 labelled rho l minus one, and five dashed orange circles centred on the red dot. Panels (b) and (c): the JKO objective as purple filled contours for step size 0.06 and 0.6 respectively, each with a blue arrow from the red dot to a blue dot marking the new iterate; the arrow is very short for the small step size and long for the large one" loading="lazy">
+  <figcaption>One step of (3.6), restricted to Gaussians $\mathcal N(m,\sigma^2)$ with $V=\frac{x^2}{2}$ and $\beta=1$, where both terms are explicit: $E=\frac12(m^2+\sigma^2)-\frac12\log(2\pi e\sigma^2)$ and $W_2^2=(m-m')^2+(\sigma-\sigma')^2$. <strong>(a)</strong> The two competing ingredients — the energy landscape, whose minimum is the Gibbs measure $\mathcal N(0,1)$, and the $W_2$-spheres around the previous iterate that the penalty charges for. <strong>(b)</strong> For small $h$ the penalty dominates: the objective is nearly a paraboloid centred on $\rho_{\ell-1}$, and the minimiser barely moves — but it moves <em>downhill</em>, which is what makes the scheme a discrete gradient flow. <strong>(c)</strong> For large $h$ the penalty relaxes and the minimiser slides most of the way toward $\bar\rho$; in the limit $h\to\infty$ it would jump straight to the minimiser of $E$. Proposition 41 is the statement that this picture — a unique minimiser — is not an artefact of restricting to Gaussians. Theorem 42 is the statement that interpolating the iterates and letting $h\to 0$ recovers the Fokker–Planck flow.</figcaption>
+</figure>
 
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem 42</span><span class="math-callout__name">(JKO iterates converge to the Fokker–Planck flow; Jordan–Kinderlehrer–Otto '98)</span></p>
