@@ -3900,7 +3900,7 @@ $$
 
 Differentiating the trajectory identity 
 
-$\frac{d}{dt}\phi(t,x_0)=v(\phi(t,x_0),t)$ 
+$$\frac{d}{dt}\phi(t,x_0)=v(\phi(t,x_0),t)$$
 
 once more in time gives, by the chain rule,
 
@@ -5626,7 +5626,7 @@ We want to use the Wasserstein distance to define gradient flows in the space of
 The Benamou–Brenier formula suggests that, at least heuristically, we may think of the space $\mathcal P^2\_{ac}(\mathbb R^d)$ as a **Riemannian manifold** and apply to it the formalism of gradient flows on Riemannian manifolds from §1.10.
 
 <div class="math-callout math-callout--definition" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Otto's formal Riemannian structure on $\mathcal M=\mathcal P^2\_{ac}(\mathbb R^d)$)</span></p>
+  <p class="math-callout__title"><span class="math-callout__label">Definition</span><span class="math-callout__name">(Otto's formal Riemannian structure on $\mathcal M=\mathcal P^2_{ac}(\mathbb R^d)$)</span></p>
 
 Let $\mathcal M = \mathcal P^2\_{ac}(\mathbb R^d)$.
 
@@ -5971,7 +5971,7 @@ We will focus on **Step 2**, which contains the key idea: the Euler–Lagrange e
 The variations we can afford in $\mathcal P^2\_{ac}(\mathbb R^d)$ are not additive ($\rho+s\zeta$ may fail to be non-negative) but **transportational**: we push the density along a flow. The derivative of the energy under such variations we essentially know; the new ingredient is the derivative of the squared Wasserstein distance:
 
 <div class="math-callout math-callout--proposition" markdown="1">
-  <p class="math-callout__title"><span class="math-callout__label">Proposition 43</span><span class="math-callout__name">(Derivative of $W\_2^2$ along transport variations)</span></p>
+  <p class="math-callout__title"><span class="math-callout__label">Proposition 43</span><span class="math-callout__name">(Derivative of $W_2^2$ along transport variations)</span></p>
 
 Let $\mu,\nu\in\mathcal P^2(\mathbb R^d)$ and $\xi\in C\_c^\infty(\mathbb R^d;\mathbb R^d)$. Let $T\_s$ solve $\frac{d}{ds}T\_s=\xi\circ T\_s$, $T\_0=\mathrm{id}$, and set $\rho\_s:=(T\_s)\_\sharp\mu$, i.e., $\rho\_s$ is the solution to $\partial\_s\rho\_s+\nabla\cdot(\rho\_s\xi)=0$ (Theorem 33). Then
 
@@ -6702,7 +6702,7 @@ Analogous statements hold for $\langle F,G\rangle\_{N,\varepsilon}$ with vector 
 </div>
 
 <details class="proof" markdown="1">
-<summary>Proof of Proposition 50 (empirical sums are integrals against $\mu\_N$)</summary>
+<summary>Proof of Proposition 50 (empirical sums are integrals against $\mu_N$)</summary>
 
 We simply write the discrete quantity as an integral against the empirical measure:
 
@@ -6734,7 +6734,7 @@ $$
 </div>
 
 <details class="proof" markdown="1">
-<summary>Proof of Proposition 51 ($\eta\_\varepsilon$ is a Dirac sequence)</summary>
+<summary>Proof of Proposition 51 ($\eta_\varepsilon$ is a Dirac sequence)</summary>
 
 The point is that $\eta\_\varepsilon\to\delta\_0$ as measures, thanks to the normalization $\int\_{\mathbb R^d}\eta(\lvert z\rvert)\,dz=1$. Concretely, fix $x\in M$ and substitute $y=\exp\_x(\varepsilon z)$, $z\in T\_xM$, in the inner integral (for $\varepsilon$ below the injectivity radius of $M$); the Jacobian is $1+O(\varepsilon^2\lvert z\rvert^2)$ and the ambient distance satisfies $\lvert x-\exp\_x(\varepsilon z)\rvert=\varepsilon\lvert z\rvert\,(1+O(\varepsilon^2\lvert z\rvert^2))$, so
 
