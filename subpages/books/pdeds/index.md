@@ -6393,6 +6393,11 @@ $$
 \langle F,G\rangle := \int_M F\cdot G\,d\mu.
 $$
 
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_tangent_projection.png' | relative_url }}" alt="Three panels. Left and middle: the unit circle drawn over a red-blue contour field of an ambient function, with grey arrows for the ambient gradient at twelve points, blue arrows for its tangential projection along the circle, and dotted red segments marking the discarded normal component; the two panels use different extensions and their grey arrows point in visibly different directions while the blue arrows are identical. Right: three curves of the tangential component against theta — the two extensions and the intrinsic derivative cos theta — lying exactly on top of one another" loading="lazy">
+  <figcaption>The continuum template of §4.1, before any graph appears. The gradient of $u$ on $M$ is computed by extending $u$ to a neighbourhood, differentiating in the ambient $\mathbb R^D$, and projecting: $\nabla u=P_{T_xM}\nabla\tilde u$. The two panels use $\tilde u_1=y$ and $\tilde u_2=y(x^2+y^2)$, which agree on the circle and nowhere else; their ambient gradients differ everywhere, and the dotted red normal components they throw away differ too. What survives the projection does not: the blue arrows are identical, and the right panel confirms they reproduce the intrinsic derivative $\frac{du}{d\theta}=\cos\theta$ (agreement to $3\times10^{-16}$). This is what makes the definition legitimate — the extension is scaffolding, and the projection removes it.</figcaption>
+</figure>
+
 Finally, as the gradient maps functions to vector fields, we can define its adjoint operator $\nabla^\ast$ by duality:
 
 $$
@@ -6438,6 +6443,11 @@ Let a point cloud $X=\{x\_1,\dots,x\_N\}$ be given. For a non-increasing functio
 </div>
 
 Note that in the case $\eta=\mathbf 1\_{[0,1]}$ this is an (undirected) *unweighted* graph: points are either connected or not, depending on whether their distance exceeds $1$.
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_profile_zoo.png' | relative_url }}" alt="Four panels. Top left: three non-increasing profile curves against rescaled distance — a blue step function, a green tent, and an orange truncated Gaussian — all vanishing beyond s equals one. The other three panels show the same ninety-point cloud connected by each profile in turn, with edge opacity proportional to the weight: the step function gives uniformly dark edges, the tent and Gaussian grade them from dark to nearly invisible" loading="lazy">
+  <figcaption>Definition 47 with the profile varied and everything else held fixed. Because $\eta$ is non-increasing and supported in $[0,1]$, all three graphs have exactly the same <em>edge set</em> — the same pairs are connected at the same $\varepsilon$. What changes is how strongly. The indicator $\eta=\mathbf 1_{[0,1]}$ makes every edge count equally, which is the unweighted graph of combinatorics; a decreasing profile keeps the edges but grades them, so that "nearer" becomes "more strongly connected" rather than merely "connected". The choice matters later: by Theorem 52 the profile survives the big-data limit only through the single number $C(\eta,q)$, so these three graphs differ in the limit by a constant and nothing more.</figcaption>
+</figure>
 
 On $G$ — or on a general undirected weighted graph — we want to define functions, vector fields, etc., in analogy to the continuum. First note that the **degree** of a point $x\in X$ is given by
 
@@ -6505,6 +6515,11 @@ $$
 
 Mind the sign discipline here: with this convention $\Delta$ is negative semi-definite and self-adjoint with respect to $\langle\cdot,\cdot\rangle$ — again for free, because it is of the form $-\nabla^\ast\nabla$ — exactly matching the continuum operator $\Delta\_\rho$ from (4.2).
 
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_graph_calculus.png' | relative_url }}" alt="Four panels on one forty-two-point geometric graph. (a) vertices coloured red to blue by a function u. (b) an arrow on each edge, coloured by magnitude, pointing from the lower to the higher value of u. (c) vertices coloured orange to purple by the graph Laplacian of u. (d) four bars: the pairing of Delta u with u equals minus the pairing of grad u with itself, both about minus forty-eight, and the pairing of Delta u with v equals that of u with Delta v, both about eleven point five" loading="lazy">
+  <figcaption>The dictionary of §4.1 on one graph. <strong>(a)</strong> A function is data on the <em>vertices</em>. <strong>(b)</strong> Its gradient $\nabla u(x,y)=w_{x,y}^a(u(y)-u(x))$ is data on the <em>edges</em>, and is skew-symmetric — reversing an edge flips the sign, which is why it is read as a flux through the edge rather than a value at a place (measured $\max_{x,y}\lvert F(x,y)+F(y,x)\rvert=0$ exactly). <strong>(c)</strong> The adjoint $\nabla^\ast$ of (4.3) carries edge data back to vertices, so $\Delta=-\nabla^\ast\nabla$ is a function again. <strong>(d)</strong> The two properties the text says come for free really are free: they follow from the shape $-\nabla^\ast\nabla$ alone, with no computation about $w$, and here $\langle\Delta u,u\rangle=-\langle\nabla u,\nabla u\rangle$ and $\langle\Delta u,v\rangle=\langle u,\Delta v\rangle$ hold to $7\times10^{-15}$.</figcaption>
+</figure>
+
 <div class="math-callout math-callout--remark" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(The $(r,q)$-family contains the classics)</span></p>
 
@@ -6514,6 +6529,11 @@ The exponents are not exotic decoration; familiar operators from spectral graph 
 2. **Random-walk Laplacian.** For $r=1$: $\Delta u(x)=\frac{1}{d\_x}\sum\_y w\_{x,y}(u(y)-u(x))$, i.e., $\Delta = D^{-1}W-I$ — the generator of the random walk on $G$ that jumps from $x$ to $y$ with probability $w\_{x,y}/d\_x$. This is the discrete avatar of the "old friend" remark above: the weight $d\_x^r$ in the scalar product selects the dynamics.
 
 </div>
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_rq_family.png' | relative_url }}" alt="Three panels. Left: two curves of the graph Laplacian against theta, each rescaled to unit maximum, for r equal zero and one; the curves have visibly different shapes. Middle: the rescaled degree plotted against theta together with the rescaled density, the two lying almost on top of each other. Right: four bars — the Dirichlet energy for r equal zero and one, identical and labelled identical, and the squared norm for r equal zero and one, differing by a factor near a hundred and labelled different" loading="lazy">
+  <figcaption>What the exponent $r$ does, on the circle with non-uniform density. <strong>(a)</strong> The same graph and the same $u$ give genuinely different operators: $r=0$ is the unnormalized $\Delta=-(D-W)$, $r=1$ the random-walk generator $D^{-1}W-I$. <strong>(b)</strong> The degree is what $r$ weights by, and the degree tracks the density — which is the discrete shadow of the "old friend" remark above. <strong>(c)</strong> But the Dirichlet energy does not move at all: $E(u)=371.746533$ for both, identical to the last digit, because (4.6) contains $w^q$ and no $r$ whatsoever. The squared norm, by contrast, changes by a factor of $94$. So $q$ and $\eta$ fix the <em>energy</em> the graph sees, while $r$ fixes only the <em>inner product</em> in which the gradient of that energy is taken — the energy/metric split that has run through every chapter since the first.</figcaption>
+</figure>
 
 Finally, we define the **Dirichlet energy**, a functional which penalizes variations of a function $u\colon X\to\mathbb R$:
 
@@ -6529,6 +6549,11 @@ E(u) = \frac14\sum_{x,y\in X} w_{x,y}^{q}\,\bigl(u(y)-u(x)\bigr)^2.
 $$
 
 Many graph-based learning algorithms are concerned with minimizing this functional, subject to various constraints. Note the mechanism that makes this plausible for *clustering*: $E(u)=0$ if and only if $u$ is constant on each connected component of $G$, so the minimizers (and near-minimizers) of $E$ are functions that vary little within well-connected clusters and are free to jump across bottlenecks.
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_dirichlet_clustering.png' | relative_url }}" alt="Three panels. Left: a graph of two round blobs joined by a thin chain of points, vertices coloured blue on the left blob and red on the right by the Fiedler vector, changing sign along the chain. Middle: the twelve smallest eigenvalues, with the second circled and annotated as the bottleneck at 0.082, followed by a jump to about 2.8. Right: four bars of Dirichlet energy per unit norm — zero for the constant, 0.041 for the Fiedler vector, 0.120 for the true split, and 13.5 for a random split" loading="lazy">
+  <figcaption>The clustering mechanism the section asserts, measured. $E$ charges only for variation <em>across edges</em>, and the bottleneck has very few — so a function may change sign there almost for free, while changing sign inside a blob would cost every edge it crosses. <strong>(a)</strong> The cheapest non-constant function (the minimiser of $E$ subject to $u\perp\mathbf 1$, $\lVert u\rVert=1$) does exactly that. <strong>(b)</strong> Its cost is $\lambda_2=0.082$, and the jump to $\lambda_3=2.81$ — a factor of $34$ — is the spectral signature of there being exactly one bottleneck. <strong>(c)</strong> Cluster-respecting functions are cheap and a random split is not, by a factor of about $330$. One caveat worth stating: a single isolated vertex would contribute its own zero eigenvalue and masquerade as the bottleneck, so the computation is run on the largest connected component (here $133$ of $134$ points).</figcaption>
+</figure>
 
 <div class="math-callout math-callout--question" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Exercise 11</span><span class="math-callout__name">(Calculus on the lattice)</span></p>
@@ -6583,6 +6608,11 @@ $$
 which is the law of large numbers. Note that (4.8) is exactly the narrow convergence of §2.6 — and since $M$ is compact, Theorem 37 upgrades it for free: the data cloud converges to the data distribution *in Wasserstein distance*, $W\_p(\mu\_N,\mu)\to0$ almost surely.
 
 This already illustrates that we need to rescale our discrete quantities in terms of the number $N$ of data points in order to get non-trivial limits. Let us first refine our definition of geometric graphs.
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_manifold_hypothesis.png' | relative_url }}" alt="Three panels. Left: a three-dimensional scatter of three thousand blue points lying along a closed knotted curve. Middle: three thousand green points lying on a curved two-dimensional sheet in three-space. Right: a log-log plot of mean neighbour count against epsilon for the curve, the sheet and a filled cube, three straight lines of fitted slopes 1.01, 1.91 and 2.84" loading="lazy">
+  <figcaption>The manifold hypothesis (Definition 48) and its one quantitative consequence. Data may live in $\mathbb R^D$ while lying on a $d$-dimensional $M$ with $d\ll D$, and the way that dimension makes itself felt is through <em>counting</em>: an $\varepsilon$-ball centred on the data catches $O(\varepsilon^d)$ of it, with the intrinsic $d$ and never the ambient $D$. The measured slopes are $1.01$, $1.91$ and $2.84$ against the true $1$, $2$ and $3$ (the filled cube falls slightly short because boundary points have fewer neighbours than interior ones). This is exactly why the normalization in Definition 49 reads $\eta_\varepsilon=\varepsilon^{-d}\eta(\cdot/\varepsilon)$ — as the following remark puts it, the normalization already knows $d$, and it must, or the degrees would not converge to anything finite.</figcaption>
+</figure>
 
 <div class="math-callout math-callout--definition" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Definition 49</span><span class="math-callout__name">(Geometric graph at scale $\varepsilon$ and of dimension $d$; random geometric graph)</span></p>
@@ -6723,6 +6753,11 @@ $$
 \tag{4.17}
 $$
 
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_dirac_sequence.png' | relative_url }}" alt="Three panels. Left: four tent-shaped profiles of increasing height and decreasing width as epsilon halves, each enclosing unit area. Middle: three curves of the nonlocal operator applied to a test function at epsilon 0.9, 0.5 and 0.25, converging onto a red dashed curve of the constant C times the second derivative. Right: a log-log plot of mean error against epsilon for three profiles, three straight lines all of fitted rate 2.00, labelled with constants one sixth, one twelfth and 0.0414" loading="lazy">
+  <figcaption>Proposition 51 in one picture. <strong>(a)</strong> $\eta_\varepsilon=\varepsilon^{-d}\eta(\cdot/\varepsilon)$ concentrates while keeping unit mass — a Dirac sequence — so averaging a function against it turns, in the limit, into differentiating it. <strong>(b)</strong> The nonlocal operator $\varepsilon^{-2}\!\int\eta_\varepsilon(\lvert z\rvert)(u(x+z)-u(x))\,dz$ converges to a multiple of $u''$; the first-order term dies by symmetry and the second-order term is what survives. <strong>(c)</strong> It converges at rate $O(\varepsilon^2)$ — measured $2.00$ for all three profiles — and the entire profile enters the limit through the single number $C(\eta)=\frac12\int\eta(\lvert s\rvert)s^2\,ds$, its second moment. That is the quantity Exercise 12 asks for, and for the running choice $\eta=\frac12\mathbf 1_{[0,1]}$ it comes out to $0.16667=\frac16$, as used throughout §4.2.</figcaption>
+</figure>
+
 <div class="math-callout math-callout--theorem" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Theorem 52</span><span class="math-callout__name">(Consistency of graph Laplacians)</span></p>
 
@@ -6826,12 +6861,22 @@ Compare (4.17) with the weighted Laplacian $\Delta\_\rho=\frac1\rho\nabla\cdot(\
 
 </div>
 
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_rho_squared.png' | relative_url }}" alt="Three panels. Left: the normalized density and its square against theta, the square having a taller peak and shallower trough. Middle: a grey scatter of three thousand discrete Laplacian values against theta, with a purple curve for the rho-squared operator passing through the middle of the cloud and a teal dashed curve for the rho operator clearly offset from it. Right: two bars of root-mean-square error, 0.013 for the rho-squared operator and 0.099 for the rho operator" loading="lazy">
+  <figcaption>The most surprising line in the previous remark, checked against data. One might expect a graph built from samples of $\rho$ to converge to the weighted Laplacian $\Delta_\rho=\rho^{-1}\nabla\cdot(\rho\nabla u)$ of (4.2) — the operator §4.1 spent its first page constructing. It does not: the limit (4.17) carries $\rho^2$. The reason is a counting one, visible in the proof as two factors $\rho(x)$, $\rho(y)$: an edge has two endpoints and each one independently samples the density, so a graph diffuses <em>quadratically</em> faster through dense regions than a naive reading would predict. The middle and right panels settle it empirically — at $N=3000$ the $\rho^2$ operator fits the measured graph Laplacian with RMSE $0.013$ against $0.099$ for the $\rho$ operator, a factor of $7.6$.</figcaption>
+</figure>
+
 <div class="math-callout math-callout--remark" markdown="1">
   <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(From iterated to joint limits — where this is headed)</span></p>
 
 Theorem 52 takes the limits in the comfortable order $\lim\_{\varepsilon\to0}\lim\_{N\to\infty}$: first infinitely much data, then locality. A practitioner holds *one* data set with *one* $N$ and must pick $\varepsilon=\varepsilon\_N$; the meaningful question is the **joint limit** $\varepsilon\_N\to0$ as $N\to\infty$, and the right panel of the figure above shows what is at stake — shrink $\varepsilon\_N$ too fast and sampling noise swamps everything (in the extreme, below the connectivity threshold $\varepsilon\_N\sim(\log N/N)^{1/d}$ the graph fragments and no consistency can hold at all). Moreover, weak consistency of the *operator* is not yet consistency of the *algorithms*, which compute constrained minimizers of the Dirichlet energy $E\_{N,\varepsilon}$; for those, one needs convergence notions for the energies themselves, robust enough to carry minimizers along to the limit — the same lesson as in Chapter 1, where the robust objects were always the energy and the distance, never the equation. With the calculus and its consistency in hand, we can now pose the actual learning problems — clustering, classification — on $G\_{N,\varepsilon}$ and study *their* big data limits.
 
 </div>
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_joint_limit.png' | relative_url }}" alt="Two panels. Left: a heat map of log relative error over the plane of N and epsilon, both on log axes, dark at small epsilon and pale in a band near epsilon of order one; a blue dashed connectivity curve rises to the left, a green line of markers traces the optimal epsilon, and two grey reference lines show power-law scalings. Right: three U-shaped log-log curves of relative error against epsilon for N equal 452, 4762 and 50119, each with a minimum that shifts left and down as N increases" loading="lazy">
+  <figcaption>What the closing remark is about, mapped out. Theorem 52 takes the limits in the comfortable order $\lim_{\varepsilon\to0}\lim_{N\to\infty}$ — infinitely much data first, locality second. A practitioner has one $N$ and must choose one $\varepsilon_N$, and therefore lives at a single point of this plane. <strong>(b)</strong> At fixed $N$ the error is U-shaped: shrinking $\varepsilon$ reduces the discretization bias of Proposition 51 until each ball $B_\varepsilon(x)$ holds too few samples, after which the noise (of order $(N\varepsilon^{d+2})^{-1/2}$) takes over. The minimum moves left and down as $N$ grows — that motion <em>is</em> the joint limit. <strong>(a)</strong> The same thing over the whole plane: a scaling $\varepsilon_N\propto N^{-\alpha}$ is a straight line here, and it is admissible only if it stays inside the pale corridor. Below the blue curve $\varepsilon\sim\log N/(N\rho_{\min})$ the graph fragments and no consistency statement can hold at all, since a disconnected graph has a Laplacian with a kernel the continuum operator does not have.</figcaption>
+</figure>
 
 ## Appendix A: Desingularizing Functions and the Kurdyka–Łojasiewicz Framework {#appendix-a}
 
