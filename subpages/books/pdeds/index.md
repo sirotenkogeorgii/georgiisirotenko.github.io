@@ -6878,6 +6878,738 @@ Theorem 52 takes the limits in the comfortable order $\lim\_{\varepsilon\to0}\li
   <figcaption>What the closing remark is about, mapped out. Theorem 52 takes the limits in the comfortable order $\lim_{\varepsilon\to0}\lim_{N\to\infty}$ — infinitely much data first, locality second. A practitioner has one $N$ and must choose one $\varepsilon_N$, and therefore lives at a single point of this plane. <strong>(b)</strong> At fixed $N$ the error is U-shaped: shrinking $\varepsilon$ reduces the discretization bias of Proposition 51 until each ball $B_\varepsilon(x)$ holds too few samples, after which the noise (of order $(N\varepsilon^{d+2})^{-1/2}$) takes over. The minimum moves left and down as $N$ grows — that motion <em>is</em> the joint limit. <strong>(a)</strong> The same thing over the whole plane: a scaling $\varepsilon_N\propto N^{-\alpha}$ is a straight line here, and it is admissible only if it stays inside the pale corridor. Below the blue curve $\varepsilon\sim\log N/(N\rho_{\min})$ the graph fragments and no consistency statement can hold at all, since a disconnected graph has a Laplacian with a kernel the continuum operator does not have.</figcaption>
 </figure>
 
+### 4.3 Big data limits: Pointwise convergence via the maximum principle
+
+The consistency of §4.2 — that operators, scalar products and energies converge to their continuum counterparts when *evaluated at fixed smooth functions* — is only half of the story. What we actually want is that the solutions of our discrete problems behave like the solutions of the (often much simpler) continuum problems. For that, qualitative convergence at fixed test functions is not enough: we need **estimates**. This section upgrades the purely qualitative statements of §4.2 into quantitative ones, and then converts them into a statement about solutions.
+
+For simplicity we work with the Laplacian only, and with the simplest solvable problem attached to it — a Poisson-type problem with a zeroth-order term. Let $f\_N\colon X\_N\to\mathbb R$ and $f\colon M\to\mathbb R$ be given, and assume they are compatible in the sense that
+
+$$
+\max_{x\in X_N}\lvert f_N(x)-f(x)\rvert \longrightarrow 0 \quad\text{as } N\to\infty.
+$$
+
+On the random geometric graph $(X\_N,W\_{N,\varepsilon})$ we consider the discrete problem
+
+$$
+u - \Delta_{N,\varepsilon}u = f_N \quad\text{on } X_N,
+\tag{4.19}
+$$
+
+and we want to compare its solution with that of the mean-field counterpart
+
+$$
+u - \Delta u = f \quad\text{in } M.
+\tag{4.20}
+$$
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem 53</span><span class="math-callout__name">(Pointwise big data limit)</span></p>
+
+Let $\varepsilon\in(0,1]$ and $N\geq1$, and let $(X\_N,W\_{N,\varepsilon})\_{N,\varepsilon}$ be a random geometric graph at scale $\varepsilon$ and of dimension $d$. Then there exists a constant $C=C(M,\rho,\eta,q,r)$ such that the following holds. Let $u\_{N,\varepsilon}$ and $u$ denote the solutions to (4.19) and (4.20). Then for any $\delta\in(0,1]$, with probability at least
+
+$$
+1 - N\exp\Bigl(-\frac{N\varepsilon^{d+2}\delta^2}{C}\Bigr),
+$$
+
+it holds that
+
+$$
+\max_{x\in X_N}\bigl\lvert u_{N,\varepsilon}(x)-u(x)\bigr\rvert
+\;\leq\; C\lVert u\rVert_{C^3(M)}\,(\delta+\varepsilon)
+\;+\; \max_{x\in X_N}\lvert f_N(x)-f(x)\rvert .
+$$
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Reading the theorem: two knobs and three thresholds)</span></p>
+
+The estimate has two free parameters and they pull against each other. The error term $C\lVert u\rVert\_{C^3}(\delta+\varepsilon)$ wants $\delta$ and $\varepsilon$ *small*; the probability $1-N\exp(-N\varepsilon^{d+2}\delta^2/C)$ wants $N\varepsilon^{d+2}\delta^2$ *large*. Reading off what this forces:
+
+* **For the bound to hold with high probability at all**, we need $N\varepsilon^{d+2}\gg\log N$ (take $\delta$ of order one), i.e.
+
+  $$
+  \varepsilon \gg \Bigl(\frac{\log N}{N}\Bigr)^{\frac{1}{d+2}} .
+  $$
+
+* **For a linear rate** we must equalise the two error terms, $\delta=\varepsilon$, which costs another two powers:
+
+  $$
+  \varepsilon \gg \Bigl(\frac{\log N}{N}\Bigr)^{\frac{1}{d+4}} .
+  $$
+
+* **The connectivity threshold** — below which the graph falls apart and no consistency statement of any kind can survive — is by contrast only
+
+  $$
+  \varepsilon \sim \Bigl(\frac{\log N}{N}\Bigr)^{\frac{1}{d}} .
+  $$
+
+So the theorem is *sub-optimal*: it needs a scale several powers above the threshold where the geometry is still intact. Section 4.4 recovers almost all of that gap by abandoning the maximum principle for a variational argument.
+
+Against that, the result has four features that are worth a great deal:
+
+1. It is **quantitative** and completely explicit — no unspecified limits.
+2. It holds **pointwise**, i.e. uniformly over all data points, which is much stronger than the weak convergence of Theorem 52.
+3. Its **proof is elementary**: a concentration inequality and a comparison argument.
+4. It does **not suffer from the curse of dimensionality**. The ambient dimension $D$ of the feature space does not appear anywhere; only the dimension $d$ of the (much lower-dimensional) data manifold does. This is the manifold hypothesis paying for itself.
+
+</div>
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_scaling_thresholds.png' | relative_url }}" alt="Two panels. Left: a log-log plot of epsilon against N for d equal three, with three descending curves — a blue connectivity curve, an orange dashed curve for Theorem 53's requirement and a red dotted curve for its linear-rate requirement — and three shaded bands: red below connectivity labelled graph disconnects, orange between connectivity and Theorem 53 labelled where Theorem 63 lives but Theorem 53 does not, and green above. Right: the exponents one over d, one over d plus two and one over d plus four plotted against d from one to twenty, converging together as d grows, with the gap between the first two shaded" loading="lazy">
+  <figcaption>What each of the two techniques costs, for $d=3$. Every requirement in this chapter is an exponent of the same quantity $\log N/N$, so the comparison reduces to comparing exponents. <strong>(a)</strong> Below the connectivity radius $(\log N/N)^{1/d}$ nothing can be true — the graph has fallen apart. Theorem 63 reaches exactly that boundary; Theorem 53 needs $(\log N/N)^{1/(d+2)}$ merely to hold with high probability, and $(\log N/N)^{1/(d+4)}$ to hold with a linear rate, so the orange band is a region where the variational method applies and the maximum-principle method does not. <strong>(b)</strong> The same gap as a function of dimension. It is widest in low dimension and closes as $d$ grows, since $\frac{1}{d+2}\to\frac1d$ — so the sub-optimality of Theorem 53 is a small-$d$ phenomenon, and in the high-dimensional regime the manifold hypothesis is really aimed at, the two requirements almost coincide.</figcaption>
+</figure>
+
+#### The intermediate nonlocal model
+
+The proof follows the strategy of §4.2 once more: rather than compare the fully discrete object with the fully continuum one, we route through a model that is **continuous in space but still nonlocal**. For functions $u\colon M\to\mathbb R$ define the *nonlocal Laplacian*
+
+$$
+\Delta_\varepsilon u(x) := \frac{1}{\rho^r(x)}\int_M \eta_\varepsilon(\lvert x-y\rvert)\,\frac{u(y)-u(x)}{\varepsilon^2}\,d\mu(y).
+\tag{4.21}
+$$
+
+This is the $N=\infty$, $\varepsilon>0$ corner of the picture: the empirical average over neighbours has become an integral, but the kernel is still spread over a ball of radius $\varepsilon$. The two lemmas below are the two legs of the journey, and each is a quantitative version of one of the two propositions of §4.2.
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Lemma 54</span><span class="math-callout__name">(Discrete to nonlocal)</span></p>
+
+Let $(X\_N,W\_{N,\varepsilon})\_{N,\varepsilon}$ be a sequence of random geometric graphs at scale $\varepsilon$ and of dimension $d$. Let $u\colon M\to\mathbb R$ be Lipschitz and let $\varepsilon>0$ satisfy $N\varepsilon^d\geq1$. Then for any $\delta\in(0,1]$,
+
+$$
+\max_{x\in X_N}\bigl\lvert \Delta_{N,\varepsilon}u(x)-\Delta_\varepsilon u(x)\bigr\rvert
+\;\leq\; C\,\mathrm{Lip}(u)\,\delta
+\tag{4.22}
+$$
+
+with probability at least $1-N\exp(-N\varepsilon^{d+2}\delta^2/C)$, where $C=C(M,\rho,\eta,q,r)$.
+
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Lemma 55</span><span class="math-callout__name">(Nonlocal to local)</span></p>
+
+For $u\in C^3(M)$ it holds that
+
+$$
+\max_{x\in M}\bigl\lvert \Delta_\varepsilon u(x)-\Delta u(x)\bigr\rvert
+\;\leq\; C\lVert u\rVert_{C^3(M)}\,\varepsilon
+\tag{4.23}
+$$
+
+for some constant $C=C(M,\rho,\eta,q,r)<\infty$.
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Where each term of the final estimate comes from)</span></p>
+
+The two lemmas already explain the shape of Theorem 53. Lemma 54 is a *statistical* estimate: it compares an empirical average of $N$ samples with its expectation, so it is random, it improves as $N$ grows, and its error is measured by $\delta$. Lemma 55 is a *deterministic* Taylor estimate: it compares an average over a ball of radius $\varepsilon$ with a derivative, so it is exact in the limit and its error is measured by $\varepsilon$. Adding them gives $\delta+\varepsilon$, and the probability in Theorem 53 is inherited verbatim from Lemma 54. Everything else in the proof is bookkeeping performed by the maximum principle.
+
+</div>
+
+#### The maximum principle
+
+The tool that converts an estimate on the *operator* into an estimate on *solutions* is the following comparison principle. Its virtue here is that it holds, with the same one-line proof, in both the continuum and the discrete setting.
+
+<div class="math-callout math-callout--proposition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Proposition 56</span><span class="math-callout__name">(Maximum principle)</span></p>
+
+Let $M$ be a closed manifold and let $\Delta$ be the weighted Laplacian of (4.17). If $u\colon M\to\mathbb R$ satisfies
+
+$$
+u - \Delta u \geq 0 \quad\text{in } M,
+$$
+
+then $u\geq0$ in $M$.
+
+Similarly, let $G=(X,W)$ be an undirected weighted graph and let $\Delta$ be the associated graph Laplacian (4.14). If $u\colon X\to\mathbb R$ satisfies
+
+$$
+u - \Delta u \geq 0 \quad\text{on } X,
+$$
+
+then $u\geq0$ on $X$. The analogous statements hold with $\leq$ in place of $\geq$.
+
+</div>
+
+<details class="proof" markdown="1">
+<summary>Proof of Proposition 56</summary>
+
+We prove the continuum statement; the discrete one is the same argument with sums in place of derivatives, and we indicate it at the end.
+
+Since $M$ is closed (compact, without boundary) and $u$ is continuous, $u$ attains its minimum at some $x\_0\in M$. Expanding the divergence in (4.17),
+
+$$
+\Delta u = C(\eta,q)\,\frac{1}{\rho^{r+1}}\nabla\cdot(\rho^2\nabla u)
+= 2C(\eta,q)\,\rho^{-r}\,\nabla\rho\cdot\nabla u
++ C(\eta,q)\,\rho^{1-r}\sum_{i=1}^d\frac{\partial^2u}{\partial x_i^2},
+$$
+
+where the second-derivative sum is computed in normal coordinates at the point in question. Now evaluate at $x\_0$. Because $x\_0$ is an interior minimum (and $M$ has no boundary, so *every* point is interior), the first-order condition gives $\nabla u(x\_0)=0$, which kills the first term; and the second-order condition gives $\frac{\partial^2u}{\partial x\_i^2}(x\_0)\geq0$ for every $i$, so the second term is non-negative because $\rho>0$ and $C(\eta,q)>0$. Hence
+
+$$
+\Delta u(x_0)\;\geq\;0 .
+$$
+
+Combining this with the hypothesis at $x\_0$,
+
+$$
+0 \;\leq\; u(x_0)-\Delta u(x_0) \;\leq\; u(x_0),
+$$
+
+so $u(x\_0)\geq0$. Since $x\_0$ was a minimum point, $u\geq u(x\_0)\geq0$ everywhere on $M$.
+
+For the discrete statement, let $x\_0\in X$ minimise $u$ over the (finite) vertex set. By (4.14),
+
+$$
+\Delta u(x_0) = \frac{1}{d^r_{x_0}}\,\frac{1}{\varepsilon^2 N}\sum_{y\in X} w^q_{x_0,y}\,\bigl(u(y)-u(x_0)\bigr) \;\geq\; 0,
+$$
+
+because every weight is non-negative and every difference $u(y)-u(x\_0)$ is non-negative by minimality — the discrete second-order condition, for free. The same two lines then conclude. $\square$
+
+</details>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Why this is the discrete analogue, and where it will fail)</span></p>
+
+Notice how little the discrete proof needed: only that the weights are non-negative and that $\Delta$ has the *averaging* form (4.14), in which $\Delta u(x)$ is a non-negative combination of the increments $u(y)-u(x)$. No geometry, no manifold, no scaling. That robustness is exactly why the argument survives the transition from $M$ to a graph, and it is what makes Theorem 53 elementary.
+
+It is also where the method runs out. The maximum principle is available for operators of this averaging type; for most of the functionals that graph-based learning actually minimises — anything with a constraint, an obstacle, or a nonlinearity destroying the comparison structure — there is no such principle. That is the motivation for §4.4, which replaces comparison by a variational argument and asks only that the *energies* converge.
+
+</div>
+
+#### Proof of Theorem 53
+
+<details class="proof" markdown="1">
+<summary>Proof of Theorem 53 (given Lemmas 54, 55 and Proposition 56)</summary>
+
+The idea is to feed the quantitative consistency of Lemmas 54 and 55 into the maximum principle, using a **barrier**: a fixed function that solves the equation with right-hand side $1$, and whose multiples therefore buy exactly as much room as the consistency error requires.
+
+**Step 0: the barrier.** Both Laplacians annihilate constants, so the constant function $\varphi\equiv1$ satisfies
+
+$$
+\varphi - \Delta\varphi = 1 \quad\text{in } M
+\qquad\text{and}\qquad
+\varphi - \Delta_{N,\varepsilon}\varphi = 1 \quad\text{on } X_N .
+\tag{4.24}
+$$
+
+(Applying Proposition 56 to $u-\min\_M f$ and to $\max\_M f-u$ also gives $\min\_M f\leq u\leq\max\_M f$, and likewise $\min\_{X\_N}f\_N\leq u\_{N,\varepsilon}\leq\max\_{X\_N}f\_N$; we will not need these bounds, but they show the problems are well posed in the right range.)
+
+**Step 1: the residual of $u$ in the discrete equation.** Write $\gamma\_N:=\max\_{x\in X\_N}\lvert f\_N(x)-f(x)\rvert$. The continuum solution $u$ does not solve the discrete equation, but it almost does. Using $u-\Delta u=f$ and then the triangle inequality with Lemmas 54 and 55,
+
+$$
+\bigl\lvert u - \Delta_{N,\varepsilon}u - f_N\bigr\rvert
+\;\leq\; \lvert \Delta_{N,\varepsilon}u - \Delta u\rvert + \lvert f_N - f\rvert
+\;\leq\; C\lVert u\rVert_{C^3(M)}(\delta+\varepsilon) + \gamma_N
+\tag{4.25}
+$$
+
+uniformly over $X\_N$, with probability at least $1-N\exp(-N\varepsilon^{d+2}\delta^2/C)$. (Lemma 54 applies because $u\in C^3(M)$ on a compact manifold is in particular Lipschitz, with $\mathrm{Lip}(u)\leq\lVert u\rVert\_{C^3(M)}$.) Everything that follows happens on this event.
+
+**Step 2: the comparison.** Set
+
+$$
+K := C\lVert u\rVert_{C^3(M)}(\delta+\varepsilon) + \gamma_N
+$$
+
+and consider the competitor $w := u-u\_{N,\varepsilon}+K\varphi$ on $X\_N$. Since $\Delta\_{N,\varepsilon}$ is linear and $u\_{N,\varepsilon}$ solves (4.19),
+
+$$
+\begin{aligned}
+w - \Delta_{N,\varepsilon}w
+&= \bigl(u-\Delta_{N,\varepsilon}u\bigr) - \bigl(u_{N,\varepsilon}-\Delta_{N,\varepsilon}u_{N,\varepsilon}\bigr) + K\bigl(\varphi-\Delta_{N,\varepsilon}\varphi\bigr)\\
+&= \bigl(u-\Delta_{N,\varepsilon}u - f_N\bigr) + K
+\;\geq\; -K + K \;=\; 0,
+\end{aligned}
+$$
+
+using (4.24) for the third term and (4.25) for the bracket. So $w-\Delta\_{N,\varepsilon}w\geq0$ on $X\_N$, and Proposition 56 gives $w\geq0$, that is,
+
+$$
+u \;\leq\; u_{N,\varepsilon} + K\varphi \;=\; u_{N,\varepsilon}+K \quad\text{on } X_N .
+$$
+
+Running the same argument with $\tilde w := u\_{N,\varepsilon}-u+K\varphi$ — the residual estimate (4.25) is two-sided — gives the reverse inequality $u\geq u\_{N,\varepsilon}-K$. Together,
+
+$$
+\max_{X_N}\lvert u-u_{N,\varepsilon}\rvert \;\leq\; K
+= C\Bigl(\lVert u\rVert_{C^3(M)}(\delta+\varepsilon)+\gamma_N\Bigr),
+\tag{4.26}
+$$
+
+with probability at least $1-N\exp(-N\varepsilon^{d+2}\delta^2/C)$, which is precisely the claim. $\square$
+
+</details>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(The barrier trick, in one sentence)</span></p>
+
+The whole proof is the observation that a *one-sided* differential inequality plus a comparison principle converts an estimate on the residual into an estimate on the solution — and that the exchange rate is set by a function solving the equation with right-hand side $1$. Here that function is the constant $1$, which is why the argument looks almost too short; on a domain with boundary, or for an operator without a zeroth-order term, constructing the barrier is the whole difficulty. The same manoeuvre, with the same name, appears throughout elliptic regularity theory.
+
+</div>
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_maximum_principle.png' | relative_url }}" alt="Three panels. Left: a convex curve with its minimum marked in red and two green neighbour points above it, annotated that every neighbour lies above so the weighted sum of increments is non-negative. Middle: the continuum solution as a purple curve with the seven-hundred discrete solution values scattered in grey on top of it, indistinguishable at this scale. Right: the pointwise error against theta as blue dots, all lying below a red dashed barrier level at 0.150, with the attained maximum marked by a green dotted line at 0.060" loading="lazy">
+  <figcaption>How Theorem 53 converts an estimate on the <em>operator</em> into an estimate on the <em>solution</em>. <strong>(a)</strong> The mechanism of Proposition 56, which is the same sentence in the continuum and on a graph: at a minimum every neighbour lies above, so $\Delta u(x_0)=\frac{1}{d_{x_0}^r}\sum_y w^q_{x_0,y}(u(y)-u(x_0))\geq0$, and $u(x_0)\geq\Delta u(x_0)\geq 0$ follows. No geometry is used. <strong>(b), (c)</strong> The theorem checked on the circle of §4.2 at $N=700$, $\varepsilon=0.32$. Choosing $f:=u-\Delta u$ for a fixed smooth $u$ makes $u$ known exactly and $\gamma_N=0$, so the estimate reduces to the clean statement that the error is bounded by the residual $u$ leaves in the discrete equation, $K=\max_x\lvert\Delta_{N,\varepsilon}u(x)-\Delta u(x)\rvert$. Measured: $\max_x\lvert u-u_{N,\varepsilon}\rvert=0.060$ against $K=0.150$. The bound holds, and with room — the barrier argument is lossy, which is one reason the scaling it demands is not optimal.</figcaption>
+</figure>
+
+#### The probabilistic ingredient
+
+It remains to prove the two lemmas. Lemma 54 is where the randomness of the data enters, and the tool is a concentration inequality, which we state without proof.
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem 57</span><span class="math-callout__name">(Bernstein inequality)</span></p>
+
+Let $Y\_1,\dots,Y\_N$ be i.i.d. random variables with finite expectation $m=\mathbb E[Y\_1]$ and variance $\sigma^2=\mathrm{Var}[Y\_1]$, and suppose $\lvert Y\_1-m\rvert<3\beta$ almost surely. Then for any $t>0$ the empirical average concentrates:
+
+$$
+\mathbb P\Bigl(\Bigl\lvert \frac1N\sum_{n=1}^N Y_n - m\Bigr\rvert \geq t\Bigr)
+\;\leq\; 2\exp\Bigl(-\frac{Nt^2}{2(\sigma^2+\beta t)}\Bigr).
+\tag{4.27}
+$$
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Why Bernstein and not Hoeffding)</span></p>
+
+The bound interpolates between two regimes: for small $t$ the denominator is dominated by $\sigma^2$ and (4.27) is Gaussian, $\exp(-Nt^2/2\sigma^2)$; for large $t$ it is dominated by $\beta t$ and the bound degrades to the exponential $\exp(-Nt/2\beta)$. This is exactly what we need. Our random variables are averages over an $\varepsilon$-ball, so they are *large* ($\beta\sim\varepsilon^{-(d+1)}$) but have *comparatively small* variance ($\sigma^2\sim\varepsilon^{-(d+2)}$); a bound using only the sup-norm, such as Hoeffding's, would see the size and miss the cancellation, and would cost us powers of $\varepsilon$ we cannot afford.
+
+</div>
+
+<details class="proof" markdown="1">
+<summary>Proof of Lemma 54 (discrete to nonlocal)</summary>
+
+We take $r=0$, $q=2a+b=1$ and $\eta=\mathbf 1\_{[0,1]}$; the general case differs only in the constants.
+
+**The random variables.** Fix $x\in M$ and set
+
+$$
+Y_n := \eta_\varepsilon(\lvert x-x_n\rvert)\,\frac{u(x_n)-u(x)}{\varepsilon^2},
+\qquad n=1,\dots,N,
+$$
+
+so that by (4.14) and (4.21), with $r=0$,
+
+$$
+\Delta_{N,\varepsilon}u(x) = \frac1N\sum_{n=1}^N Y_n
+\qquad\text{and}\qquad
+m := \mathbb E[Y_1] = \int_M \eta_\varepsilon(\lvert x-y\rvert)\frac{u(y)-u(x)}{\varepsilon^2}\,d\mu(y) = \Delta_\varepsilon u(x).
+$$
+
+The $Y\_n$ are i.i.d. because the $x\_n$ are. So the lemma is exactly a concentration statement, and we only need the two parameters Bernstein asks for.
+
+**The parameters.** Since $\eta=\mathbf 1\_{[0,1]}$ we have $\eta\_\varepsilon=\varepsilon^{-d}$ on $\lbrace\lvert z\rvert\leq\varepsilon\rbrace$ and $0$ outside, so the kernel only ever sees points with $\lvert x-y\rvert\leq\varepsilon$, where $\lvert u(y)-u(x)\rvert\leq\mathrm{Lip}(u)\,\varepsilon$. Hence
+
+$$
+\lvert Y_1-m\rvert \leq \lvert Y_1\rvert+\lvert m\rvert
+\leq \varepsilon^{-d}\,\frac{\mathrm{Lip}(u)\varepsilon}{\varepsilon^2}
++ \int_M\eta_\varepsilon(\lvert x-y\rvert)\frac{\lvert u(y)-u(x)\rvert}{\varepsilon^2}d\mu(y)
+\leq \frac{2\,\mathrm{Lip}(u)}{\varepsilon^{d+1}} =: 3\beta,
+$$
+
+the integral being the smaller of the two because $\mu(M\cap B\_\varepsilon(x))\leq C\varepsilon^d$ under the manifold hypothesis. For the variance, the same two bounds give
+
+$$
+\sigma^2 \leq \mathbb E[Y_1^2]
+= \int_M \eta_\varepsilon^2(\lvert x-y\rvert)\frac{(u(y)-u(x))^2}{\varepsilon^4}\,d\mu(y)
+\leq \frac{\mathrm{Lip}^2(u)}{\varepsilon^{2d+2}}\,\mu\bigl(M\cap B_\varepsilon(x)\bigr)
+\leq \frac{C\,\mathrm{Lip}^2(u)}{\varepsilon^{d+2}} =: \bar\sigma^2 .
+$$
+
+Note where the gain is: squaring the kernel costs $\varepsilon^{-2d}$, but the measure of the ball returns $\varepsilon^{+d}$, so the variance carries only $\varepsilon^{-(d+2)}$ while $\beta^2$ would carry $\varepsilon^{-(2d+2)}$. This is the cancellation the previous remark advertised.
+
+**Applying Bernstein.** Insert these into (4.27). Whenever $\beta t\leq\bar\sigma^2$ the denominator is at most $4\bar\sigma^2$ and
+
+$$
+\mathbb P\Bigl(\bigl\lvert \Delta_{N,\varepsilon}u(x)-\Delta_\varepsilon u(x)\bigr\rvert\geq t\Bigr)
+\;\leq\; 2\exp\Bigl(-\frac{N t^2\varepsilon^{d+2}}{C\,\mathrm{Lip}^2(u)}\Bigr).
+$$
+
+Given $\delta\in(0,1]$ we choose $t=C\,\mathrm{Lip}(u)\,\delta$. The side condition is then satisfied for *every* admissible pair: $\beta t\leq\bar\sigma^2$ amounts to $\varepsilon\delta\lesssim1$, which holds because $\varepsilon,\delta\in(0,1]$. Redefining $C$, we have shown that for each fixed $x\in M$
+
+$$
+\mathbb P\Bigl(\bigl\lvert \Delta_{N,\varepsilon}u(x)-\Delta_\varepsilon u(x)\bigr\rvert\geq C\,\mathrm{Lip}(u)\,\delta\Bigr)
+\;\leq\; \exp\Bigl(-\frac{N\delta^2\varepsilon^{d+2}}{C}\Bigr).
+\tag{4.28}
+$$
+
+**From one point to all of them.** The estimate (4.28) is for a *deterministic* $x$, whereas the lemma asks for a maximum over the $N$ *random* data points. Take a union bound over $n$ and, inside each term, condition on the position of $x\_n$:
+
+$$
+\begin{aligned}
+\mathbb P\Bigl(\max_{1\leq n\leq N}\bigl\lvert \Delta_{N,\varepsilon}u(x_n)-\Delta_\varepsilon u(x_n)\bigr\rvert\geq C\,\mathrm{Lip}(u)\delta\Bigr)
+&\leq \sum_{n=1}^N \int_M \mathbb P\Bigl(\bigl\lvert \Delta_{N,\varepsilon}u(x)-\Delta_\varepsilon u(x)\bigr\rvert \geq C\,\mathrm{Lip}(u)\delta \,\Big\vert\, x_n=x\Bigr)\rho(x)\,d\omega(x)\\
+&\leq N\exp\Bigl(-\frac{N\delta^2\varepsilon^{d+2}}{C}\Bigr),
+\end{aligned}
+$$
+
+where we used (4.28) for the conditional probability — conditioning on $x\_n=x$ leaves the other $N-1$ samples i.i.d., and the single term $n$ contributes $\eta\_\varepsilon(0)\cdot0=0$ to the sum, so the estimate is unaffected — and then $\int\_M\rho\,d\omega=1$. This is the claim, with $C$ redefined once more. $\square$
+
+</details>
+
+<details class="proof" markdown="1">
+<summary>Proof of Lemma 55 (nonlocal to local)</summary>
+
+Again take $r=0$, $q=1$, $\eta=\mathbf 1\_{[0,1]}$.
+
+For $\varepsilon$ smaller than the injectivity radius of $M$, the exponential map $\exp\_x\colon T\_xM\cap B\_\varepsilon(0)\to B\_\varepsilon(x)\subset M$ is a diffeomorphism, so we may change variables $y=\exp\_x(\varepsilon z)$ in (4.21) and write
+
+$$
+\Delta_\varepsilon u(x) = \int_{T_xM}\eta(\lvert z\rvert)\,\frac{u(\exp_x(\varepsilon z))-u(x)}{\varepsilon^2}\,\rho(\exp_x(\varepsilon z))\,dz .
+$$
+
+For $z\in T\_xM$ with $\lvert z\rvert\leq1$, Taylor's theorem gives
+
+$$
+u(\exp_x(\varepsilon z)) = u(x) + \varepsilon\,z\cdot\nabla u(x) + \tfrac12\varepsilon^2\,z\cdot\nabla^2u(x)\,z + O\bigl(\lVert u\rVert_{C^3(M)}\varepsilon^3\bigr)
+$$
+
+and
+
+$$
+\rho(\exp_x(\varepsilon z)) = \rho(x) + \varepsilon\,z\cdot\nabla\rho(x) + O(\varepsilon^2),
+$$
+
+so that the difference quotient is
+
+$$
+\frac{u(\exp_x(\varepsilon z))-u(x)}{\varepsilon^2}
+= \frac1\varepsilon\,z\cdot\nabla u(x) + \tfrac12\,z\cdot\nabla^2u(x)\,z + O\bigl(\lVert u\rVert_{C^3(M)}\varepsilon\bigr).
+$$
+
+Multiply the two expansions and integrate. The profile $\eta(\lvert\cdot\rvert)$ is even, so $\int\_{T\_xM}\eta(\lvert z\rvert)\,z\,dz=0$ and the two terms of odd order in $z$ drop out — in particular the dangerous $O(\varepsilon^{-1})$ term $\frac1\varepsilon\rho(x)\int\eta\,z\cdot\nabla u\,dz$ vanishes identically, which is the only reason the limit exists at all. What survives at order $\varepsilon^0$ is the product of the two first-order terms together with the second-order term:
+
+$$
+\Delta_\varepsilon u(x) = \Bigl(\int_{T_xM}\eta(\lvert z\rvert)\,z\otimes z\,dz\Bigr)
+:\Bigl(\tfrac12\rho(x)\nabla^2u(x) + \nabla u(x)\otimes\nabla\rho(x)\Bigr)
++ O\bigl(\lVert u\rVert_{C^3(M)}\varepsilon\bigr).
+$$
+
+By Exercise 12 the inner integral is isotropic, $\int\_{T\_xM}\eta(\lvert z\rvert)z\otimes z\,dz = 2C(\eta,1)\,I\_{T\_xM}$, so
+
+$$
+\begin{aligned}
+\Delta_\varepsilon u(x)
+&= 2C(\eta,1)\Bigl(\tfrac12\rho(x)\,\Delta_M u(x) + \nabla u(x)\cdot\nabla\rho(x)\Bigr) + O\bigl(\lVert u\rVert_{C^3(M)}\varepsilon\bigr)\\
+&= C(\eta,1)\,\frac{1}{\rho(x)}\Bigl(\rho^2(x)\Delta_M u(x) + 2\rho(x)\nabla\rho(x)\cdot\nabla u(x)\Bigr) + O\bigl(\lVert u\rVert_{C^3(M)}\varepsilon\bigr)\\
+&= C(\eta,1)\,\frac{1}{\rho(x)}\,\nabla\cdot\bigl(\rho^2(x)\nabla u(x)\bigr) + O\bigl(\lVert u\rVert_{C^3(M)}\varepsilon\bigr),
+\end{aligned}
+$$
+
+which is $\Delta u(x)+O(\lVert u\rVert\_{C^3(M)}\varepsilon)$ by the definition (4.17) of $\Delta$ with $r=0$. Taking the maximum over $x\in M$ — the error is uniform, since $\lVert u\rVert\_{C^3(M)}$ and the geometry of the compact $M$ control every remainder — gives (4.23). $\square$
+
+</details>
+
+<div class="math-callout math-callout--info" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Caveat</span><span class="math-callout__name">(What the special case leaves out)</span></p>
+
+Both proofs were carried out for $r=0$, $q=1$ and $\eta=\mathbf 1\_{[0,1]}$. Nothing essential changes for general exponents: a general $q$ replaces $\eta\_\varepsilon$ by $\eta\_\varepsilon^q$ throughout (which only alters the constant $C(\eta,q)$ and the numerical value of $\bar\sigma^2$), and a general $r$ divides by $d\_{N,\varepsilon}^r$ rather than by $1$ — for which one needs, in addition, that the degrees themselves concentrate, $\max\_{x\in X\_N}\lvert d\_{N,\varepsilon}(x)-\rho(x)\rvert$ small with high probability. That is the same Bernstein argument applied to the simpler random variables $Y\_n=\eta\_\varepsilon(\lvert x-x\_n\rvert)$, and it is why the constant in Theorem 53 is allowed to depend on $r$.
+
+</div>
+
+### 4.4 Big data limits via $\Gamma$-convergence
+
+For many systems the maximum-principle technique of §4.3 is simply not available — as the remark after Proposition 56 noted, it needs the operator to be an average of increments, and most learning problems of interest impose constraints or nonlinearities that destroy exactly that structure. It is therefore desirable to have a technique that does not rely on comparison at all, and instead exploits the **variational** structure of the problem.
+
+In our case the structure is there for the taking: the graph Laplacian $\Delta\_{N,\varepsilon}$ is the first variation of the graph Dirichlet energy
+
+$$
+E_{N,\varepsilon}(u) = \frac12\langle\nabla_{N,\varepsilon}u,\nabla_{N,\varepsilon}u\rangle_{N,\varepsilon}
+= \frac{1}{4N^2}\sum_{x,y\in X_N} w^q_{N,\varepsilon}(x,y)\,\frac{\lvert u(y)-u(x)\rvert^2}{\varepsilon^2},
+\tag{4.29}
+$$
+
+with $q=2a+b$ as usual, and we would like to show that (isolated local) minimizers of $E\_{N,\varepsilon}$ converge to minimizers of the continuum Dirichlet energy
+
+$$
+E(u) = \frac{C(\eta,q)}{2}\int_M \lvert\nabla u\rvert^2\rho^2\,d\omega,
+\qquad C(\eta,q)=\int_{\mathbb R^d}\eta^q(z)\,\tfrac12 z_1^2\,dz,
+\tag{4.30}
+$$
+
+which is precisely the limit energy identified in §4.2 — note the $\rho^2$, for the same two-endpoints reason as in the limit operator (4.17). The notion of convergence of *functionals* that guarantees convergence of *minimizers* is the following.
+
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition 58</span><span class="math-callout__name">($\Gamma$-convergence)</span></p>
+
+Let $(X,d)$ be a metric space and let $E\_N,E\colon X\to\mathbb R\cup\lbrace+\infty\rbrace$.
+
+1. The sequence $E\_N$ is **$\Gamma$-compact** if for every sequence $u\_N\in X$ with $\sup\_N E\_N(u\_N)<\infty$ there exist a subsequence $u\_{N\_k}$ and some $u\in X$ with $u\_{N\_k}\to u$ with respect to $d$.
+2. We say $E\_N$ **$\Gamma$-converges** to $E$ if both of the following hold.
+   * **General lower bound.** For every sequence $u\_N\to u$ with respect to $d$,
+
+     $$
+     \liminf_{N\to\infty}E_N(u_N)\;\geq\;E(u).
+     $$
+
+   * **Construction for the upper bound.** For every $u\in X$ there exists a sequence $u\_N\to u$ with respect to $d$ such that
+
+     $$
+     \limsup_{N\to\infty}E_N(u_N)\;\leq\;E(u).
+     $$
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(The asymmetry is the whole point)</span></p>
+
+The two halves of Definition 58.2 are deliberately not symmetric, and it is worth seeing why before using them.
+
+The lower bound is a statement about **every** sequence: no matter how a sequence approaches $u$, the energies cannot dip below $E(u)$ in the limit. This is what prevents the limit functional from being too small, and it is the half that will be used to show that the limit of minimizers is a minimizer.
+
+The upper bound asks only for **one** sequence, traditionally called a *recovery sequence*: there must be at least one way of approaching $u$ along which the energies do not overshoot. This is what prevents $E$ from being too large. Note that this is genuinely weaker than asking $E\_N(u\_N)\to E(u)$ for all sequences — and it must be, since the discrete functionals are defined on different objects at each $N$ and there is usually no canonical way to evaluate $E\_N$ "at $u$" at all.
+
+Taken together the two conditions say: the limit functional is the largest one lying below all the $E\_N$ asymptotically. In particular $\Gamma$-convergence is *not* pointwise convergence and neither implies the other. The classical illustration is $E\_N(u)=\sin(Nu)$ on $X=\mathbb R$, which $\Gamma$-converges to the constant $-1$ while converging pointwise to nothing at all.
+
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem 59</span><span class="math-callout__name">($\Gamma$-convergence transports minimizers)</span></p>
+
+Let $(X,d)$ be a metric space and let $E\_N,E\colon X\to\mathbb R\cup\lbrace+\infty\rbrace$ with $E\not\equiv+\infty$. Suppose $E\_N$ is $\Gamma$-compact and $\Gamma$-converges to $E$. Let $u\_N$ be a sequence of **almost-minimizers** of $E\_N$, i.e.
+
+$$
+E_N(u_N) - \inf_X E_N \longrightarrow 0 \quad\text{as } N\to\infty.
+\tag{4.31}
+$$
+
+Then, up to a subsequence, $u\_N\to u$ with respect to $d$, where $u\in X$ is a minimizer of $E$. Moreover $E\_N(u\_N)\to\min\_X E$ along that subsequence.
+
+</div>
+
+<details class="proof" markdown="1">
+<summary>Proof of Theorem 59</summary>
+
+Let $v\in X$ be arbitrary with $E(v)<\infty$; such a $v$ exists because $E\not\equiv+\infty$.
+
+**Step 1: the almost-minimizers have bounded energy.** By the construction for the upper bound applied to $v$, there is a sequence $v\_N\to v$ with $\limsup\_N E\_N(v\_N)\leq E(v)<\infty$. Since $\inf\_X E\_N\leq E\_N(v\_N)$, the almost-minimality (4.31) gives
+
+$$
+E_N(u_N) \;\leq\; \inf_X E_N + o(1) \;\leq\; E_N(v_N) + o(1),
+$$
+
+and therefore
+
+$$
+\limsup_{N\to\infty} E_N(u_N)\;\leq\;\limsup_{N\to\infty}E_N(v_N)\;\leq\;E(v)\;<\;\infty.
+\tag{$\ast$}
+$$
+
+In particular $\sup\_N E\_N(u\_N)<\infty$.
+
+**Step 2: extract a limit.** By $\Gamma$-compactness there are a subsequence — which we do not relabel — and a point $u\in X$ with $u\_N\to u$ with respect to $d$.
+
+**Step 3: the limit is a minimizer.** The general lower bound applies to this sequence, so, chaining it with $(\ast)$,
+
+$$
+E(u)\;\leq\;\liminf_{N\to\infty}E_N(u_N)\;\leq\;\limsup_{N\to\infty}E_N(u_N)\;\leq\;E(v).
+$$
+
+Since $v$ was an arbitrary point with finite energy (and the inequality is trivial when $E(v)=+\infty$), this gives $E(u)\leq\inf\_X E$, i.e. $u$ minimizes $E$.
+
+**Step 4: convergence of the energies.** Taking $v=u$ in the display above turns both inequalities into equalities, so $\liminf E\_N(u\_N)=\limsup E\_N(u\_N)=E(u)=\min\_X E$. $\square$
+
+</details>
+
+<div class="math-callout math-callout--info" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Caveat</span><span class="math-callout__name">(What compactness is doing here)</span></p>
+
+Every one of the four steps used a different hypothesis, and dropping any of them breaks the conclusion. Without the recovery sequence, Step 1 fails and the $u\_N$ could have energies running off to $+\infty$; without $\Gamma$-compactness, Step 2 fails and the $u\_N$ need not converge to anything (this is the step that usually costs real work in applications, and in ours it is Step 1 of Theorem 63); without the lower bound, Step 3 fails and the limit need not minimise. Note also what the theorem does *not* give: nothing forces the whole sequence to converge, only a subsequence, because $E$ may well have several minimizers.
+
+</div>
+
+<figure>
+  <img src="{{ '/assets/images/notes/books/pdeds/bdl_gamma_convergence.png' | relative_url }}" alt="Three panels. Left: the parabola of the Gamma-limit in red, with the functional's values marked as dots on lattices of spacing one quarter, one eighth and one twenty-fourth, the dots filling in the curve as the lattice refines. Middle: the minimizer of E_N against N converging to the dashed red target a, with the minimum value on a logarithmic right-hand axis decreasing toward zero. Right: sin(Nu) drawn for N equal eight and forty, oscillating ever faster, against the red dashed Gamma-limit at minus one" loading="lazy">
+  <figcaption>Why $\Gamma$-convergence is the right notion, on an example that is §4.4 in miniature. <strong>(a)</strong> Take $E_N(u)=(u-a)^2$ if $u\in\frac1N\mathbb Z$ and $+\infty$ otherwise — functionals living on finer and finer <em>discrete</em> sets, exactly the situation of $E_{N,\varepsilon}$ on $X_N$. Their $\Gamma$-limit is $(u-a)^2$ on all of $\mathbb R$: the lower bound holds because each $E_N$ agrees with the limit where it is finite, and the recovery sequence for a given $u$ is the nearest lattice point. <strong>(b)</strong> Theorem 59 then applies, and both the minimizers and the minimum values converge — note that $\arg\min E_N$ is never equal to $a$ for any finite $N$, which is precisely why a notion of convergence for the <em>functionals</em> is needed rather than a statement about each one separately. <strong>(c)</strong> And the notion is genuinely not pointwise convergence: $E_N(u)=\sin(Nu)$ has $\Gamma$-limit the constant $-1$ — the recovery sequence picks nearby points where the sine is $-1$, and those exist within $2\pi/N$ of any $u$ — while pointwise it converges nowhere.</figcaption>
+</figure>
+
+#### The right space: measure–function pairs
+
+To apply Theorem 59 we must first say what metric space the functionals live on — and here there is a genuine difficulty that has nothing to do with $\Gamma$-convergence. The discrete energy $E\_{N,\varepsilon}$ is a functional of a function defined on $X\_N$, i.e. measurable with respect to the empirical measure $\mu\_N=\frac1N\sum\_{x\in X\_N}\delta\_x$, whereas $E$ is a functional of a function measurable with respect to $\mu=\rho\,\omega$. These are functions on different spaces, and no single $L^p$ space contains both.
+
+The resolution, due to García Trillos and Slepčev, is to stop comparing functions and compare **measure–function pairs** instead. We already know that $\mu\_N\to\mu$ weakly and hence, by Theorem 37, that $W\_p(\mu\_N,\mu)\to0$ for every $p\in[1,\infty)$; the idea is to carry the function along with the transport that realises this.
+
+For $p\in[1,\infty)$ set
+
+$$
+TL^p := \bigl\lbrace(\mu,f)\colon \mu\in\mathcal P(\mathbb R^d),\ f\in L^p(\mathbb R^d,\mu)\bigr\rbrace
+\tag{4.32}
+$$
+
+and define the $p$-th power of a distance on it by
+
+$$
+d^p_{TL^p}\bigl((\mu,f),(\nu,g)\bigr) := \inf_{\pi\in\Pi(\mu,\nu)}\int_{\mathbb R^d\times\mathbb R^d}\Bigl(\lvert x-y\rvert^p + \lvert f(x)-g(y)\rvert^p\Bigr)d\pi(x,y).
+\tag{4.33}
+$$
+
+This is a Kantorovich problem (§2.2) with a cost that charges for moving mass *and* for the mismatch of the function values at the two ends of each transport ray. The two familiar distances sit inside it as degenerate cases.
+
+<div class="math-callout math-callout--question" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Example 8</span><span class="math-callout__name">($TL^p$ interpolates between $W_p$ and $L^p$)</span></p>
+
+For any $\mu,\nu\in\mathcal P(\mathbb R^d)$ and any $f,g\in L^p(\mu)$:
+
+1. $d\_{TL^p}\bigl((\mu,\mathbf 1),(\nu,\mathbf 1)\bigr) = W\_p(\mu,\nu)$ — with the functions held constant, only the transport cost remains, and (4.33) *is* the Kantorovich problem for $\lvert x-y\rvert^p$.
+2. $d\_{TL^p}\bigl((\mu,f),(\mu,g)\bigr) = \lVert f-g\rVert\_{L^p(\mu)}$ — with the measures equal, the diagonal plan $\pi=(\mathrm{id},\mathrm{id})\_\sharp\mu$ is admissible and makes the transport term vanish, and no other plan can do better.
+
+So $TL^p$ convergence simultaneously generalises weak convergence of measures and strong $L^p$ convergence of functions, which is exactly what comparing $(\mu\_N,u\_N)$ with $(\mu,u)$ requires.
+
+</div>
+
+<div class="math-callout math-callout--proposition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Lemma 60</span><span class="math-callout__name">($TL^p$ is a metric space)</span></p>
+
+The pair $(TL^p,d\_{TL^p})$ is a metric space.
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Metric, but not complete)</span></p>
+
+Symmetry and non-negativity are immediate from (4.33), and the triangle inequality follows by gluing plans exactly as for $W\_p$ in §2.6 (Lemma 36). The space is, however, **not complete**: its completion consists of the probability measures on the product space $\mathbb R^d\times\mathbb R$, i.e. of objects that no longer have a well-defined function attached to each point but only a conditional distribution of values. For our purposes this is harmless — we only ever need convergence of a specific sequence whose limit is known in advance to be an honest pair $(\mu,u)$ — but it is the reason one cannot simply invoke abstract completeness arguments in this space.
+
+</div>
+
+The definition (4.33) is an infimum over plans, which is awkward to work with directly. The following notion and lemma replace it by a criterion that can be checked along *any* convenient sequence of plans.
+
+<div class="math-callout math-callout--definition" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Definition 61</span><span class="math-callout__name">(Stagnating transportation plans)</span></p>
+
+Let $(\mu\_n,f\_n),(\mu,f)\in TL^p$ and $\pi\_n\in\Pi(\mu\_n,\mu)$. We call $(\pi\_n)\_n$ a sequence of **stagnating transportation plans** if
+
+$$
+\int_{\mathbb R^d\times\mathbb R^d}\lvert x-y\rvert^p\,d\pi_n(x,y)\longrightarrow 0 .
+$$
+
+</div>
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Lemma 62</span><span class="math-callout__name">(Characterisations of $TL^p$ convergence)</span></p>
+
+Let $(\mu\_n,f\_n),(\mu,f)\in TL^p$ have bounded $p$-th moments. Then the following are equivalent.
+
+1. $(\mu\_n,f\_n)\to(\mu,f)$ in $TL^p$.
+2. There exists a sequence of stagnating transportation plans $(\pi\_n)\_n$ such that
+
+   $$
+   \int_{\mathbb R^d\times\mathbb R^d}\Bigl(\lvert x-y\rvert^p+\lvert f_n(x)-f(y)\rvert^p\Bigr)d\pi_n(x,y)\longrightarrow0 .
+   \tag{4.34}
+   $$
+
+3. For **every** sequence of stagnating transportation plans $(\pi\_n)\_n$, (4.34) holds.
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Why 3. is the useful one)</span></p>
+
+The implication $1.\Rightarrow3.$ is the workhorse. It says that once we know $TL^p$ convergence, we may verify estimates along whichever stagnating plans are most convenient — in the application below, the plans induced by explicit transport *maps* $T\_N$ with $(T\_N)\_\sharp\mu=\mu\_N$ — without worrying that a different choice might have given a different answer. Conversely $2.\Rightarrow1.$ means that exhibiting one good sequence of plans suffices to *prove* convergence, which is how the recovery sequence in Theorem 63 will be built.
+
+</div>
+
+#### The variational big data limit
+
+<div class="math-callout math-callout--theorem" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Theorem 63</span><span class="math-callout__name">(Variational big data limit)</span></p>
+
+Let $(X\_N,W\_{N,\varepsilon\_N})\_{N}$ be a sequence of random geometric graphs at scale $\varepsilon\_N$ and of dimension $d\geq3$. Suppose
+
+$$
+\frac{(\log N)^{\frac1d}}{N^{\frac1d}} \;\ll\; \varepsilon_N \;\ll\; 1 .
+\tag{4.35}
+$$
+
+Then $E\_{N,\varepsilon\_N}$ is $\Gamma$-compact in the $TL^2$-topology and $\Gamma$-converges to $E$ in the $TL^2$-topology.
+
+</div>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(This scaling is optimal — compare Theorem 53)</span></p>
+
+The lower restriction in (4.35) is $\varepsilon\_N\gg(\log N/N)^{1/d}$, which is precisely the **connectivity radius** of the graph. It cannot be improved: if $\varepsilon\_N\ll(\log N/N)^{1/d}$, then a generic neighbourhood contains too few data points and one can show that $(X\_N,W\_{N,\varepsilon\_N})$ is disconnected with probability one — whereupon $E\_{N,\varepsilon\_N}$ vanishes on functions that are constant on each component but not globally constant, and no $\Gamma$-limit of the form (4.30) can hold.
+
+So the variational method reaches the threshold that the maximum-principle method of §4.3 missed by two powers ($\frac{1}{d+2}$, or $\frac{1}{d+4}$ for a rate). The trade is visible in what the two theorems deliver: Theorem 53 gives a *quantitative pointwise* error bound at a sub-optimal scale, while Theorem 63 gives *qualitative convergence of minimizers* at the optimal scale. Neither dominates the other, and the comparison is a fair summary of what the two techniques cost and buy.
+
+</div>
+
+<div class="math-callout math-callout--info" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Caveat</span><span class="math-callout__name">(Status of the argument below)</span></p>
+
+What follows is a sketch, at the level of detail at which the course presented it. Step 1 is a genuinely hard result about $\infty$-optimal transport between a measure and its empirical measures (it is where the hypothesis $d\geq3$ and the sharp power of $\log N$ enter), and Step 2 is itself a $\Gamma$-convergence statement for the nonlocal energies; both are quoted rather than proved. Step 3, the part written out, is the bookkeeping that assembles them — and it is worth following, because it shows exactly how the transport maps of Step 1 are used to compare a graph energy with a nonlocal one.
+
+</div>
+
+<details class="proof" markdown="1">
+<summary>Idea of proof of Theorem 63</summary>
+
+The key idea is the one used twice already in this chapter: interpolate through a model that is **continuous in space but nonlocal**. Here that means the energy
+
+$$
+E_\varepsilon(u) := \frac14\int_M\int_M \eta_\varepsilon(\lvert x-y\rvert)\,\frac{\lvert u(y)-u(x)\rvert^2}{\varepsilon^2}\,\rho(x)\rho(y)\,d\omega(x)\,d\omega(y),
+\tag{4.36}
+$$
+
+which is exactly the $N\to\infty$ limit of (4.29) at fixed $\varepsilon$ — the two empirical averages have become two integrals against $\mu$, which is where the $\rho^2$ of (4.30) is born.
+
+**Step 1: discrete to nonlocal — transport maps.** There is a constant $C<\infty$ such that, with probability one, there exist transport maps $T\_N$ with $(T\_N)\_\sharp\mu=\mu\_N$ and
+
+$$
+\limsup_{N\to\infty}\ \frac{N^{\frac1d}\lVert\mathrm{id}-T_N\rVert_\infty}{(\log N)^{\frac1d}}\;\leq\;C .
+\tag{4.37}
+$$
+
+This is an $\infty$-transport estimate: not merely that $\mu$ can be pushed to $\mu\_N$ cheaply on average, but that it can be done moving *no point* further than $O((\log N/N)^{1/d})$ — the same scale as the connectivity radius, which is why (4.35) is exactly the right hypothesis.
+
+**Step 2: nonlocal to local.** $E\_\varepsilon$ $\Gamma$-converges to $E$ in $L^2(M)$ as $\varepsilon\to0$. This is a purely continuum statement, with no randomness left in it.
+
+**Step 3: conclusion.** For the **upper bound**, given $u$ one takes the recovery sequence $\bar u\_N := (u\circ T\_N)\vert\_{X\_N}$: the map $T\_N$ moves points by at most $\lVert\mathrm{id}-T\_N\rVert\_\infty\to0$, so $(\mu\_N,\bar u\_N)\to(\mu,u)$ in $TL^2$ by Lemma 62.2, and the energies pass to the limit by Step 2.
+
+For the **lower bound**, let $u\_N\to u$ in $TL^2$. By approximation and scaling we may assume $\eta=\mathbf 1\_{[0,1]}$. Pushing the sum in (4.29) forward through $T\_N$ — legitimate because $(T\_N)\_\sharp\mu=\mu\_N$ — turns it into an integral over $M\times M$:
+
+$$
+E_{N,\varepsilon_N}(u_N)
+= \frac{1}{4\varepsilon_N^{d+2}}\int_{M\times M}\eta^q\Bigl(\frac{\lvert T_N(x)-T_N(y)\rvert}{\varepsilon_N}\Bigr)\bigl\lvert u_N(T_N(x))-u_N(T_N(y))\bigr\rvert^2 d\mu(x)\,d\mu(y).
+$$
+
+Now the point of the $\infty$-estimate (4.37). By the triangle inequality,
+
+$$
+\lvert T_N(x)-T_N(y)\rvert > \varepsilon_N
+\quad\Longrightarrow\quad
+\lvert x-y\rvert \;\geq\; \varepsilon_N - 2\lVert\mathrm{id}-T_N\rVert_\infty =: \tilde\varepsilon_N,
+$$
+
+and $\tilde\varepsilon\_N>0$ for large $N$ precisely by (4.35) together with (4.37) — this is where the hypothesis is consumed. Contrapositively, $\lvert x-y\rvert\leq\tilde\varepsilon\_N$ forces $\lvert T\_N(x)-T\_N(y)\rvert\leq\varepsilon\_N$, so for the indicator profile
+
+$$
+\eta\Bigl(\frac{\lvert x-y\rvert}{\tilde\varepsilon_N}\Bigr)\;\leq\;\eta\Bigl(\frac{\lvert T_N(x)-T_N(y)\rvert}{\varepsilon_N}\Bigr).
+\tag{4.38}
+$$
+
+Substituting (4.38) into the integral and comparing with (4.36) at scale $\tilde\varepsilon\_N$,
+
+$$
+\liminf_{N\to\infty}E_{N,\varepsilon_N}(u_N)
+\;\geq\; \liminf_{N\to\infty}\Bigl(\frac{\tilde\varepsilon_N}{\varepsilon_N}\Bigr)^{d+2} E_{\tilde\varepsilon_N}\bigl(u_N\circ T_N\bigr),
+$$
+
+and $\tilde\varepsilon\_N/\varepsilon\_N\to1$ by (4.35) and (4.37). Finally $u\_N\circ T\_N\to u$ in $L^2(M)$ — which is what $TL^2$ convergence of $(\mu\_N,u\_N)$ says, read through Lemma 62.3 along the stagnating plans induced by $T\_N$ — so the lower bound of Step 2 applies and gives $\liminf E\_{N,\varepsilon\_N}(u\_N)\geq E(u)$. $\square$
+
+</details>
+
+<div class="math-callout math-callout--remark" markdown="1">
+  <p class="math-callout__title"><span class="math-callout__label">Remark</span><span class="math-callout__name">(Where this leaves the chapter — and the course)</span></p>
+
+With Theorem 63 the programme announced at the start of the chapter is complete for the simplest model problem: the graph Dirichlet energy converges, in a sense strong enough to carry minimizers, to a continuum Dirichlet energy, at the optimal scaling of $\varepsilon\_N$ against $N$. The moral is the same one Chapter 1 insisted on and §3.2 exploited: the robust objects are the **energy** and the **metric**, never the equation. There we bypassed the differential structure of $\mathcal P^2\_{ac}$ by running minimizing movements with only $E$ and $W\_2$; here we bypass the graph Laplacian by proving $\Gamma$-convergence of $E\_{N,\varepsilon}$ in a transport metric. In both cases the variational formulation survives a limit that the differential one does not.
+
+What remains open is everything that makes the problems *interesting*: constraints (classification with labelled points), non-quadratic energies, and rates rather than mere convergence. Those are the subject of the current research literature, and the two techniques of this chapter — quantitative comparison and $\Gamma$-convergence — are the two ends from which it is attacked.
+
+</div>
+
 ## Appendix A: Desingularizing Functions and the Kurdyka–Łojasiewicz Framework {#appendix-a}
 
 In §1.6, the proof of long-term asymptotics via Łojasiewicz uses an unusual move: rather than tracking the excess energy $\mathcal E(t):=E(x(t))-E_\infty$ along the gradient flow, it tracks the **concave power** $\mathcal E^{1-\theta}(t)$. Why this exact exponent, and not $\mathcal E$ itself, or $\sqrt{\mathcal E}$, or anything else? The answer is *not* a technicality — it points to a deep recurring template in analysis, often called **desingularization** or the **Kurdyka–Łojasiewicz (KL) framework**.
